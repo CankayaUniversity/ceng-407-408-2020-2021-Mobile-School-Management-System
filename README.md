@@ -2,6 +2,6 @@
 Mobile School Management System
 
 # Team Members
-* Burak Emrullah Güneş - 201611026
 * Furkan Türkmen - 201511064
+* Burak Emrullah Güneş - 201611026
 * Oğuz Gül - 201411025
