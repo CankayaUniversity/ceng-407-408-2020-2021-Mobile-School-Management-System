@@ -1,0 +1,1061 @@
+﻿
+
+
+    <!DOCTYPE html>
+    <!--
+    This is a starter template page. Use this page to start your new project from
+    scratch. This page gets rid of all links and provides the needed markup only.
+    -->
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Mobil Okul Yönetim Sayfasına Hoş Geldiniz</title>
+        <!-- Bootstrap -->
+        <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <!-- WebUI Adminlte -->
+        <link href="~/adminlte/styles/adminlte.css" rel="stylesheet" />
+        <!-- Font Awesome Icons -->
+        <link href="~/adminlte/plugins/fontawesome-free/bundle/all.css" rel="stylesheet" />
+
+        <!-- Google Font: Source Sans Pro -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    </head>
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-dark navbar-success">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-compress"></i></a>
+
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        @*@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })*@
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        @*@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })*@
+                    </li>
+                </ul>
+
+                <!-- SEARCH FORM -->
+                @*<form class="form-inline ml-3">
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-navbar" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>*@
+
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                            <center>@Html.ActionLink("Kullanıcı Ayarları", "EditLoginDetails", "Account")</center>
+                            <center>@Html.ActionLink("Çıkış", "Account", "Account")</center>
+                            <!-- Message Start -->
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                    </h3>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                            <a>
+                            </a>
+                        </div>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                            <i class="fas fa-th-large"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.navbar -->
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar-light-success elevation-4">
+                <!-- Brand Logo -->
+                <a href="/Home/Welcome" class="brand-link navbar-success">
+                    <img src="~/images/mobilokullogo.jpg" alt="Logo" class="brand-image img-circle elevation-3"
+                         style="opacity: .8">
+                    <span class="brand-text font-weight-light" style="color:white">Mobil Okul v1.0</span>
+                </a>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="~/images/avatar.png" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a class="d-block"><strong>@ViewBag.NameSurname</strong></a>
+                        </div>
+                    </div>
+
+
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <!-- Add icons to the links using the .nav-icon class
+                            with font-awesome or any other icon font library -->
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        Branch
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Branch", "Home")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Branch -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        City
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- City -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        ClassSelection
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- ClassSelection -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        EducationalInstitution
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- EducationalInstitution -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        EducationalTerm
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- EducationalTerm -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        EmployeeType
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- EmployeeType -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        Feedback
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Feedback -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        Messages
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Messages -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        News
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- News -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        Parent
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Parent -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        School
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- School -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        SchoolEmployer
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- SchoolEmployer -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        Section
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Section -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        StudentClass
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- StudentClass -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        Student
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Student -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        StudentParent
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- StudentParent -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        Teacher
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Teacher -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p>
+                                        User
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">Update</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-minus-square" style="color:black"></i>
+                                            <p style="color:black">Delete</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-hand-pointer" style="color:black"></i>
+                                            <p style="color:black">Select</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- User -->
+
+
+
+
+
+
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">@ViewBag.Title</h1>
+                            </div><!-- /.col -->
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    @if (@ViewContext.RouteData.Values["controller"].ToString() != "Home" ||
+                                  @ViewContext.RouteData.Values["action"].ToString() != "Index")
+                                    {
+                                        <li class="breadcrumb-item">
+                                            @Html.ActionLink("Hoş Geldin", "Welcome", "Home")
+                                        </li>
+                                    }
+                                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                                </ol>
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.content-header -->
+                <!-- Main content -->
+                <div class="content">
+                    <div class="container-fluid">
+                        @RenderBody()
+                    </div><!-- /.container-fluid -->
+                </div>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+                <div class="p-3">
+                    <h5>Yenilikler</h5>
+
+                </div>
+            </aside>
+            <!-- /.control-sidebar -->
+            <!-- Main Footer -->
+            <footer class="main-footer navbar-success">
+                <!-- To the right -->
+                <div class="float-right d-none d-sm-inline" style="color:white">
+                    @DateTime.Now
+                </div>
+                <!-- Default to the left -->
+                <strong style="color:white">© @DateTime.Now.Year Tüm hakları saklıdır.</strong>
+            </footer>
+        </div>
+        <!-- ./wrapper -->
+        <!-- REQUIRED SCRIPTS -->
+        <script src="~/adminlte/plugins/jquery/jquery.js"></script>
+        <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+        <script src="~/adminlte/plugins/summernote/summernote.js"></script>
+        <script src="~/adminlte/plugins/fontawesome-free/js/all.js"></script>
+        <script src="~/adminlte/js/adminlte.js"></script>
+    </body>
+</html>

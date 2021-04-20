@@ -1,0 +1,86 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete 
+@model MobilViewModel<USER_LOGIN>
+@{
+    ViewBag.Title = "Login";
+
+    Layout = "";
+
+}
+
+<style>
+    div {
+        color: lightgreen;
+    }
+</style>
+<!doctype html>
+<html>
+<head>
+    <title>Mobil Okul Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- font files -->
+    <link href='//fonts.googleapis.com/css?family=Muli:400,300,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Comfortaa:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- /font files -->
+    <!-- css files -->
+    <link href="~/w3/majestic/css/animate-custom.css" rel="stylesheet" type="text/css" media="all" />
+
+
+    <link href="~/w3/majestic/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- /css files -->
+</head>
+<body>
+    <h1 class="w3ls" style="color:black"><strong>Mobil Okul Giriş Ekranı</strong></h1>
+    <div id="container_demo">
+        <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+        <a class="hiddenanchor" id="tologin"></a>
+        <div id="wrapper">
+            <div id="login" class="animate form">
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @autocomplete = "on" }))
+                {
+                    <h2>Giriş Yap</h2>
+                    <p>
+                        <label for="username" class="uname" data-icon="u"><span>Kullanıcı Adı</span></label>
+                        @Html.TextBoxFor(m => m.Mesajlar.Nesne.UserName, new { @placeholder = "Kullanıcı Adı" })
+                    </p>
+                    <p>
+                        <label for="password" class="youpasswd" data-icon="p"><span>Parola</span></label>
+                        @Html.PasswordFor(m => m.Mesajlar.Nesne.Password, new { @placeholder = "Parola" })
+                    </p>
+                    <p class="login button">
+                        <input type="submit" value="Login" />
+                    </p>
+                    <p>
+                        <div class="input-group">
+                            @if (Model != null)
+                            {
+                                if (Model.Mesajlar.Durum == false)
+                                {
+                                    <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+                                }
+                            }
+
+
+
+                        </div>
+                        <br />
+
+                    </p>
+                    <p class="change_link">
+                        <span>üye değil misin?</span>
+                        <a href="~/Account/Register" class="to_register">Üye Ol</a>
+                    </p>
+
+                }
+
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <p class="agileits" style="color:black">© @DateTime.Now.Year Tüm hakları saklıdır.</p>
+</body>
+</html>
+
