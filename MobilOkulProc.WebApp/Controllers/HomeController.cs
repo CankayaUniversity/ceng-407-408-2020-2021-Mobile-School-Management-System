@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using MobilOkulProc.WebApp.Extensions;
 using MobilOkulProc.WebApp.ViewModels;
+using X.PagedList;
 
 namespace MobilOkulProc.WebApp.Controllers
 {
@@ -39,16 +40,92 @@ namespace MobilOkulProc.WebApp.Controllers
             
             return View(m);
         }
-        public IActionResult BranchList()
+
+        public IActionResult ListBranch(string Search, int? page)
         {
             MobilViewModel<BRANCH> m = new MobilViewModel<BRANCH>();
-            Mesajlar<BRANCH> mesajlar = new Mesajlar<BRANCH>();
-            m.Mesajlar = mesajlar;
 
-            m = GetResultsFromAPI<BRANCH>(m, "Branch/Branch_List");
 
+            m.Mesajlar = GetResultsFromAPI<BRANCH>(m, "Branch/Branch_List");
+            if (Search != null)
+            {
+               m.Mesajlar.Liste =  m.Mesajlar.Liste.Where(m => m.BranchName.ToLower().Contains(Search)).ToList();
+            }
+            m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
 
             return View(m);
+        } 
+        public IActionResult AddBranch()
+        {
+            ViewBag.NameSurname = NameSurname;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddBranch(MobilViewModel<BRANCH> m)
+        {
+            m.Mesajlar = PostResultsToAPI<BRANCH>(m, "Branch/Branch_Insert");
+            ViewBag.NameSurname = NameSurname;
+            return View(m);
+        }
+        public IActionResult DeleteBranch()
+        {
+            ViewBag.NameSurname = NameSurname;
+            return View();
+        }
+        public IActionResult DetailsBranch()
+        {
+            ViewBag.NameSurname = NameSurname;
+            return View();
+        }
+        public IActionResult EditBranch()
+        {
+            ViewBag.NameSurname = NameSurname;
+            return View();
+        }
+        public Mesajlar<T> PostResultsToAPI<T>(MobilViewModel<T> m, string ApiURL) where T:class,new()
+        {
+            try
+            {
+                using (HttpClientHandler handler = new HttpClientHandler())
+                {
+                    using (HttpClient c = new HttpClient(handler))
+                    {
+                        string url = WebApiUrl + ApiURL;
+
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(m.Mesajlar.Nesne), System.Text.Encoding.UTF8, "application/json");
+
+                        using (var response = c.PostAsync(url, content))
+                        {
+                            if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                var sonuc = response.Result.Content.ReadAsStringAsync();
+                                sonuc.Wait();
+
+                                var msg = JsonConvert.DeserializeObject<Mesajlar<T>>(sonuc.Result);
+
+                                if (msg.Mesaj == null)
+                                {
+                                    m.Mesajlar.Durum = false;
+                                    m.Mesajlar.Mesaj = "Bir şeyer ters gitti.";
+                                    m.Mesajlar.Status = "danger";
+                                }
+                                else
+                                {
+                                    m.Mesajlar = msg;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                m.Mesajlar.Durum = false;
+                m.Mesajlar.Mesaj = ex.Message;
+                m.Mesajlar.Status = "danger";
+            }
+
+            return m.Mesajlar;
         }
         public MobilViewModel<T> PostGetResultsFromAPI<T>(MobilViewModel<T> m, string ApiURL) where T:class, new()
         {
@@ -95,8 +172,8 @@ namespace MobilOkulProc.WebApp.Controllers
             }
 
             return m;
-        }
-        public MobilViewModel<T> GetResultsFromAPI<T>(MobilViewModel<T> m, string ApiURL) where T : class, new()
+        } //Generic function for GET results by POST'ing info from API
+        public Mesajlar<T> GetResultsFromAPI<T>(MobilViewModel<T> m, string ApiURL) where T : class, new()
         {
             try
             {
@@ -126,7 +203,7 @@ namespace MobilOkulProc.WebApp.Controllers
                                     m.Mesajlar.Durum = false;
                                     m.Mesajlar.Mesaj = "Bir şeyer ters gitti.";
                                     m.Mesajlar.Status = "danger";
-                                    return m;
+                                    return m.Mesajlar;
                                 }
                             }
                         }
@@ -140,8 +217,8 @@ namespace MobilOkulProc.WebApp.Controllers
                 m.Mesajlar.Status = "danger";
             }
             
-            return m;
-        }
+            return m.Mesajlar;
+        } // Generic function for GET results from API
 
 
 

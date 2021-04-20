@@ -1,0 +1,70 @@
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.WebApp.ViewModels
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Fluent
+@model MobilViewModel<BRANCH>
+<head>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
+</head>
+@{
+    ViewData["Title"] = "List Branches";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("ListBranch", "Home", FormMethod.Get))
+{
+    <input type="text" name="Search" placeholder="Branch Ara" />
+
+    <input id="BranchAra" name="BranchAra" type="submit" value="Ara" class="
+               btn btn-default" onclick="SearchClick()" />
+
+}
+
+<p>
+    @Html.ActionLink("+Yeni", "AddBranch")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.BranchName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PagedList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BranchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Düzenle", "EditBranch", new { id = item.ObjectID }) |
+                    @Html.ActionLink("Görüntüle", "DetailsBranch", new { id = item.ObjectID }) |
+                    @Html.ActionLink("Sil", "DeleteBranch", new { id = item.ObjectID }) |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function SearchClick(theButton) {
+        document.getElementById('Search').value = theButton.name;
+        return true;
+    }
+</script>
+
+@Html.PagedListPager(Model.PagedList, page => Url.Action("ListBranch", "Home", new { page, Search = Context.Request.Query["Search"] }))
+
+
+

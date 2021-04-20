@@ -48,12 +48,14 @@ namespace MobilOkulProc.WebAPI.Data
                 }
                 mesajlar.Durum = true;
                 mesajlar.Mesaj = "Bilgiler güncellendi.";
+                mesajlar.Status = "success";
             }
             catch (Exception ex)
             {
                 mesajlar.Durum = false;
                 mesajlar.Mesaj = ex.Message + Environment.NewLine + ex.InnerException;
-       
+                mesajlar.Status = "danger";
+
             }
 
             return mesajlar;
@@ -87,11 +89,13 @@ namespace MobilOkulProc.WebAPI.Data
 
                 mesajlar.Durum = true;
                 mesajlar.Mesaj = "Bilgiler Kaydedildi.";
+                mesajlar.Status = "success";
             }
             catch (Exception ex)
             {
                 mesajlar.Durum = false;
                 mesajlar.Mesaj = ex.Message + Environment.NewLine + ex.InnerException;
+                mesajlar.Status = "danger";
                
             }
 
@@ -111,13 +115,15 @@ namespace MobilOkulProc.WebAPI.Data
                 }
 
                 mesajlar.Durum = true;
-                mesajlar.Mesaj = "Bilgiler silindi.";
+                mesajlar.Mesaj = "Bilgiler getirildi.";
+                mesajlar.Status = "success";
             }
             catch (Exception ex)
             {
                 mesajlar.Durum = false;
                 mesajlar.Mesaj = ex.Message + Environment.NewLine + ex.InnerException;
-                
+                mesajlar.Status = "danger";
+
             }
 
             return mesajlar;
@@ -151,7 +157,8 @@ namespace MobilOkulProc.WebAPI.Data
                 }
 
                 mesajlar.Durum = true;
-                mesajlar.Mesaj = "Bilgiler silindi.";
+                mesajlar.Mesaj = "Bilgiler getirildi.";
+                mesajlar.Status = "success";
             }
             catch (Exception ex)
             {
@@ -204,6 +211,7 @@ namespace MobilOkulProc.WebAPI.Data
 
                 m.Durum = true;
                 m.Mesaj = "Kayıt bilgileri listelendi.";
+                m.Status = "success";
             }
             catch (Exception ex)
             {
@@ -235,11 +243,13 @@ namespace MobilOkulProc.WebAPI.Data
 
                 mesajlar.Durum = true;
                 mesajlar.Mesaj = "Bilgiler silindi";
+                mesajlar.Status = "success";
             }
             catch (Exception ex)
             {
                 mesajlar.Durum = false;
                 mesajlar.Mesaj = ex.Message + Environment.NewLine + ex.InnerException;
+                mesajlar.Status = "danger";
             }
 
             return mesajlar;
