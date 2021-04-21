@@ -1,6 +1,6 @@
-﻿@using MobilOkulProc.WebApp.ViewModels
+﻿@using MobilOkulProc.Entities.General
 @using MobilOkulProc.Entities.Concrete 
-@model MobilViewModel<USER_LOGIN>
+@model Mesajlar<USER_LOGIN>
 @{
     ViewBag.Title = "Login";
 
@@ -43,11 +43,11 @@
                     <h2>Giriş Yap</h2>
                     <p>
                         <label for="username" class="uname" data-icon="u"><span>Kullanıcı Adı</span></label>
-                        @Html.TextBoxFor(m => m.Mesajlar.Nesne.UserName, new { @placeholder = "Kullanıcı Adı" })
+                        @Html.TextBoxFor(m => m.Nesne.UserName, new { @placeholder = "Kullanıcı Adı" })
                     </p>
                     <p>
                         <label for="password" class="youpasswd" data-icon="p"><span>Parola</span></label>
-                        @Html.PasswordFor(m => m.Mesajlar.Nesne.Password, new { @placeholder = "Parola" })
+                        @Html.PasswordFor(m => m.Nesne.Password, new { @placeholder = "Parola" })
                     </p>
                     <p class="login button">
                         <input type="submit" value="Login" />
@@ -56,9 +56,9 @@
                         <div class="input-group">
                             @if (Model != null)
                             {
-                                if (Model.Mesajlar.Durum == false)
+                                if (Model.Durum == false)
                                 {
-                                    <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+                                    <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
                                 }
                             }
 

@@ -1,8 +1,8 @@
-﻿@using MobilOkulProc.Entities.Concrete
-@using MobilOkulProc.WebApp.ViewModels
-@model MobilViewModel<BRANCH>
+﻿@using MobilOkulProc.Entities.General
+@using MobilOkulProc.Entities.Concrete
+@model Mesajlar<BRANCH>
 @{
-    ViewBag.Title = "Add Branch View";
+    ViewBag.Title = "Add Branch";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,10 +17,10 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Mesajlar.Nesne.BranchName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Nesne.BranchName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.Mesajlar.Nesne.BranchName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.BranchName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Nesne.BranchName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nesne.BranchName, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -39,16 +39,13 @@
     <div class="input-group">
         @if (Model != null)
         {
-            if (Model.Mesajlar.Mesaj != null)
+            if (Model.Mesaj != null)
             {
-                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+                <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
             }
 
 
         }
-
-
-
     </div>
     <br />
 

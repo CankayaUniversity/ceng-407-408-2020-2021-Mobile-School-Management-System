@@ -7,7 +7,7 @@ using X.PagedList;
 
 namespace MobilOkulProc.WebApp.ViewModels
 {
-    public class MobilViewModel<T> where T:class, new()
+    public class BranchListViewModel<T> where T:class, new()
     {
         public Mesajlar<T> Mesajlar { get; set; }
         public IPagedList<T> PagedList { get; set; }

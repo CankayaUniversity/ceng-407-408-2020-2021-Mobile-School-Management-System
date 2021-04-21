@@ -28,31 +28,30 @@ namespace MobilOkulProc.WebApp.Controllers
 
         public IActionResult Welcome(USER user)
         {
-
-            MobilViewModel<USER_INFO> m = new MobilViewModel<USER_INFO>();
             if (user.NameSurname != null)
             {
                 NameSurname = user.NameSurname;
 
             }
-            
             ViewBag.NameSurname = NameSurname;
-            
-            return View(m);
+            return View();
         }
 
-        public IActionResult ListBranch(string Search, int? page)
+        public IActionResult ListBranch(string Search, int? page, Mesajlar<BRANCH> mb)
         {
-            MobilViewModel<BRANCH> m = new MobilViewModel<BRANCH>();
-
-
-            m.Mesajlar = GetResultsFromAPI<BRANCH>(m, "Branch/Branch_List");
+            BranchListViewModel<BRANCH> m = new BranchListViewModel<BRANCH>();
+            ViewBag.NameSurname = NameSurname;
+            
+            m.Mesajlar = Get<BRANCH>(mb, "Branch/Branch_List");
             if (Search != null)
             {
                m.Mesajlar.Liste =  m.Mesajlar.Liste.Where(m => m.BranchName.ToLower().Contains(Search)).ToList();
             }
             m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
-
+            if (mb.Mesaj != "")
+            {
+                m.Mesajlar = mb;
+            }
             return View(m);
         } 
         public IActionResult AddBranch()
@@ -61,16 +60,31 @@ namespace MobilOkulProc.WebApp.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddBranch(MobilViewModel<BRANCH> m)
+        [ValidateAntiForgeryToken]
+        public IActionResult AddBranch(Mesajlar<BRANCH> m)
         {
-            m.Mesajlar = PostResultsToAPI<BRANCH>(m, "Branch/Branch_Insert");
+            m = Add_Update<BRANCH>(m, "Branch/Branch_Insert");
             ViewBag.NameSurname = NameSurname;
             return View(m);
         }
-        public IActionResult DeleteBranch()
+        public IActionResult DeleteBranch(int id)
         {
+            Mesajlar<BRANCH> m = new Mesajlar<BRANCH>();
+            m = Get<BRANCH>(m,"Branch/Branch_Select?BranchID="+id);
             ViewBag.NameSurname = NameSurname;
-            return View();
+            return View(m);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteBranch(Mesajlar<BRANCH> mb)
+        {
+            mb = Get<BRANCH>(mb, "Branch/Branch_Delete?BranchID="+mb.Nesne.ObjectID);
+            ViewBag.NameSurname = NameSurname;
+            if (mb.Mesaj == "Bilgiler silindi")
+            {
+                return RedirectToAction("ListBranch", "Home", mb);
+            }
+            return View(mb);
         }
         public IActionResult DetailsBranch()
         {
@@ -82,8 +96,9 @@ namespace MobilOkulProc.WebApp.Controllers
             ViewBag.NameSurname = NameSurname;
             return View();
         }
-        public Mesajlar<T> PostResultsToAPI<T>(MobilViewModel<T> m, string ApiURL) where T:class,new()
+        public Mesajlar<T> Delete_Select<T>(Mesajlar<T> m,string ApiURL) where T:class,new()
         {
+
             try
             {
                 using (HttpClientHandler handler = new HttpClientHandler())
@@ -92,7 +107,7 @@ namespace MobilOkulProc.WebApp.Controllers
                     {
                         string url = WebApiUrl + ApiURL;
 
-                        StringContent content = new StringContent(JsonConvert.SerializeObject(m.Mesajlar.Nesne), System.Text.Encoding.UTF8, "application/json");
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 
                         using (var response = c.PostAsync(url, content))
                         {
@@ -105,13 +120,13 @@ namespace MobilOkulProc.WebApp.Controllers
 
                                 if (msg.Mesaj == null)
                                 {
-                                    m.Mesajlar.Durum = false;
-                                    m.Mesajlar.Mesaj = "Bir şeyer ters gitti.";
-                                    m.Mesajlar.Status = "danger";
+                                    m.Durum = false;
+                                    m.Mesaj = "Bir şeyer ters gitti.";
+                                    m.Status = "danger";
                                 }
                                 else
                                 {
-                                    m.Mesajlar = msg;
+                                    m = msg;
                                 }
                             }
                         }
@@ -120,14 +135,14 @@ namespace MobilOkulProc.WebApp.Controllers
             }
             catch (Exception ex)
             {
-                m.Mesajlar.Durum = false;
-                m.Mesajlar.Mesaj = ex.Message;
-                m.Mesajlar.Status = "danger";
+                m.Durum = false;
+                m.Mesaj = ex.Message;
+                m.Status = "danger";
             }
 
-            return m.Mesajlar;
+            return m;
         }
-        public MobilViewModel<T> PostGetResultsFromAPI<T>(MobilViewModel<T> m, string ApiURL) where T:class, new()
+        public Mesajlar<T> Add_Update<T>(Mesajlar<T> m, string ApiURL) where T:class, new()
         {
             try
             {
@@ -137,7 +152,7 @@ namespace MobilOkulProc.WebApp.Controllers
                     {
                         string url = WebApiUrl + ApiURL;
 
-                        StringContent content = new StringContent(JsonConvert.SerializeObject(m.Mesajlar.Nesne), System.Text.Encoding.UTF8, "application/json");
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 
                         using (var response = c.PostAsync(url, content))
                         {
@@ -154,9 +169,9 @@ namespace MobilOkulProc.WebApp.Controllers
                                 }
                                 else
                                 {
-                                    m.Mesajlar.Durum = false;
-                                    m.Mesajlar.Mesaj = "Bir şeyer ters gitti.";
-                                    m.Mesajlar.Status = "danger";
+                                    m.Durum = false;
+                                    m.Mesaj = "Bir şeyer ters gitti.";
+                                    m.Status = "danger";
                                     return m;
                                 }
                             }
@@ -166,14 +181,14 @@ namespace MobilOkulProc.WebApp.Controllers
             }
             catch (Exception ex)
             {
-                m.Mesajlar.Durum = false;
-                m.Mesajlar.Mesaj = ex.Message;
-                m.Mesajlar.Status = "danger";
+                m.Durum = false;
+                m.Mesaj = ex.Message;
+                m.Status = "danger";
             }
 
             return m;
-        } //Generic function for GET results by POST'ing info from API
-        public Mesajlar<T> GetResultsFromAPI<T>(MobilViewModel<T> m, string ApiURL) where T : class, new()
+        }
+        public Mesajlar<T> Get<T>(Mesajlar<T> m, string ApiURL) where T : class, new()
         {
             try
             {
@@ -194,16 +209,16 @@ namespace MobilOkulProc.WebApp.Controllers
 
                                 var msg = JsonConvert.DeserializeObject<Mesajlar<T>>(sonuc.Result);
 
-                                if (msg.Liste != null || msg.Nesne != null)
+                                if (msg.Liste != null || msg.Nesne != null || msg != null)
                                 {
-                                    m.Mesajlar = msg;
+                                    m = msg;
                                 }
                                 else
                                 {
-                                    m.Mesajlar.Durum = false;
-                                    m.Mesajlar.Mesaj = "Bir şeyer ters gitti.";
-                                    m.Mesajlar.Status = "danger";
-                                    return m.Mesajlar;
+                                    m.Durum = false;
+                                    m.Mesaj = "Bir şeyler ters gitti.";
+                                    m.Status = "danger";
+                                    return m;
                                 }
                             }
                         }
@@ -212,13 +227,13 @@ namespace MobilOkulProc.WebApp.Controllers
             }
             catch (Exception ex)
             {
-                m.Mesajlar.Durum = false;
-                m.Mesajlar.Mesaj = ex.Message;
-                m.Mesajlar.Status = "danger";
+                m.Durum = false;
+                m.Mesaj = ex.Message;
+                m.Status = "danger";
             }
             
-            return m.Mesajlar;
-        } // Generic function for GET results from API
+            return m;
+        }
 
 
 

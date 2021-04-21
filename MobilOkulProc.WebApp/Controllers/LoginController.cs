@@ -29,7 +29,7 @@ namespace MobilOkulProc.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(MobilViewModel<USER_LOGIN> m)
+        public IActionResult Login(Mesajlar<USER_LOGIN> m)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace MobilOkulProc.WebApp.Controllers
                     {
                         string url = WebApiUrl + "User/User_Login";
 
-                        StringContent content = new StringContent(JsonConvert.SerializeObject(m.Mesajlar.Nesne), System.Text.Encoding.UTF8, "application/json");
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 
                         using (var response = c.PostAsync(url, content))
                         {
@@ -57,9 +57,9 @@ namespace MobilOkulProc.WebApp.Controllers
                                 }
                                 else
                                 {
-                                    m.Mesajlar.Durum = false;
-                                    m.Mesajlar.Mesaj = "Kullanıcı adı veya parola hatalı!";
-                                    m.Mesajlar.Status = "danger";
+                                    m.Durum = false;
+                                    m.Mesaj = "Kullanıcı adı veya parola hatalı!";
+                                    m.Status = "danger";
                                     return View(m);
                                 }
                             }
@@ -71,9 +71,9 @@ namespace MobilOkulProc.WebApp.Controllers
             }
             catch (Exception ex)
             {
-                m.Mesajlar.Durum = false;
-                m.Mesajlar.Mesaj = ex.Message;
-                m.Mesajlar.Status = "danger";
+                m.Durum = false;
+                m.Mesaj = ex.Message;
+                m.Status = "danger";
             }
 
             return View(m);

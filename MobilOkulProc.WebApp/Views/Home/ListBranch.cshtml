@@ -3,7 +3,7 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 @using X.PagedList.Mvc.Core.Fluent
-@model MobilViewModel<BRANCH>
+@model BranchListViewModel<BRANCH>
 <head>
 
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
@@ -50,12 +50,27 @@
                 <td>
                     @Html.ActionLink("Düzenle", "EditBranch", new { id = item.ObjectID }) |
                     @Html.ActionLink("Görüntüle", "DetailsBranch", new { id = item.ObjectID }) |
-                    @Html.ActionLink("Sil", "DeleteBranch", new { id = item.ObjectID }) |
+                    @Html.ActionLink("Sil", "DeleteBranch", new { id = item.ObjectID }) 
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<p>
+    <div class="input-group">
+        @if (Model != null)
+        {
+            if (Model.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>
 
 <script>
     function SearchClick(theButton) {
