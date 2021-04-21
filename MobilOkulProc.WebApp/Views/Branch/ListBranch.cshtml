@@ -13,7 +13,7 @@
     ViewData["Title"] = "List Branches";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("ListBranch", "Home", FormMethod.Get))
+@using (Html.BeginForm("ListBranch", "Branch", FormMethod.Get))
 {
     <input type="text" name="Search" placeholder="Branch Ara" />
 
@@ -60,9 +60,9 @@
     <div class="input-group">
         @if (Model != null)
         {
-            if (Model.Mesaj != null)
+            if (Model.Mesajlar != null)
             {
-                <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
             }
 
 
@@ -79,7 +79,7 @@
     }
 </script>
 
-@Html.PagedListPager(Model.PagedList, page => Url.Action("ListBranch", "Home", new { page, Search = Context.Request.Query["Search"] }))
+@Html.PagedListPager(Model.PagedList, page => Url.Action("ListBranch", "Branch", new { page, Search = Context.Request.Query["Search"] }))
 
 
 

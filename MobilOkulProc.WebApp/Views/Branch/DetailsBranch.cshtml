@@ -1,0 +1,45 @@
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.Entities.General
+@model Mesajlar<BRANCH>
+
+@{
+    ViewData["Title"] = "Branch Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nesne.BranchName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nesne.BranchName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nesne.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nesne.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Düzenle", "EditBranch", new { id = Model.Nesne.ObjectID }) |
+    @Html.ActionLink("Listeye Geri Dön", "ListBranch")
+</div>
+<p>
+    <div class="input-group">
+        @if (Model != null)
+        {
+            if (Model.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>

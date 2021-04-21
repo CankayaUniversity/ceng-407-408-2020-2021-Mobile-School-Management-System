@@ -1,0 +1,70 @@
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.Entities.General
+@model Mesajlar<BRANCH>
+@{
+    ViewData["Title"] = "Edit Branch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Nesne.ObjectID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nesne.BranchName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Nesne.BranchName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nesne.BranchName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nesne.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Nesne.Status, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.Nesne.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" value="Kaydet" class="btn btn-success" />
+
+
+            </div>
+
+        </div>
+    </div>
+}
+<div class="col-md-offset-2 col-md-2">
+
+
+    <input type="submit" value="Geri" class="btn btn-info" onclick="goBack()" />
+
+</div>
+
+<p>
+    <div class="input-group">
+        @if (Model != null)
+        {
+            if (Model.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>
+
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

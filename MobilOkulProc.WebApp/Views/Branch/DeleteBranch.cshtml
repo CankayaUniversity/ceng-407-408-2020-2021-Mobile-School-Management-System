@@ -7,7 +7,7 @@
 }
 
 
-@using (Html.BeginForm("DeleteBranch", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DeleteBranch", "Branch", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken();
 
