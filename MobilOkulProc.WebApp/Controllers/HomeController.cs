@@ -117,7 +117,13 @@ namespace MobilOkulProc.WebApp.Controllers
 
                 return m;
             }
-        }
+            public List<T> GetRelational<T>(List<T> ModelList) where T : class, new()
+            {
+                return ModelList;
+
+            }
+
+    }
         
 
 

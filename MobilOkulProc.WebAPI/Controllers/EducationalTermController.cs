@@ -13,7 +13,7 @@ namespace MobilOkulProc.WebAPI.Controllers
     [Route("api/[controller]")]
     public class EducationalTermController : Controller
     {
-        [HttpPost("User_Insert")]
+        [HttpPost("EducationalTerm_Insert")]
         public IActionResult User_Insert([FromBody] EDUCATIONAL_TERM EducationalTerm)
         {
             Mesajlar<EDUCATIONAL_TERM> m = new clsEducationalTerm_Process().Ekle(EducationalTerm);

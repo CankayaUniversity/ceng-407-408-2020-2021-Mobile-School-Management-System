@@ -1,0 +1,81 @@
+﻿@using MobilOkulProc.Entities.General
+@using MobilOkulProc.Entities.Concrete
+@model Mesajlar<USER>
+@{
+    ViewBag.Title = "Delete User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Delete", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div>
+        <hr />
+        <dl class="form-row">
+            @Html.HiddenFor(model => model.Nesne.ObjectID)
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(m => m.Nesne.NameSurname)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(m => m.Nesne.NameSurname)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(m => m.Nesne.Password)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(m => m.Nesne.Password)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(m => m.Nesne.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(m => m.Nesne.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(m => m.Nesne.Phone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(m => m.Nesne.Phone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(m => m.Nesne.UserType)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(m => m.Nesne.UserType)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(m => m.Nesne.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(m => m.Nesne.Status)
+            </dd>
+        </dl>
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Listeye Geri Dön", "List")
+        </div>
+        <br />
+        <h3>
+           Silmek istediğinden emin misin?
+        </h3>
+    </div>
+    <p>
+        <div class="input-group">
+            @if (Model != null)
+            {
+                if (Model.Mesaj != null)
+                {
+                    <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
+                }
+
+
+            }
+        </div>
+        <br />
+
+    </p>
+    <br />
+}
+

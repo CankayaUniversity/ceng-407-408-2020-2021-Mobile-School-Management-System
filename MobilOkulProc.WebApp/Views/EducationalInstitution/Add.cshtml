@@ -1,0 +1,99 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model EducationalInstitutionViewModel<EDUCATIONAL_INSTITUTION>
+@{
+    ViewBag.Title = "Add City";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mesajlar.Nesne.EducationalName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Mesajlar.Nesne.EducationalName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.EducationalName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Logo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Logo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Logo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Adres, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Adres, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Adres, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mesajlar.Nesne.WebSite, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Mesajlar.Nesne.WebSite, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.WebSite, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <strong>Yazar</strong>
+        <div class="col-md-2">
+            @Html.DropDownListFor(m => m.CityID, Model.CityList, "Lütfen Şehir Seçiniz", new { @class = "form-control dropdown" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Ekle" class="btn btn-success" /> | @Html.ActionLink("Listeye Geri Dön", "List")
+        </div>
+    </div>
+</div>
+}
+
+<br />
+<p>
+    <div class="input-group">
+        @if (Model.Mesajlar != null)
+        {
+            if (Model.Mesajlar.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>
+<br />
+

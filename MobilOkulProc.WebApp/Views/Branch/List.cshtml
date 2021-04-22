@@ -4,26 +4,22 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core.Fluent
 @model BranchListViewModel<BRANCH>
-<head>
 
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
-    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
-</head>
 @{
     ViewData["Title"] = "List Branches";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("ListBranch", "Branch", FormMethod.Get))
+@using (Html.BeginForm("List", "Branch", FormMethod.Get))
 {
-    <input type="text" name="Search" placeholder="Branch Ara" />
+    <input type="text" name="Search" placeholder="Ara" />
 
-    <input id="BranchAra" name="BranchAra" type="submit" value="Ara" class="
+    <input id="Ara" name="Ara" type="submit" value="Ara" class="
                btn btn-default" onclick="SearchClick()" />
 
 }
 
 <p>
-    @Html.ActionLink("+Yeni", "AddBranch")
+    @Html.ActionLink("+Yeni", "Add")
 </p>
 <table class="table">
     <thead>
@@ -48,9 +44,9 @@
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
-                    @Html.ActionLink("Düzenle", "EditBranch", new { id = item.ObjectID }) |
-                    @Html.ActionLink("Görüntüle", "DetailsBranch", new { id = item.ObjectID }) |
-                    @Html.ActionLink("Sil", "DeleteBranch", new { id = item.ObjectID }) 
+                    @Html.ActionLink("Düzenle", "Edit", new { id = item.ObjectID }) |
+                    @Html.ActionLink("Görüntüle", "Details", new { id = item.ObjectID }) |
+                    @Html.ActionLink("Sil", "Delete", new { id = item.ObjectID })
                 </td>
             </tr>
         }
@@ -79,7 +75,7 @@
     }
 </script>
 
-@Html.PagedListPager(Model.PagedList, page => Url.Action("ListBranch", "Branch", new { page, Search = Context.Request.Query["Search"] }))
+@Html.PagedListPager(Model.PagedList, page => Url.Action("List", "Branch", new { page, Search = Context.Request.Query["Search"] }))
 
 
 

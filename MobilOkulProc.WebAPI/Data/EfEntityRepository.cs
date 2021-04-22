@@ -204,6 +204,7 @@ namespace MobilOkulProc.WebAPI.Data
                     }
                     else
                     {
+
                         m.Liste = entryNesne.Where(filtre).ToList();
                     }
 

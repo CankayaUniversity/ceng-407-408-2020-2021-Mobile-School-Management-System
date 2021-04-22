@@ -1,0 +1,58 @@
+﻿@using MobilOkulProc.Entities.General
+@using MobilOkulProc.Entities.Concrete
+@model Mesajlar<EMPLOYEE_TYPE>
+@{
+    ViewBag.Title = "Delete Educational Term";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Delete", "EmployeeType", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div>
+        <hr />
+        <dl class="form-horizontal">
+            @Html.HiddenFor(model => model.Nesne.ObjectID)
+            <dt>
+                @Html.DisplayNameFor(m => m.Nesne.EmployeeType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Nesne.EmployeeType)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Nesne.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Nesne.Status)
+            </dd>
+
+        </dl>
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Listeye Geri Dön", "List")
+        </div>
+        <br />
+        <h3>
+            Silmek istediğinden emin misin?
+        </h3>
+    </div>
+    <p>
+        <div class="input-group">
+            @if (Model != null)
+            {
+                if (Model.Mesaj != null)
+                {
+                    <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
+                }
+
+
+            }
+        </div>
+        <br />
+
+    </p>
+    <br />
+}
+

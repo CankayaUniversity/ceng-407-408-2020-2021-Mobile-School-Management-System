@@ -12,18 +12,16 @@ using static MobilOkulProc.WebApp.Controllers.HomeController;
 
 namespace MobilOkulProc.WebApp.Controllers
 {
-    public class BranchController : Controller
+    public class UserController : Controller
     {
-
-
-        public IActionResult List(string Search, int? page, Mesajlar<BRANCH> mb)
+        public IActionResult List(string Search, int? page, Mesajlar<USER> mb)
         {
-            BranchListViewModel<BRANCH> m = new BranchListViewModel<BRANCH>();
+            UserListViewModel<USER> m = new UserListViewModel<USER>();
             ViewBag.NameSurname = needs.NameSurname;
-            m.Mesajlar = function.Get<BRANCH>(mb, "Branch/Branch_List");
+            m.Mesajlar = function.Get<USER>(mb, "User/User_List");
             if (Search != null)
             {
-               m.Mesajlar.Liste =  m.Mesajlar.Liste.Where(m => m.BranchName.ToLower().Contains(Search)).ToList();
+                m.Mesajlar.Liste = m.Mesajlar.Liste.Where(m => m.NameSurname.ToLower().Contains(Search)).ToList();
             }
             m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
             if (mb.Mesaj != "")
@@ -31,7 +29,7 @@ namespace MobilOkulProc.WebApp.Controllers
                 m.Mesajlar = mb;
             }
             return View(m);
-        } 
+        }
         public IActionResult Add()
         {
             ViewBag.NameSurname = needs.NameSurname;
@@ -39,52 +37,51 @@ namespace MobilOkulProc.WebApp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add(Mesajlar<BRANCH> m)
+        public IActionResult Add(Mesajlar<USER> m)
         {
-            m = function.Add_Update<BRANCH>(m, "Branch/Branch_Insert");
+            m = function.Add_Update<USER>(m, "User/User_Insert");
             ViewBag.NameSurname = needs.NameSurname;
             return View(m);
         }
         public IActionResult Delete(int id)
         {
-            Mesajlar<BRANCH> m = new Mesajlar<BRANCH>();
-            m = function.Get<BRANCH>(m,"Branch/Branch_Select?BranchID="+id);
+            Mesajlar<USER> m = new Mesajlar<USER>();
+            m = function.Get<USER>(m, "User/User_Select?UserID=" + id);
             ViewBag.NameSurname = needs.NameSurname;
             return View(m);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Mesajlar<BRANCH> mb)
+        public IActionResult Delete(Mesajlar<USER> mb)
         {
-            mb = function.Get<BRANCH>(mb, "Branch/Branch_Delete?BranchID="+mb.Nesne.ObjectID);
+            mb = function.Get<USER>(mb, "User/User_Delete?UserID=" + mb.Nesne.ObjectID);
             ViewBag.NameSurname = needs.NameSurname;
             if (mb.Mesaj == "Bilgiler silindi")
             {
-                return RedirectToAction("List", "Branch", mb);
+                return RedirectToAction("List", "User", mb);
             }
             return View(mb);
         }
         public IActionResult Details(int id)
         {
-            Mesajlar<BRANCH> m = new Mesajlar<BRANCH>();
-            m = function.Get<BRANCH>(m, "Branch/Branch_Select?BranchID=" + id);
+            Mesajlar<USER> m = new Mesajlar<USER>();
+            m = function.Get<USER>(m, "User/User_Select?UserID=" + id);
             ViewBag.NameSurname = needs.NameSurname;
             return View(m);
         }
         public IActionResult Edit(int id)
         {
-            Mesajlar<BRANCH> m = new Mesajlar<BRANCH>();
-            m = function.Get<BRANCH>(m, "Branch/Branch_Select?BranchID=" + id);
+            Mesajlar<USER> m = new Mesajlar<USER>();
+            m = function.Get<USER>(m, "User/User_Select?UserID=" + id);
             ViewBag.NameSurname = needs.NameSurname;
             return View(m);
         }
         [HttpPost]
-        public IActionResult Edit(Mesajlar<BRANCH> m)
+        public IActionResult Edit(Mesajlar<USER> m)
         {
-            m = function.Add_Update<BRANCH>(m, "Branch/Branch_Update");
+            m = function.Add_Update<USER>(m, "User/User_Update");
             ViewBag.NameSurname = needs.NameSurname;
             return View(m);
         }
-        
     }
 }

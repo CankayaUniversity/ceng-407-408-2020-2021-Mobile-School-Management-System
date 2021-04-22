@@ -22,10 +22,12 @@ namespace MobilOkulProc.WebAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
+            
             base.OnConfiguring(optionBuilder);
             var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             IConfigurationRoot cfg = builder.Build();
             optionBuilder.UseSqlServer(cfg.GetConnectionString("sqlDatabase"));
+           
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

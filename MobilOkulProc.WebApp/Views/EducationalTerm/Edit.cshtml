@@ -1,8 +1,8 @@
 ﻿@using MobilOkulProc.Entities.Concrete
 @using MobilOkulProc.Entities.General
-@model Mesajlar<BRANCH>
+@model Mesajlar<EDUCATIONAL_TERM>
 @{
-    ViewData["Title"] = "Edit Branch";
+    ViewData["Title"] = "Edit City";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,10 +16,10 @@
         @Html.HiddenFor(model => model.Nesne.ObjectID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Nesne.BranchName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Nesne.EducationTerm, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.Nesne.BranchName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nesne.BranchName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Nesne.EducationTerm, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nesne.EducationTerm, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -30,8 +30,8 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-2">
-                <input type="submit" value="Kaydet" class="btn btn-success" />
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="Kaydet" class="btn btn-success" />  | @Html.ActionLink("Listeye Geri Dön", "List")
 
 
             </div>
@@ -39,12 +39,6 @@
         </div>
     </div>
 }
-<div class="col-md-offset-2 col-md-2">
-
-
-    <input type="submit" value="Geri" class="btn btn-info" onclick="goBack()" />
-
-</div>
 
 <p>
     <div class="input-group">
@@ -63,8 +57,4 @@
 </p>
 
 
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
+

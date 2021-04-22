@@ -1,13 +1,13 @@
 ﻿@using MobilOkulProc.Entities.General
 @using MobilOkulProc.Entities.Concrete
-@model Mesajlar<BRANCH>
+@model Mesajlar<EDUCATIONAL_TERM>
 @{
-    ViewBag.Title = "Delete Branch";
+    ViewBag.Title = "Delete Educational Term";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-@using (Html.BeginForm("DeleteBranch", "Branch", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Delete", "EducationalTerm", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken();
 
@@ -16,20 +16,26 @@
         <dl class="form-horizontal">
             @Html.HiddenFor(model => model.Nesne.ObjectID)
             <dt>
-                @Html.DisplayNameFor(m => m.Nesne.BranchName)
+                @Html.DisplayNameFor(m => m.Nesne.EducationTerm)
             </dt>
             <dd>
-                @Html.DisplayFor(m => m.Nesne.BranchName)
+                @Html.DisplayFor(m => m.Nesne.EducationTerm)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Nesne.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Nesne.Status)
             </dd>
 
         </dl>
         <div class="form-actions no-color">
             <input type="submit" value="Sil" class="btn btn-danger" /> |
-            @Html.ActionLink("Listeye Geri Dön", "ListBranch")
+            @Html.ActionLink("Listeye Geri Dön", "List")
         </div>
         <br />
         <h3>
-            Branch'ı silmek istediğinden emin misin?
+            Silmek istediğinden emin misin?
         </h3>
     </div>
     <p>

@@ -1,0 +1,81 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model EducationalInstitutionViewModel<EDUCATIONAL_INSTITUTION>
+
+@{
+    ViewData["Title"] = "City Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.EducationalName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesajlar.Nesne.EducationalName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Logo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesajlar.Nesne.Logo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesajlar.Nesne.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesajlar.Nesne.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Adres)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesajlar.Nesne.Adres)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.City.CityName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesajlar.Nesne.City.CityName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.WebSite)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesajlar.Nesne.WebSite)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mesajlar.Nesne.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.Mesajlar.Nesne.ObjectID }) |
+    @Html.ActionLink("Listeye Geri Dön", "List")
+</div>
+<p>
+    <div class="input-group">
+        @if (Model.Mesajlar != null)
+        {
+            if (Model.Mesajlar.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>
