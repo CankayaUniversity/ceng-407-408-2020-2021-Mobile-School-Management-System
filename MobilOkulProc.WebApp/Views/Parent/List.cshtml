@@ -3,13 +3,13 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList;
 @using X.PagedList.Mvc.Core.Fluent
-@model EducationalInstitutionViewModel<EDUCATIONAL_INSTITUTION>
+@model ParentViewModel<PARENT>
 
 @{
-    ViewData["Title"] = "List Cities";
+    ViewData["Title"] = "List Parents";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("List", "EducationalInstitution", FormMethod.Get))
+@using (Html.BeginForm("List", "Parent", FormMethod.Get))
 {
     <input type="text" name="Search" placeholder="Ara" />
 
@@ -25,25 +25,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.EducationalName)
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Logo)
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Surname)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Email)
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Adress)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Phone)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Adres)
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.City.CityName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.WebSite)
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.NameSurname)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
@@ -56,25 +53,22 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.EducationalName)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Logo)
+                @Html.DisplayFor(modelItem => item.Surname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Adress)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Adres)
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City.CityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WebSite)
+                @Html.DisplayFor(modelItem => item.User.NameSurname)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
@@ -111,7 +105,7 @@
     }
 </script>
 
-@Html.PagedListPager(Model.PagedList, page => Url.Action("List", "EducationalInstitution", new { page, Search = Context.Request.Query["Search"] }))
+@Html.PagedListPager(Model.PagedList, page => Url.Action("List", "Parent", new { page, Search = Context.Request.Query["Search"] }))
 
 
 

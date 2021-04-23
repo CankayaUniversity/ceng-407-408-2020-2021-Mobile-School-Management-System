@@ -9,17 +9,17 @@ namespace MobilOkulProc.Entities.Concrete
 {
     public class SCHOOL :BaseEntity
     {
-        [Display(Name = "Education Name")]
+        [Display(Name = "Educational Institution")]
         [ForeignKey("Education")]
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
         public int EducationID { get; set; }
 
-        [Display(Name = "Phone")]
+        [Display(Name = "School Name")]
         [MaxLength(50)]
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
         public string SchoolName { get; set; }
 
-        [Display(Name = "Phone")]
+        [Display(Name = "Adress")]
         [MaxLength(300)]
         public string Adress { get; set; }
 

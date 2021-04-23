@@ -1,8 +1,8 @@
 ﻿@using MobilOkulProc.WebApp.ViewModels
 @using MobilOkulProc.Entities.Concrete
-@model EducationalInstitutionViewModel<EDUCATIONAL_INSTITUTION>
+@model ParentViewModel<PARENT>
 @{
-    ViewBag.Title = "Add City";
+    ViewBag.Title = "Add Parent";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,26 +17,26 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.EducationalName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.EducationalName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.EducationalName, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Name, "", new { @class = "text-danger" })
         </div>
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.Logo, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.Logo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Logo, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Surname, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Surname, "", new { @class = "text-danger" })
         </div>
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Adress, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.Email, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Email, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Adress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Adress, "", new { @class = "text-danger" })
         </div>
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -49,24 +49,16 @@
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.Adres, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Email, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.Adres, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Adres, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.WebSite, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.WebSite, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.WebSite, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Email, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        <strong class="col-md-2">Şehir</strong>
+        <strong class="col-md-2">Öğrenci</strong>
         <div class="col-md-2">
-            @Html.DropDownListFor(m => m.CityID, Model.CityList, "Lütfen Şehir Seçiniz", new { @class = "form-control dropdown" })
+            @Html.DropDownListFor(m => m.UserID, Model.UserList, "Lütfen Öğrenci Seçiniz", new { @class = "form-control dropdown" })
         </div>
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
