@@ -28,7 +28,7 @@ namespace MobilOkulProc.WebAPI
             services.AddMvc(x=> x.EnableEndpointRouting= false)
                 .AddViewOptions(opt=> opt.HtmlHelperOptions.ClientValidationEnabled = true)
                 .AddNewtonsoftJson(opt=> opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddCors();
 
 

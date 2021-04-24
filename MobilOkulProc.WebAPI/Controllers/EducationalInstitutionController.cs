@@ -63,12 +63,12 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
-        [HttpGet("EducationalInstitution_ListRelational")]
-        public IActionResult EducationalInstitution_ListRelational()
+        [HttpGet("EducationalInstitution_SelectRelational")]
+        public IActionResult EducationalInstitution_SelectRelational(int EducationalInstitutionID)
         {
             clsEducationalInstitution_Process uProc = new clsEducationalInstitution_Process();
 
-            Mesajlar<EDUCATIONAL_INSTITUTION> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<EDUCATIONAL_INSTITUTION> m = uProc.Getir_Iliskisel(x => x.ObjectID == EducationalInstitutionID);
 
             return Json(m);
         }

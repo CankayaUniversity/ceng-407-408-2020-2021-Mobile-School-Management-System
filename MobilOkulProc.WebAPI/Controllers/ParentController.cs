@@ -63,5 +63,14 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Parent_SelectRelational")]
+        public IActionResult Parent_SelectRelational(int ParentID)
+        {
+            clsParent_Process sProc = new clsParent_Process();
+
+            Mesajlar<PARENT> m = sProc.Getir_Iliskisel(x => x.ObjectID == ParentID);
+
+            return Json(m);
+        }
     }
 }

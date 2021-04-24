@@ -44,7 +44,7 @@
     <div class="form-group">
         <strong class="col-md-2">Eğitim Kurumu</strong>
         <div class="col-md-2">
-            @Html.DropDownListFor(m => m.Id, Model.List, "Lütfen Eğitim Kurumu Seçiniz", new { @class = "form-control dropdown" })
+            @Html.DropDownListFor(m => m.SelectedId, Model.List, "Lütfen Eğitim Kurumu Seçiniz", new { @class = "form-control dropdown" })
         </div>
     </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })

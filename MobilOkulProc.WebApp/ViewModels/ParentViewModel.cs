@@ -13,7 +13,7 @@ namespace MobilOkulProc.WebApp.ViewModels
     {
         public Mesajlar<T> Mesajlar { get; set; }
         public IPagedList<T> PagedList { get; set; }
-        public SelectList UserList { get; set; }
-        public int UserID { get; set; }
+        public SelectList List { get; set; }
+        public int SelectedId { get; set; }
     }
 }

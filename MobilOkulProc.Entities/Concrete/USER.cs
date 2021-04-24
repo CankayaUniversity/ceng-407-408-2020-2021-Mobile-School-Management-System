@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 using MobilOkulProc.Entities.Abstract;
 
 namespace MobilOkulProc.Entities.Concrete
@@ -38,6 +39,7 @@ namespace MobilOkulProc.Entities.Concrete
         public virtual List<TEACHER> Teacher { get; set; }
         public virtual List<STUDENT> Student { get; set; }
         public virtual List<SCHOOL_EMPLOYER> School_Employer { get; set; }
+        
         public virtual List<PARENT> Parent { get; set; }
         public virtual List<NEWS> News { get; set; }
         //public virtual List<MESSAGE> Sender { get; set; }

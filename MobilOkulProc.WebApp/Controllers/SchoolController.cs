@@ -41,7 +41,7 @@ namespace MobilOkulProc.WebApp.Controllers
             SchoolViewModel<SCHOOL> viewModel = new SchoolViewModel<SCHOOL>()
             {
                 List = new SelectList(m.Liste, "ObjectID", "EducationalName"),
-                Id = -1,
+                SelectedId = -1,
             };
 
             ViewBag.NameSurname = needs.NameSurname;
@@ -51,25 +51,25 @@ namespace MobilOkulProc.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(SchoolViewModel<SCHOOL> m)
         {
-            m.Mesajlar.Nesne.EducationID = m.Id;
+            m.Mesajlar.Nesne.EducationID = m.SelectedId;
             m.Mesajlar = function.Add_Update<SCHOOL>(m.Mesajlar, "School/School_Insert");
             ViewBag.NameSurname = needs.NameSurname;
             return RedirectToAction("List", "School", m.Mesajlar);
         }
         public IActionResult Delete(int id)
         {
-            Mesajlar<SCHOOL> m = new Mesajlar<SCHOOL>();
-            m = function.Get<SCHOOL>(m, "School/School_Select?SchoolID=" + id);
+            SchoolViewModel<SCHOOL> m = new SchoolViewModel<SCHOOL>();
+            m.Mesajlar = function.Get<SCHOOL>(m.Mesajlar, "School/School_SelectRelational?SchoolID=" + id);
             ViewBag.NameSurname = needs.NameSurname;
             return View(m);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Mesajlar<SCHOOL> mb)
+        public IActionResult Delete(SchoolViewModel<SCHOOL> mb)
         {
-            mb = function.Get<SCHOOL>(mb, "School/School_Delete?SchoolID=" + mb.Nesne.ObjectID);
+            mb.Mesajlar = function.Get<SCHOOL>(mb.Mesajlar, "School/School_Delete?SchoolID=" + mb.Mesajlar.Nesne.ObjectID);
             ViewBag.NameSurname = needs.NameSurname;
-            if (mb.Mesaj == "Bilgiler silindi")
+            if (mb.Mesajlar.Mesaj == "Bilgiler silindi")
             {
                 return RedirectToAction("List", "School", mb);
             }
@@ -95,11 +95,10 @@ namespace MobilOkulProc.WebApp.Controllers
             m = function.Get<EDUCATIONAL_INSTITUTION>(m, "EducationalInstitution/EducationalInstitution_List");
             Mesajlar<SCHOOL> mesajlar = new Mesajlar<SCHOOL>();
             mesajlar = function.Get<SCHOOL>(mesajlar, "School/School_SelectRelational?SchoolID=" + id);
-            
             SchoolViewModel<SCHOOL> schoolViewModel = new SchoolViewModel<SCHOOL>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "EducationalName"),
-                Id = mesajlar.Nesne.EducationID,
+                List = new SelectList(m.Liste,"ObjectID","EducationalName"),
+                SelectedId = mesajlar.Nesne.EducationID
             };
 
             schoolViewModel.Mesajlar = mesajlar;
@@ -111,9 +110,10 @@ namespace MobilOkulProc.WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(SchoolViewModel<SCHOOL> m)
         {
+            m.Mesajlar.Nesne.EducationID = m.SelectedId;
             m.Mesajlar = function.Add_Update<SCHOOL>(m.Mesajlar, "School/School_Update");
             ViewBag.NameSurname = needs.NameSurname;
-            return View(m);
+            return RedirectToAction("List","School",m);
         }
     }
 }
