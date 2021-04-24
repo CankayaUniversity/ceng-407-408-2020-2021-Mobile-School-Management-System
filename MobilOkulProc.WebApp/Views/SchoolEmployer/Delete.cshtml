@@ -1,0 +1,103 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model SchoolEmployerViewModel<SCHOOL_EMPLOYER>
+@{
+    ViewBag.Title = "Delete School Employer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Delete", "SchoolEmployer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div>
+        <hr />
+        <dl class="form-horizontal">
+            @Html.HiddenFor(model => model.Mesajlar.Nesne.ObjectID)
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.NameSurname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.NameSurname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Phone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.Phone)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Education.EducationalName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.Education.EducationalName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.EmployeeTypes.EmployeeType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.EmployeeTypes.EmployeeType)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.SCHOOL.SchoolName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.SCHOOL.SchoolName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.User.NameSurname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.User.NameSurname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.Status)
+            </dd>
+
+
+        </dl>
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Listeye Geri Dön", "List")
+        </div>
+        <br />
+        <h3>
+            Silmek istediğinden emin misin?
+        </h3>
+    </div>
+    <p>
+        <div class="input-group">
+            @if (Model.Mesajlar != null)
+            {
+                if (Model.Mesajlar.Mesaj != null)
+                {
+                    <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+                }
+
+
+            }
+        </div>
+        <br />
+
+    </p>
+    <br />
+}
+

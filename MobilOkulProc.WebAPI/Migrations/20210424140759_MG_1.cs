@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MobilOkulProc.WebAPI.Migrations
 {
-    public partial class _1 : Migration
+    public partial class MG_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,27 +64,6 @@ namespace MobilOkulProc.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MESSAGES",
-                columns: table => new
-                {
-                    ObjectID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<bool>(nullable: false),
-                    PriorityID = table.Column<int>(nullable: false),
-                    MessageTitle = table.Column<string>(maxLength: 50, nullable: true),
-                    MessageContent = table.Column<string>(nullable: false),
-                    SendTime = table.Column<DateTime>(nullable: false),
-                    ReadTime = table.Column<DateTime>(nullable: false),
-                    MessageType = table.Column<bool>(nullable: false),
-                    SenderUserID = table.Column<int>(nullable: false),
-                    ReceiveID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MESSAGES", x => x.ObjectID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "USERS",
                 columns: table => new
                 {
@@ -129,7 +108,7 @@ namespace MobilOkulProc.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FEEDBACKs",
+                name: "FEEDBACKS",
                 columns: table => new
                 {
                     ObjectID = table.Column<int>(nullable: false)
@@ -142,10 +121,37 @@ namespace MobilOkulProc.WebAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FEEDBACKs", x => x.ObjectID);
+                    table.PrimaryKey("PK_FEEDBACKS", x => x.ObjectID);
                     table.ForeignKey(
-                        name: "FK_FEEDBACKs_USERS_UserID",
+                        name: "FK_FEEDBACKS_USERS_UserID",
                         column: x => x.UserID,
+                        principalTable: "USERS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MESSAGES",
+                columns: table => new
+                {
+                    ObjectID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<bool>(nullable: false),
+                    PriorityID = table.Column<int>(nullable: false),
+                    MessageTitle = table.Column<string>(maxLength: 50, nullable: true),
+                    MessageContent = table.Column<string>(nullable: false),
+                    SendTime = table.Column<DateTime>(nullable: false),
+                    ReadTime = table.Column<DateTime>(nullable: false),
+                    MessageType = table.Column<bool>(nullable: false),
+                    SenderID = table.Column<int>(nullable: false),
+                    ReceiveID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MESSAGES", x => x.ObjectID);
+                    table.ForeignKey(
+                        name: "FK_MESSAGES_USERS_ReceiveID",
+                        column: x => x.ReceiveID,
                         principalTable: "USERS",
                         principalColumn: "ObjectID",
                         onDelete: ReferentialAction.NoAction);
@@ -503,9 +509,14 @@ namespace MobilOkulProc.WebAPI.Migrations
                 column: "CityID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FEEDBACKs_UserID",
-                table: "FEEDBACKs",
+                name: "IX_FEEDBACKS_UserID",
+                table: "FEEDBACKS",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MESSAGES_ReceiveID",
+                table: "MESSAGES",
+                column: "ReceiveID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NEWSES_EducationID",
@@ -596,7 +607,7 @@ namespace MobilOkulProc.WebAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FEEDBACKs");
+                name: "FEEDBACKS");
 
             migrationBuilder.DropTable(
                 name: "MESSAGES");

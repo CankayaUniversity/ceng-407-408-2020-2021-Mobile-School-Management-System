@@ -44,7 +44,7 @@ namespace MobilOkulProc.WebAPI.Data
         public DbSet<EDUCATIONAL_INSTITUTION> EDUCATIONAL_INSTITUTIONs { get; set; }
         public DbSet<EDUCATIONAL_TERM> EDUCATIONAL_TERMS { get; set; }
         public DbSet<EMPLOYEE_TYPE> EMPLOYEE_TYPES { get; set; }
-        public DbSet<FEEDBACK> FEEDBACKs { get; set; }
+        public DbSet<FEEDBACK> FEEDBACKS { get; set; }
         public DbSet<MESSAGE> MESSAGES { get; set; }
         public DbSet<NEWS> NEWSES { get; set; }
         public DbSet<PARENT> PARENTS { get; set; }

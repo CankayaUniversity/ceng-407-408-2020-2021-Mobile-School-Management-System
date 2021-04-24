@@ -64,6 +64,15 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Student_SelectRelational")]
+        public IActionResult Student_SelectRelational(int StudentID)
+        {
+            clsStudent_Process sProc = new clsStudent_Process();
+
+            Mesajlar<STUDENT> m = sProc.Getir_Iliskisel(x => x.ObjectID == StudentID);
+
+            return Json(m);
+        }
 
     }
 }

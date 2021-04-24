@@ -52,7 +52,14 @@ namespace MobilOkulProc.Entities.Concrete
         public virtual USER User { get; set; }
 
         #endregion
-
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return Name + Surname;
+            }
+        }
 
 
 

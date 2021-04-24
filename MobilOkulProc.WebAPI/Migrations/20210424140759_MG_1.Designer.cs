@@ -10,8 +10,8 @@ using MobilOkulProc.WebAPI.Data;
 namespace MobilOkulProc.WebAPI.Migrations
 {
     [DbContext(typeof(MobilOkulContext))]
-    [Migration("20210418095346_Mg_2")]
-    partial class Mg_2
+    [Migration("20210424140759_MG_1")]
+    partial class MG_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -234,7 +234,7 @@ namespace MobilOkulProc.WebAPI.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("FEEDBACKs");
+                    b.ToTable("FEEDBACKS");
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.MESSAGE", b =>
@@ -267,7 +267,7 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.Property<DateTime>("SendTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SenderUserID")
+                    b.Property<int>("SenderID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")

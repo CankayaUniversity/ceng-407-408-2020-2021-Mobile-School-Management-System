@@ -1,0 +1,78 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model FeedbackViewModel<FEEDBACK>
+@{
+    ViewBag.Title = "Delete Parent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Delete", "Feedback", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div>
+        <hr />
+        <dl class="form-horizontal">
+            @Html.HiddenFor(model => model.Mesajlar.Nesne.ObjectID)
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.FeedbackContent)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.FeedbackContent)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.FeedbackType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.FeedbackType)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.FeedbackDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.FeedbackDate)
+            </dd>
+            
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.User.NameSurname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.User.NameSurname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.Status)
+            </dd>
+            
+
+        </dl>
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Listeye Geri Dön", "List")
+        </div>
+        <br />
+        <h3>
+            Silmek istediğinden emin misin?
+        </h3>
+    </div>
+    <p>
+        <div class="input-group">
+            @if (Model.Mesajlar != null)
+            {
+                if (Model.Mesajlar.Mesaj != null)
+                {
+                    <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+                }
+
+
+            }
+        </div>
+        <br />
+
+    </p>
+    <br />
+}
+

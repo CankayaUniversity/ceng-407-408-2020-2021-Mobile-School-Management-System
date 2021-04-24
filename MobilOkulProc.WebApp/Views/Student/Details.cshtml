@@ -1,0 +1,111 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model StudentViewModel<STUDENT>
+
+@{
+    ViewData["Title"] = "Student Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.TcNo)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.TcNo)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.StdSurname)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.StdSurname)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.StdName)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.StdName)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.StdSurname)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.StdSurname)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Adress1)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Adress1)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Adress2)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Adress2)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.RegisterDate)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.RegisterDate)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.GraduateDate)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.GraduateDate)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.BirthPlace)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.BirthPlace)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.BloodType)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.BloodType)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.BirthDate)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.BirthDate)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.User.NameSurname)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.User.NameSurname)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Status)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.Mesajlar.Nesne.ObjectID }) |
+    @Html.ActionLink("Listeye Geri Dön", "List")
+</div>
+<p>
+    <div class="input-group">
+        @if (Model.Mesajlar != null)
+        {
+            if (Model.Mesajlar.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>

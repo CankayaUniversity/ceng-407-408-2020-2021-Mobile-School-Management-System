@@ -1,0 +1,66 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model SectionViewModel<SECTION>
+@{
+    ViewBag.Title = "Delete Section";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Delete", "Section", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div>
+        <hr />
+        <dl class="form-horizontal">
+            @Html.HiddenFor(model => model.Mesajlar.Nesne.ObjectID)
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.SectionName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.SectionName)
+            </dd>
+           
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.School.SchoolName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.School.SchoolName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(m => m.Mesajlar.Nesne.Status)
+            </dd>
+            
+
+        </dl>
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> |
+            @Html.ActionLink("Listeye Geri Dön", "List")
+        </div>
+        <br />
+        <h3>
+            Silmek istediğinden emin misin?
+        </h3>
+    </div>
+    <p>
+        <div class="input-group">
+            @if (Model.Mesajlar != null)
+            {
+                if (Model.Mesajlar.Mesaj != null)
+                {
+                    <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+                }
+
+
+            }
+        </div>
+        <br />
+
+    </p>
+    <br />
+}
+

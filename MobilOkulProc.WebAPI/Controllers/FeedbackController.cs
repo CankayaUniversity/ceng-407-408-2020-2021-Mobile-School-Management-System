@@ -63,5 +63,14 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Feedback_SelectRelational")]
+        public IActionResult Feedback_SelectRelational(int FeedbackID)
+        {
+            clsFeedback_Process uProc = new clsFeedback_Process();
+
+            Mesajlar<FEEDBACK> m = uProc.Getir_Iliskisel(x => x.ObjectID == FeedbackID);
+
+            return Json(m);
+        }
     }
 }

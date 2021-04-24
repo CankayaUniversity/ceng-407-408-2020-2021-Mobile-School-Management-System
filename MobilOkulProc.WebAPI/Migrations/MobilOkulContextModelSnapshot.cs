@@ -232,7 +232,7 @@ namespace MobilOkulProc.WebAPI.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("FEEDBACKs");
+                    b.ToTable("FEEDBACKS");
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.MESSAGE", b =>
@@ -265,7 +265,7 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.Property<DateTime>("SendTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SenderUserID")
+                    b.Property<int>("SenderID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")

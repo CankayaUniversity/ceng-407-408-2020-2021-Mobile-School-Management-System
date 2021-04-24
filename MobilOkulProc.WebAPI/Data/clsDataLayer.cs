@@ -25,5 +25,6 @@ namespace MobilOkulProc.WebAPI.Data
     public class clsCity_Process : EfEntityRepository<CITY, MobilOkulContext>{}
     public class clsClassSection_Process : EfEntityRepository<CLASS_SECTION, MobilOkulContext>{}
     public class clsEducationalInstitution_Process : EfEntityRepository<EDUCATIONAL_INSTITUTION, MobilOkulContext>{}
+    public class clsClass_Process : EfEntityRepository<CLASS, MobilOkulContext>{}
 
 }

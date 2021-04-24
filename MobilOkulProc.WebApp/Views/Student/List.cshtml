@@ -1,0 +1,147 @@
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.WebApp.ViewModels
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Fluent
+@model StudentViewModel<STUDENT>
+
+@{
+    ViewData["Title"] = "List Students";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("List", "Student", FormMethod.Get))
+{
+    <input type="text" name="Search" placeholder="Ara" />
+
+    <input id="Ara" name="Ara" type="submit" value="Ara" class="
+               btn btn-default" onclick="SearchClick()" />
+
+}
+
+<p>
+    @Html.ActionLink("+Yeni", "Add")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.TcNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.StdNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.StdName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.StdSurname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Adress1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Adress2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.RegisterDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.GraduateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.BirthPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.BloodType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.NameSurname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PagedList)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TcNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StdSurname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegisterDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GraduateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BloodType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.NameSurname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit", new { id = item.ObjectID }) |
+                @Html.ActionLink("Görüntüle", "Details", new { id = item.ObjectID }) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.ObjectID })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<p>
+    <div class="input-group">
+        @if (Model.Mesajlar != null)
+        {
+            if (Model.Mesajlar.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>
+
+<script>
+    function SearchClick(theButton) {
+        document.getElementById('Search').value = theButton.name;
+        return true;
+    }
+</script>
+
+@Html.PagedListPager(Model.PagedList, page => Url.Action("List", "Student", new { page, Search = Context.Request.Query["Search"] }))
+
+
+

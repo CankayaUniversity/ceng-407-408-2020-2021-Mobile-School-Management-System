@@ -1,0 +1,63 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model ClassSectionViewModel<CLASS_SECTION>
+
+@{
+    ViewData["Title"] = "Class Section Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.ClassSectionName)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.ClassSectionName)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Class.Class_Name)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Class.Class_Name)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.EducationalTerms.EducationTerm)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.EducationalTerms.EducationTerm)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Section.SectionName)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Section.SectionName)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Status)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.Mesajlar.Nesne.ObjectID }) |
+    @Html.ActionLink("Listeye Geri Dön", "List")
+</div>
+<p>
+    <div class="input-group">
+        @if (Model.Mesajlar != null)
+        {
+            if (Model.Mesajlar.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>
