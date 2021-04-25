@@ -33,10 +33,10 @@ namespace MobilOkulProc.Entities.Concrete
         public bool MessageType { get; set; }
 
         [Display(Name = "Sender")]
-        //[ForeignKey("Sender")]
-        //[Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
+        [ForeignKey("Sender")]
+        [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
         public int SenderID { get; set; }
-        //public virtual USER Sender { get; set; }
+        public virtual USER Sender { get; set; }
 
         [Display(Name = "Receiver")]
         [ForeignKey("Receive")]

@@ -1,0 +1,88 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model MessageViewModel<MESSAGE>
+
+@{
+    ViewData["Title"] = "Message Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.PriorityID)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.PriorityID)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.MessageTitle)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.MessageTitle)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.MessageContent)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.MessageContent)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.SendTime)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.SendTime)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.ReadTime)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.ReadTime)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.MessageType)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.MessageType)
+        </dd>
+        
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Sender.NameSurname)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Sender.NameSurname)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Receive.NameSurname)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Receive.NameSurname)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Status)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.Mesajlar.Nesne.ObjectID }) |
+    @Html.ActionLink("Listeye Geri Dön", "List")
+</div>
+<p>
+    <div class="input-group">
+        @if (Model.Mesajlar != null)
+        {
+            if (Model.Mesajlar.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>

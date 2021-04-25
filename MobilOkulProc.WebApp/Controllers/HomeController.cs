@@ -28,6 +28,7 @@ namespace MobilOkulProc.WebApp.Controllers
 
         public IActionResult Welcome(USER user)
         {
+            //var Session = HttpContext.Session.GetObject<USER>("user");
             if (user.NameSurname != null)
             {
                 needs.NameSurname = user.NameSurname;

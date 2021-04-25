@@ -42,7 +42,7 @@ namespace MobilOkulProc.Entities.Concrete
         
         public virtual List<PARENT> Parent { get; set; }
         public virtual List<NEWS> News { get; set; }
-        //public virtual List<MESSAGE> Sender { get; set; }
+        public virtual List<MESSAGE> Sender { get; set; }
         public virtual List<MESSAGE> Receiver { get; set; }
         public virtual List<FEEDBACK> Feedback { get;set; }
     }

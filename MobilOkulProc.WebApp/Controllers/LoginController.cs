@@ -53,7 +53,7 @@ namespace MobilOkulProc.WebApp.Controllers
                                 if (msg.Nesne != null)
                                 {
                                     HttpContext.Session.SetObject("user", msg.Nesne);
-                                    return RedirectToAction("Welcome", "Home", new { NameSurname = msg.Nesne.NameSurname});
+                                    return RedirectToAction("Welcome", "Home", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne});
                                 }
                                 else
                                 {

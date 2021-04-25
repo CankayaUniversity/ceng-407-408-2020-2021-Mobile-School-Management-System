@@ -13,7 +13,7 @@ namespace MobilOkulProc.WebAPI.Controllers
     [Route("api/[controller]")]
     public class MessagesController : Controller
     {
-        [HttpPost("Messages_Insert")]
+        [HttpPost("Message_Insert")]
         public IActionResult Messages_Insert([FromBody] MESSAGE Messages)
         {
             Mesajlar<MESSAGE> m = new clsMessages_Process().Ekle(Messages);
@@ -29,7 +29,7 @@ namespace MobilOkulProc.WebAPI.Controllers
             return Json(m);
         }
 
-        [HttpGet("Messages_Delete")]
+        [HttpGet("Message_Delete")]
         public IActionResult Messages_Delete(int MessageID)
         {
             clsMessages_Process uProc = new clsMessages_Process();
@@ -44,7 +44,7 @@ namespace MobilOkulProc.WebAPI.Controllers
             return Json(m);
         }
 
-        [HttpGet("Messages_Select")]
+        [HttpGet("Message_Select")]
         public IActionResult Messages_Select(int MessageID)
         {
             clsMessages_Process uProc = new clsMessages_Process();
@@ -54,12 +54,21 @@ namespace MobilOkulProc.WebAPI.Controllers
             return Json(m);
         }
 
-        [HttpGet("Messages_List")]
+        [HttpGet("Message_List")]
         public IActionResult Messages_List()
         {
             clsMessages_Process uProc = new clsMessages_Process();
 
             Mesajlar<MESSAGE> m = uProc.Listele(x => x.Status == true);
+
+            return Json(m);
+        }
+        [HttpGet("Message_SelectRelational")]
+        public IActionResult Messages_SelectRelational(int MessageID)
+        {
+            clsMessages_Process uProc = new clsMessages_Process();
+
+            Mesajlar<MESSAGE> m = uProc.Getir_Iliskisel(x => x.ObjectID == MessageID);
 
             return Json(m);
         }

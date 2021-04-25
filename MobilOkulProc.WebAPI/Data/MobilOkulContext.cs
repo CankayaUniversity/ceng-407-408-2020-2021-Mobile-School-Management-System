@@ -32,7 +32,8 @@ namespace MobilOkulProc.WebAPI.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
+            builder.Entity<USER>().HasMany(t => t.Sender).WithOne(g => g.Sender).HasForeignKey(g => g.SenderID);
+            builder.Entity<USER>().HasMany(t => t.Receiver).WithOne(g => g.Receive).HasForeignKey(g => g.ReceiveID).OnDelete(DeleteBehavior.Restrict);
         }
 
 
