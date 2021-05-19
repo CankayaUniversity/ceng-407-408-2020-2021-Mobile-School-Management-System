@@ -13,23 +13,24 @@ using MobilOkulProc.WebApp.Extensions;
 using MobilOkulProc.WebApp.ViewModels;
 using Newtonsoft.Json;
 
-namespace MobilOkulProc.MobileApp.Controllers
+namespace MobileApp.Controllers
 {
-    public class LoginMobileController : Controller
+
+    public class First : Controller
     {
         string WebApiUrl = "";
-        public LoginMobileController(IConfiguration cfg)
+        public First(IConfiguration cfg)
         {
             WebApiUrl = cfg.GetValue<string>("WebApiUrl");
         }
-        public IActionResult LoginMobile()
+        public IActionResult Login()
         {
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult LoginMobile(Mesajlar<USER_LOGIN> m)
+        public IActionResult Login(Mesajlar<USER_LOGIN> m)
         {
             try
             {
@@ -53,7 +54,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                                 if (msg.Nesne != null)
                                 {
                                     HttpContext.Session.SetObject("user", msg.Nesne);
-                                    return RedirectToAction("WelcomeMobile", "WelcomeMobile", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
+                                    return RedirectToAction("Welcome", "Home", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
                                 }
                                 else
                                 {
@@ -82,5 +83,3 @@ namespace MobilOkulProc.MobileApp.Controllers
 
     }
 }
-
-
