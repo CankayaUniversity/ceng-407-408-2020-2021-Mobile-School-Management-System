@@ -36,7 +36,7 @@
 </head>
 
 <body>
-    @using (Html.BeginForm("LoginMobile", "LoginMobile", FormMethod.Post, new { @autocomplete = "on" }))
+    @using (Html.BeginForm("LoginPage", "LoginPage", FormMethod.Post, new { @autocomplete = "on" }))
     {
         <div class="limiter">
             <div class="container-login100" style="background-image: url('images/img-01.jpg');">
@@ -69,7 +69,7 @@
                         </div>
                         
                         <div class="container-login100-form-btn p-t-10">
-                            <button class="login100-form-btn" style="color:red">
+                            <button class="login100-form-btn">
                                 Login
                             </button>
                             @if (Model != null)

@@ -15,21 +15,21 @@ using Newtonsoft.Json;
 
 namespace MobilOkulProc.MobileApp.Controllers
 {
-    public class LoginMobileController : Controller
+    public class LoginPageController : Controller
     {
         string WebApiUrl = "";
-        public LoginMobileController(IConfiguration cfg)
+        public LoginPageController(IConfiguration cfg)
         {
             WebApiUrl = cfg.GetValue<string>("WebApiUrl");
         }
-        public IActionResult LoginMobile()
+        public IActionResult LoginPage()
         {
 
             return View();
         }
-
+        
         [HttpPost]
-        public IActionResult LoginMobile(Mesajlar<USER_LOGIN> m)
+        public IActionResult LoginPage(Mesajlar<USER_LOGIN> m)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                                 if (msg.Nesne != null)
                                 {
                                     HttpContext.Session.SetObject("user", msg.Nesne);
-                                    return RedirectToAction("WelcomeMobile", "WelcomeMobile", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
+                                    return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
                                 }
                                 else
                                 {

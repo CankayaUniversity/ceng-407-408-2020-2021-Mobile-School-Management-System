@@ -14,18 +14,18 @@ using X.PagedList;
 
 namespace MobilOkulProc.MobileApp.Controllers
 {
-    public class WelcomeMobileController : Controller
+    public class HomePageController : Controller
     {
         public static Functions function = new Functions();
         public static Needs needs = new Needs();
 
-        public WelcomeMobileController(IConfiguration cfg)
+        public HomePageController(IConfiguration cfg)
         {
             needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
         }
 
 
-        public IActionResult WelcomeMobile(USER user)
+        public IActionResult HomePage(USER user)
         {
             //var Session = HttpContext.Session.GetObject<USER>("user");
             if (user.NameSurname != null)

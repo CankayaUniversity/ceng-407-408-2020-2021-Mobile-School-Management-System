@@ -54,7 +54,7 @@ namespace MobileApp
 
             app.UseMvc(configureRoutes =>
             {
-                configureRoutes.MapRoute(name: "default", template: "{controller=LoginMobile}/{action=LoginMobile}/{id?}");
+                configureRoutes.MapRoute(name: "default", template: "{controller=LoginPage}/{action=LoginPage}/{id?}");
             });
 
         }
