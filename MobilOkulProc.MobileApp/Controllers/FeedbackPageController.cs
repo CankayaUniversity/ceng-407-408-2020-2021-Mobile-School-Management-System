@@ -11,17 +11,35 @@ using MobilOkulProc.WebApp.Controllers;
 using static MobilOkulProc.WebApp.Controllers.HomeController;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MobilOkulProc.MobileApp.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace MobilOkulProc.MobileApp.Controllers
 {
     public class FeedBackPageController : Controller
     {
 
-        public IActionResult FeedBackPage()
+        public static Functions function = new Functions();
+        public static Needs needs = new Needs();
+
+
+        public FeedBackPageController(IConfiguration cfg)
         {
+            needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
+        }
+
+        public IActionResult FeedBackPage(USER user)
+        {
+
+            if (user.NameSurname != null)
+            {
+                needs.NameSurname = user.NameSurname;
+
+            }
+            ViewBag.NameSurname = needs.NameSurname;
             return View();
         }
 
+       
         public IActionResult List(string Search, int? page, Mesajlar<FEEDBACK> mb)
         {
             FeedbackPageModel<FEEDBACK> m = new FeedbackPageModel<FEEDBACK>();
