@@ -53,78 +53,96 @@
                             </li>
 
                             <li><a href="@Url.Action("LoginMobile", "LoginMobile")" class="nav-link">Logout</a></li>
-                            <li><a class="nav-link">
-                                
-                                
-                                </a></li>
+                            <li>
+                                <a class="nav-link">
+
+
+                                </a>
+                            </li>
                         </ul>
 
-                    </nav> 
+                    </nav>
                 </div>
             </div>
         </header>
     </div>
 
-    
 
-        <div class="banner">
-            <div class="container-fluid">
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                    <div class="left-content">
-                        <div class="inside-content">
-                            <h4>Welcome @ViewBag.NameSurname  </h4>
-                           
-                            <div class="white-border-button">
-                                @*<a href="#">View More</a>*@
-                            </div>
+
+    <div class="banner">
+        <div class="container-fluid">
+            <div class="col-md-5 col-sm-5 col-xs-12">
+                <div class="left-content">
+                    <div class="inside-content">
+                        <h4>Welcome @ViewBag.NameSurname  </h4>
+
+                        <div class="white-border-button">
+                            @*<a href="#">View More</a>*@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-2 col-xs-12">
-                    <div class="center-image">
-                        <div class="inside-content">
-                            <img src="~/images/student.png" alt="">
-                        </div>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                <div class="center-image">
+                    <div class="inside-content">
+                        <img src="~/images/student.png" alt="">
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                    <div class="right-content">
-                        <div class="owl-carousel owl-theme">
-                            <div class="item">
-                                <a style="text-decoration:none" href="#"><h1>Syllabus</h1></a>
-                            </div>
-                            <div class="item">
-                                <a style="text-decoration:none" href="#"><h1>Grades</h1></a>
-                            </div>
-                            <div class="item">
-                                <a style="text-decoration:none" href="#"><h1>News</h1></a>
-                            </div>
+            </div>
+            <div class="col-md-5 col-sm-5 col-xs-12">
+                <div class="right-content">
+                    <div class="owl-carousel owl-theme">
+                        <div class="item">
+                            <a style="text-decoration:none" href="#"><h1>Syllabus</h1></a>
+                        </div>
+                        <div class="item">
+                            <a style="text-decoration:none" href="#"><h1>Grades</h1></a>
+                        </div>
+                        <div class="item">
+                            <a style="text-decoration:none" href="#"><h1>News</h1></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-       
-
+    </div>
 
 
 
-        
-
-
-       
 
 
 
-   
+
+
+
+
+
+
+
+
     <div class="content">
         <div class="container-fluid">
             @RenderBody()
         </div><!-- /.container-fluid -->
     </div>
 
+    <footer>
+        <br />
+    </footer>
 
+
+
+    <div class="sub-footer">
+        <div class="container">
+            <div class="col-md-12">
+                <p>
+                    Copyright &copy; 2021 School Management System
+
+
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="~/js/jquery-1.11.2.min.js"><\/script>')</script>
