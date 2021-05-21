@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
-using MobilOkulProc.WebApp.Extensions;
-using MobilOkulProc.WebApp.ViewModels;
+using MobilOkulProc.MobileApp.Extensions;
 using Newtonsoft.Json;
 
 namespace MobilOkulProc.MobileApp.Controllers
