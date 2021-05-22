@@ -33,25 +33,28 @@
                 <div class="col-md-12">
                     <button id="primary-nav-button" type="button">Menu</button>
                     <div class="logo">
-                        <a href="index.html"><img src="~/images/logo.png" alt="Brunch Template"></a>
+                        @*<a href="index.html"><img src="~/images/logo2.png" alt="Brunch Template"></a>*@
                     </div>
                     <nav id="primary-nav" class="dropdown cf">
                         <ul class="dropdown menu">
 
+                            <li><a href="@Url.Action("HomePage", "HomePage")" class="nav-link">Home</a></li>
+
                             <li>
                                 <a href="#">Functions</a>
-                                <ul class="sub-menu">
+                                <ul class="dropdown-menu">
                                     <li><a href="generic-page.html">Class/Section</a></li>
                                     <li><a href="@Url.Action("FeedBackPage", "FeedBackPage")" class="nav-link">FeedBack</a></li>
                                     <li><a href="generic-page.html">Message</a></li>
                                     <li><a href="generic-page.html">News</a></li>
                                     <li><a href="generic-page.html">School</a></li>
                                     <li><a href="generic-page.html">Teacher</a></li>
-                  
+
                                 </ul>
                             </li>
 
-                            <li><a href="@Url.Action("LoginPage", "LoginPage")" class="nav-link">Logout</a></li>
+                            <li><a href="@Url.Action("Logout", "LoginPage")" class="nav-link">Logout</a></li>
+
                             <li>
                                 <a class="nav-link">
 
@@ -92,13 +95,14 @@
                 <div class="right-content">
                     <div class="owl-carousel owl-theme">
                         <div class="item">
-                            <a style="text-decoration:none" href="#"><h1>Syllabus</h1></a>
-                        </div>
-                        <div class="item">
-                            <a style="text-decoration:none" href="#"><h1>Grades</h1></a>
+                            <a style="text-decoration:none" href="@Url.Action("FeedBackPage", "FeedBackPage")"><h1>Feedback</h1></a>
+                            
                         </div>
                         <div class="item">
                             <a style="text-decoration:none" href="#"><h1>News</h1></a>
+                        </div>
+                        <div class="item">
+                            <a style="text-decoration:none" href="#"><h1>Message</h1></a>
                         </div>
                     </div>
                 </div>

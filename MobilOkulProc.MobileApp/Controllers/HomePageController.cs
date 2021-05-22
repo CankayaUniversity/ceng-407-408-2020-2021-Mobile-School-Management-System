@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 
 using X.PagedList;
+using MobilOkulProc.MobileApp.Extensions;
 
 namespace MobilOkulProc.MobileApp.Controllers
 {
@@ -34,6 +35,8 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             }
             ViewBag.NameSurname = needs.NameSurname;
+
+
             return View();
         }
         public class Needs

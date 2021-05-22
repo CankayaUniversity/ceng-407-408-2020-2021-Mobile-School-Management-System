@@ -26,7 +26,13 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             return View();
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("user");
+            return RedirectToAction("LoginPage", "LoginPage");
         
+    }
         [HttpPost]
         public IActionResult LoginPage(Mesajlar<USER_LOGIN> m)
         {
@@ -51,8 +57,8 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                                 if (msg.Nesne != null)
                                 {
-                                    HttpContext.Session.SetObject("user", msg.Nesne);
-                                   
+                                    HttpContext.Session.SetObject("user", msg.Nesne.NameSurname);
+                                    
                                     return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
                                 }
                                 else

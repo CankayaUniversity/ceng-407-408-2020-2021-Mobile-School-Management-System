@@ -1,10 +1,10 @@
-﻿
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using MobilOkulProc.MobileApp.Models;
+using System.Linq;
+using X.PagedList;
 using static MobilOkulProc.MobileApp.Controllers.HomePageController;
 
 namespace MobilOkulProc.MobileApp.Controllers
@@ -41,7 +41,25 @@ namespace MobilOkulProc.MobileApp.Controllers
             m.Mesajlar.Nesne.UserID = m.SelectedId;
             m.Mesajlar = function.Add_Update<FEEDBACK>(m.Mesajlar, "Feedback/Feedback_Insert");
             ViewBag.NameSurname = needs.NameSurname;
-            return RedirectToAction("List", "Feedback", m.Mesajlar);
+            return RedirectToAction("List", "FeedBackPage", m.Mesajlar);
+        }
+        public IActionResult List(string Search, int? page, Mesajlar<FEEDBACK> mb)
+        {
+            FeedbackPageModel<FEEDBACK> m = new FeedbackPageModel<FEEDBACK>();
+            Mesajlar<USER> User = new Mesajlar<USER>();
+            ViewBag.NameSurname = needs.NameSurname;
+            m.Mesajlar = function.Get<FEEDBACK>(mb, "Feedback/Feedback_List");
+            foreach (var item in m.Mesajlar.Liste)
+            {
+                User = function.Get<USER>(User, "User/User_Select?UserID=" + item.UserID);
+                item.User = User.Nesne;
+            }
+            if (Search != null)
+            {
+                m.Mesajlar.Liste = m.Mesajlar.Liste.Where(m => m.FeedbackContent.ToLower().Contains(Search)).ToList();
+            }
+            m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
+            return View(m);
         }
 
 
