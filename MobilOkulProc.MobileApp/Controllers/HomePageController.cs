@@ -13,11 +13,13 @@ using Microsoft.AspNetCore.Http;
 using X.PagedList;
 using MobilOkulProc.MobileApp.Extensions;
 
+
 namespace MobilOkulProc.MobileApp.Controllers
 {
     public class HomePageController : Controller
     {
         public static Functions function = new Functions();
+        public static STUDENT studentt = new STUDENT();
         public static Needs needs = new Needs();
 
         public HomePageController(IConfiguration cfg)
@@ -35,6 +37,9 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             }
             ViewBag.NameSurname = needs.NameSurname;
+            ViewBag.Userno = HttpContext.Session.GetString("no");
+
+
 
 
             return View();

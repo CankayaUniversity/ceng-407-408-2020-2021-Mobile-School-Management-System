@@ -31,8 +31,8 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
             HttpContext.Session.Remove("user");
             return RedirectToAction("LoginPage", "LoginPage");
-        
-    }
+
+        }
         [HttpPost]
         public IActionResult LoginPage(Mesajlar<USER_LOGIN> m)
         {
@@ -58,13 +58,14 @@ namespace MobilOkulProc.MobileApp.Controllers
                                 if (msg.Nesne != null)
                                 {
                                     HttpContext.Session.SetObject("user", msg.Nesne.NameSurname);
-                                    
+                                    HttpContext.Session.SetObject("no", msg.Nesne.ObjectID);
+
                                     return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
                                 }
                                 else
                                 {
                                     m.Durum = false;
-                                    m.Mesaj = "Kullanıcı adı veya parola hatalı!";
+                                    m.Mesaj = "Kullan覺c覺 ad覺 veya parola hatal覺!";
                                     m.Status = "danger";
                                     return View(m);
                                 }
@@ -88,5 +89,3 @@ namespace MobilOkulProc.MobileApp.Controllers
 
     }
 }
-
-
