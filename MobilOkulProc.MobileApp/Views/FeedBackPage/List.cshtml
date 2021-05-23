@@ -8,31 +8,20 @@
 }
 
 
-<p>
-    @Html.ActionLink("Yeni bir Feedback ekle.", "Add")
-</p>
+
 <table class="table">
     <thead>
         
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)
-                </th>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)
+            </th>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.NameSurname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
-                </th>
-                <th></th>
-            </tr>
+            
+        </tr>
         
         </thead>
         
@@ -43,19 +32,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FeedbackContent)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FeedbackType)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.FeedbackDate)
             </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.User.NameSurname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
+
         </tr>
         }
     </tbody>

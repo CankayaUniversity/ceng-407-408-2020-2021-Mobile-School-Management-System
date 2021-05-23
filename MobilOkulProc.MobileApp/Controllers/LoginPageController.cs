@@ -54,18 +54,23 @@ namespace MobilOkulProc.MobileApp.Controllers
                                 sonuc.Wait();
 
                                 var msg = JsonConvert.DeserializeObject<Mesajlar<USER>>(sonuc.Result);
+                               
+
+
 
                                 if (msg.Nesne != null)
                                 {
                                     HttpContext.Session.SetObject("user", msg.Nesne.NameSurname);
                                     HttpContext.Session.SetObject("no", msg.Nesne.ObjectID);
+                                   
+                                   
 
                                     return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
                                 }
                                 else
                                 {
                                     m.Durum = false;
-                                    m.Mesaj = "Kullan覺c覺 ad覺 veya parola hatal覺!";
+                                    m.Mesaj = "Kullanıcı adı veya parola hatalı!";
                                     m.Status = "danger";
                                     return View(m);
                                 }

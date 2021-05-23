@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using MobilOkulProc.MobileApp.Models;
+using System;
 using System.Linq;
 using X.PagedList;
 using static MobilOkulProc.MobileApp.Controllers.HomePageController;
@@ -39,6 +41,10 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult Add(FeedbackPageModel<FEEDBACK> m)
         {
             m.Mesajlar.Nesne.UserID = m.SelectedId;
+            m.Mesajlar.Nesne.FeedbackDate = DateTime.Now;
+            m.Mesajlar.Nesne.FeedbackType = 1;
+            m.Mesajlar.Nesne.Status = true;
+
             m.Mesajlar = function.Add_Update<FEEDBACK>(m.Mesajlar, "Feedback/Feedback_Insert");
             ViewBag.NameSurname = needs.NameSurname;
             return RedirectToAction("List", "FeedBackPage", m.Mesajlar);
@@ -49,17 +55,28 @@ namespace MobilOkulProc.MobileApp.Controllers
             Mesajlar<USER> User = new Mesajlar<USER>();
             ViewBag.NameSurname = needs.NameSurname;
             m.Mesajlar = function.Get<FEEDBACK>(mb, "Feedback/Feedback_List");
+
+            var userid= HttpContext.Session.GetString("no");
+
+            int count = 0;
+
             foreach (var item in m.Mesajlar.Liste)
             {
-                User = function.Get<USER>(User, "User/User_Select?UserID=" + item.UserID);
-                item.User = User.Nesne;
+                if (item.UserID.ToString() == userid)
+                {
+                    User = function.Get<USER>(User, "User/User_Select?UserID=" + item.UserID);
+                    item.User = User.Nesne;
+                    count++;
+                }
+
             }
-            if (Search != null)
+            if (count >= 1)
             {
-                m.Mesajlar.Liste = m.Mesajlar.Liste.Where(m => m.FeedbackContent.ToLower().Contains(Search)).ToList();
+                m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, count);
+                return View(m);
             }
-            m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
-            return View(m);
+            else
+                return RedirectToAction("Add", "FeedBackPage", m.Mesajlar);
         }
 
 
