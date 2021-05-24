@@ -1,0 +1,107 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MobilOkulProc.Entities.Concrete;
+using MobilOkulProc.Entities.General;
+using MobilOkulProc.MobileApp.Models;
+using System.Linq;
+using X.PagedList;
+using static MobilOkulProc.MobileApp.Controllers.HomePageController;
+
+namespace MobilOkulProc.MobileApp.Controllers
+{
+    public class MessagePageController : Controller
+    {
+
+        public IActionResult MessagePage()
+        {
+            ViewBag.NameSurname = needs.NameSurname;
+            return View();
+        }
+        public IActionResult List(string Search, int? page, Mesajlar<MESSAGE> mb)
+        {
+            MessagePageModel<MESSAGE> m = new MessagePageModel<MESSAGE>();
+            Mesajlar<USER> Sender = new Mesajlar<USER>();
+            Mesajlar<USER> Receiver = new Mesajlar<USER>();
+            ViewBag.NameSurname = needs.NameSurname;
+            m.Mesajlar = function.Get<MESSAGE>(mb, "Messages/Message_List");
+            foreach (var item in m.Mesajlar.Liste)
+            {
+                Sender = function.Get<USER>(Sender, "User/User_Select?UserID=" + item.SenderID);
+                item.Sender = Sender.Nesne;
+                Receiver = function.Get<USER>(Sender, "User/User_Select?UserID=" + item.ReceiveID);
+                item.Receive = Receiver.Nesne;
+            }
+            if (Search != null)
+            {
+                m.Mesajlar.Liste = m.Mesajlar.Liste.Where(m => m.MessageTitle.ToLower().Contains(Search)).ToList();
+            }
+            m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
+            return View(m);
+        }
+        public IActionResult Add()
+        {
+
+            Mesajlar<USER> Sender = new Mesajlar<USER>();
+            Sender = function.Get<USER>(Sender, "User/User_List");
+            Mesajlar<USER> Receiver = new Mesajlar<USER>();
+            Receiver = function.Get<USER>(Receiver, "User/User_List");
+            MessagePageModel<MESSAGE> viewModel = new MessagePageModel<MESSAGE>()
+            {
+                SenderList = new SelectList(Sender.Liste, "ObjectID", "NameSurname"),
+                ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "NameSurname"),
+                SenderId = -1,
+                ReceiverId = -1,
+            };
+
+            ViewBag.NameSurname = needs.NameSurname;
+            return View(viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Add(MessagePageModel<MESSAGE> m)
+        {
+            m.Mesajlar.Nesne.SenderID = m.SenderId;
+            m.Mesajlar.Nesne.ReceiveID = m.ReceiverId;
+            m.Mesajlar = function.Add_Update<MESSAGE>(m.Mesajlar, "Messages/Message_Insert");
+            ViewBag.NameSurname = needs.NameSurname;
+            return RedirectToAction("List", "Message", m.Mesajlar);
+        }
+        public IActionResult Delete(int id)
+        {
+            MessagePageModel<MESSAGE> m = new MessagePageModel<MESSAGE>();
+            m.Mesajlar = function.Get<MESSAGE>(m.Mesajlar, "Messages/Message_SelectRelational?MessageID=" + id);
+            ViewBag.NameSurname = needs.NameSurname;
+            return View(m);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(MessagePageModel<MESSAGE> mb)
+        {
+            mb.Mesajlar = function.Get<MESSAGE>(mb.Mesajlar, "Messages/Message_Delete?MessageID=" + mb.Mesajlar.Nesne.ObjectID);
+            ViewBag.NameSurname = needs.NameSurname;
+            if (mb.Mesajlar.Mesaj == "Bilgiler silindi")
+            {
+                return RedirectToAction("List", "Message", mb);
+            }
+            return View(mb);
+        }
+        public IActionResult Details(int id)
+        {
+
+            Mesajlar<MESSAGE> m = new Mesajlar<MESSAGE>();
+            m = function.Get<MESSAGE>(m, "Messages/Message_Select?MessageID=" + id);
+            MessagePageModel<MESSAGE> MessagePageModel = new MessagePageModel<MESSAGE>();
+
+            ViewBag.NameSurname = needs.NameSurname;
+            MessagePageModel.Mesajlar = m;
+            Mesajlar<USER> Sender = new Mesajlar<USER>();
+            Mesajlar<USER> Receiver = new Mesajlar<USER>();
+            Sender = function.Get<USER>(Sender, "User/User_Select?UserID=" + m.Nesne.SenderID);
+            Receiver = function.Get<USER>(Receiver, "User/User_Select?UserID=" + m.Nesne.ReceiveID);
+            MessagePageModel.Mesajlar.Nesne.Sender = Sender.Nesne;
+            MessagePageModel.Mesajlar.Nesne.Receive = Receiver.Nesne;
+            return View(MessagePageModel);
+        }
+       
+    }
+}
