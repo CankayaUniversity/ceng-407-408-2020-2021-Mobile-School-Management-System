@@ -56,27 +56,23 @@ namespace MobilOkulProc.MobileApp.Controllers
             ViewBag.NameSurname = needs.NameSurname;
             m.Mesajlar = function.Get<FEEDBACK>(mb, "Feedback/Feedback_List");
 
-            var userid= HttpContext.Session.GetString("no");
+            ViewBag.Userno= int.Parse(HttpContext.Session.GetString("no"));
 
-            int count = 0;
+  
 
             foreach (var item in m.Mesajlar.Liste)
             {
-                if (item.UserID.ToString() == userid)
-                {
+ 
                     User = function.Get<USER>(User, "User/User_Select?UserID=" + item.UserID);
                     item.User = User.Nesne;
-                    count++;
-                }
+ 
+                
 
             }
-            if (count >= 1)
-            {
-                m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, count);
+
+                m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
                 return View(m);
-            }
-            else
-                return RedirectToAction("Add", "FeedBackPage", m.Mesajlar);
+            
         }
 
 

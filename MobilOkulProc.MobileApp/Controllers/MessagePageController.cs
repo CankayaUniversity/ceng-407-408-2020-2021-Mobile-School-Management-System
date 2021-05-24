@@ -5,7 +5,10 @@ using MobilOkulProc.Entities.General;
 using MobilOkulProc.MobileApp.Models;
 using System.Linq;
 using X.PagedList;
+
 using static MobilOkulProc.MobileApp.Controllers.HomePageController;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace MobilOkulProc.MobileApp.Controllers
 {
@@ -15,26 +18,36 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult MessagePage()
         {
             ViewBag.NameSurname = needs.NameSurname;
+            ViewBag.Userno = HttpContext.Session.GetString("no");
             return View();
         }
         public IActionResult List(string Search, int? page, Mesajlar<MESSAGE> mb)
         {
+            ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
+
             MessagePageModel<MESSAGE> m = new MessagePageModel<MESSAGE>();
             Mesajlar<USER> Sender = new Mesajlar<USER>();
             Mesajlar<USER> Receiver = new Mesajlar<USER>();
             ViewBag.NameSurname = needs.NameSurname;
             m.Mesajlar = function.Get<MESSAGE>(mb, "Messages/Message_List");
+
+ 
+
             foreach (var item in m.Mesajlar.Liste)
             {
-                Sender = function.Get<USER>(Sender, "User/User_Select?UserID=" + item.SenderID);
-                item.Sender = Sender.Nesne;
-                Receiver = function.Get<USER>(Sender, "User/User_Select?UserID=" + item.ReceiveID);
-                item.Receive = Receiver.Nesne;
+
+                    Sender = function.Get<USER>(Sender, "User/User_Select?UserID=" + item.SenderID);
+
+                    item.Sender = Sender.Nesne;
+                
+
+ 
+                    Receiver = function.Get<USER>(Sender, "User/User_Select?UserID=" + item.ReceiveID);
+
+                    item.Receive = Receiver.Nesne;
+                
             }
-            if (Search != null)
-            {
-                m.Mesajlar.Liste = m.Mesajlar.Liste.Where(m => m.MessageTitle.ToLower().Contains(Search)).ToList();
-            }
+
             m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
             return View(m);
         }
@@ -60,31 +73,22 @@ namespace MobilOkulProc.MobileApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(MessagePageModel<MESSAGE> m)
         {
-            m.Mesajlar.Nesne.SenderID = m.SenderId;
+            var userid= int.Parse(HttpContext.Session.GetString("no"));
+            m.Mesajlar.Nesne.SenderID = userid;
+
+            m.Mesajlar.Nesne.PriorityID = 1;
+            m.Mesajlar.Nesne.SendTime = DateTime.Now;
+
+            string date = "1111 - 11 - 11 11:00:00.0000000";          
+            m.Mesajlar.Nesne.ReadTime = DateTime.Parse(date);
+           
+            m.Mesajlar.Nesne.MessageType = true;
             m.Mesajlar.Nesne.ReceiveID = m.ReceiverId;
+            m.Mesajlar.Nesne.Status = true;
             m.Mesajlar = function.Add_Update<MESSAGE>(m.Mesajlar, "Messages/Message_Insert");
             ViewBag.NameSurname = needs.NameSurname;
-            return RedirectToAction("List", "Message", m.Mesajlar);
-        }
-        public IActionResult Delete(int id)
-        {
-            MessagePageModel<MESSAGE> m = new MessagePageModel<MESSAGE>();
-            m.Mesajlar = function.Get<MESSAGE>(m.Mesajlar, "Messages/Message_SelectRelational?MessageID=" + id);
-            ViewBag.NameSurname = needs.NameSurname;
-            return View(m);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Delete(MessagePageModel<MESSAGE> mb)
-        {
-            mb.Mesajlar = function.Get<MESSAGE>(mb.Mesajlar, "Messages/Message_Delete?MessageID=" + mb.Mesajlar.Nesne.ObjectID);
-            ViewBag.NameSurname = needs.NameSurname;
-            if (mb.Mesajlar.Mesaj == "Bilgiler silindi")
-            {
-                return RedirectToAction("List", "Message", mb);
-            }
-            return View(mb);
-        }
+            return RedirectToAction("List", "MessagePage", m.Mesajlar);
+        }       
         public IActionResult Details(int id)
         {
 

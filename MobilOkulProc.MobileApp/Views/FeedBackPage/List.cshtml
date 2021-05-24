@@ -28,6 +28,10 @@
     <tbody>
         @foreach (var item in Model.PagedList)
         {
+            @if (item.UserID==@ViewBag.Userno)
+            {
+
+
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FeedbackContent)
@@ -38,6 +42,7 @@
             </td>
 
         </tr>
+            }
         }
     </tbody>
 </table>
