@@ -1,0 +1,82 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.MobileApp.Models
+
+@model NewsPageModel<NEWS>
+
+@{
+    ViewData["Title"] = "List News";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NewsDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NewsContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ImageUrl)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Educational_Institution.EducationalName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.School.SchoolName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.NameSurname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PagedList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewsContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Educational_Institution.EducationalName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.School.SchoolName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.NameSurname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
