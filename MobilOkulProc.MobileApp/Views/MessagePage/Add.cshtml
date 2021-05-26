@@ -13,85 +13,85 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.PriorityID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.PriorityID, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.PriorityID, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <hr />
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mesajlar.Nesne.PriorityID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Mesajlar.Nesne.PriorityID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.PriorityID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mesajlar.Nesne.MessageTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Mesajlar.Nesne.MessageTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageTitle, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>*@
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.MessageTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.MessageTitle, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageTitle, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mesajlar.Nesne.MessageContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Mesajlar.Nesne.MessageContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageContent, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.MessageContent, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.MessageContent, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageContent, "", new { @class = "text-danger" })
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mesajlar.Nesne.SendTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Mesajlar.Nesne.SendTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.SendTime, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mesajlar.Nesne.ReadTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Mesajlar.Nesne.ReadTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.ReadTime, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mesajlar.Nesne.MessageType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Mesajlar.Nesne.MessageType, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageType, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @*<div class="form-group">
+                <strong class="col-md-2">Gönderen</strong>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(m => m.SenderId, Model.SenderList, "Lütfen Gönderici Seçiniz", new { @class = "form-control dropdown" })
+                </div>
+            </div>*@
+        <div class="form-group">
+            <strong class="col-md-2">Alıcı</strong>
+            <div class="col-md-2">
+                @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Lütfen Alıcı Seçiniz", new { @class = "form-control dropdown" })
+            </div>
         </div>
-    </div>
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.SendTime, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.SendTime, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.SendTime, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.ReadTime, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.ReadTime, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.ReadTime, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.MessageType, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.MessageType, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageType, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-        
-    @*<div class="form-group">
-        <strong class="col-md-2">Gönderen</strong>
-        <div class="col-md-2">
-            @Html.DropDownListFor(m => m.SenderId, Model.SenderList, "Lütfen Gönderici Seçiniz", new { @class = "form-control dropdown" })
-        </div>
-    </div>*@
-    <div class="form-group">
-        <strong class="col-md-2">Alıcı</strong>
-        <div class="col-md-2">
-            @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Lütfen Alıcı Seçiniz", new { @class = "form-control dropdown" })
-        </div>
-    </div>
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.Status, new { htmlAttributes = new { @class = "" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Status, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mesajlar.Nesne.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Mesajlar.Nesne.Status, new { htmlAttributes = new { @class = "" } })
+                    @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Ekle" class="btn btn-success" /> | @Html.ActionLink("Listeye Geri Dön", "List")
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Ekle" class="btn btn-success" /> | @Html.ActionLink("Listeye Geri Dön", "List")
+            </div>
         </div>
     </div>
-</div>
 }
 
 <br />
@@ -112,3 +112,49 @@
 </p>
 <br />
 
+
+<div class="contact-form">
+    <div class="container-fluid">
+        <div class="col-md-4">
+            <div class="text-content">
+                <div class="inside-content">
+                    <img src="~/images/message.png" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="right-content">
+                <div id="contact">
+                    <form action="#" method="post">
+                        <div class="col-md-4 col-md-offset-2">
+                            <fieldset>
+                                <input name="name" type="text" class="form-control" id="name" placeholder="Message Title..." required="">
+                            </fieldset>
+                        </div>
+                        <div class="col-md-4">
+                            <fieldset>
+                                <input name="email" type="text" class="form-control" id="email" placeholder="Select Receiver..." required="">
+                            </fieldset>
+                        </div>
+                        <div class="col-md-8 col-md-offset-2">
+                            <fieldset>
+                                <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-4 col-md-offset-2">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="btn">Send Message</button>
+                            </fieldset>
+                        </div>
+                        <br />
+                        <div class="col-md-4">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="btn">Go Back List</button>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
