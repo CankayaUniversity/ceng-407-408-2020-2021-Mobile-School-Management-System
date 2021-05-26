@@ -34,6 +34,8 @@ namespace MobilOkulProc.Entities.Concrete
         [Display(Name = "UserType")]
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
         public int UserType { get; set; } 
+
+        public string Token { get; set; }
         #endregion
 
         public virtual List<TEACHER> Teacher { get; set; }
@@ -51,6 +53,7 @@ namespace MobilOkulProc.Entities.Concrete
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string Token { get; set; }
     }
     public class USER_INFO
     {

@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using MobilOkulProc.WebAPI.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MobilOkulProc.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
     public class UserController : Controller
     {
-        #region JSON
+        private IJWTAuthenticationManager _jwtAuthenticationManager;
+        public UserController(IJWTAuthenticationManager jwtAuthenticationManager)
+        {
+            _jwtAuthenticationManager = jwtAuthenticationManager;
+        }
+
         [HttpPost("User_Insert")]
         public IActionResult User_Insert([FromBody] USER User)
         {
@@ -64,7 +71,7 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
-
+        [AllowAnonymous]
         [HttpPost("User_Login")]
         public IActionResult User_Login(USER_LOGIN User)
         {
@@ -74,9 +81,21 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
-
-        
-        #endregion
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] Mesajlar<USER_LOGIN> User)
+        {
+            var token = _jwtAuthenticationManager.Authenticate(User);
+            if (token==null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                
+                return Ok(User);
+            }
+        }
 
 
 

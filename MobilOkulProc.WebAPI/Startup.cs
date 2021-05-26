@@ -11,18 +11,22 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Serialization;
 using MobilOkulProc.WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace MobilOkulProc.WebAPI
 {
     public class Startup
     {
+        
         public IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
+        private readonly string key = "Bu benim uzun string deðerim";
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(x=> x.EnableEndpointRouting= false)
@@ -35,6 +39,25 @@ namespace MobilOkulProc.WebAPI
             var connStr = _configuration.GetConnectionString("sqlDatabase");
             services.AddDbContext<MobilOkulContext>(opt => opt.UseSqlServer(connStr));
             services.AddSwaggerDocument();
+            services.AddAuthentication( x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            services.AddSingleton<IJWTAuthenticationManager>(new JwtAuthenticationManager(key));
+
+
 
         }
 
@@ -50,7 +73,8 @@ namespace MobilOkulProc.WebAPI
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseOpenApi();
             app.UseSwaggerUi3();
 
