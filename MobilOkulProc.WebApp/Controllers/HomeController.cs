@@ -91,6 +91,7 @@ namespace MobilOkulProc.WebApp.Controllers
                         using (HttpClient c = new HttpClient(handler))
                         {
                             string url = needs.WebApiUrl + ApiURL;
+                            
 
                             //StringContent content = new StringContent(JsonConvert.SerializeObject(m.Mesajlar.Nesne), System.Text.Encoding.UTF8, "application/json");
 

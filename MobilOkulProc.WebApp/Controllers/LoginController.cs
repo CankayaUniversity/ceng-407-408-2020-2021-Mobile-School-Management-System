@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
+using MobilOkulProc.WebAPI;
 using MobilOkulProc.WebApp.Extensions;
 using MobilOkulProc.WebApp.ViewModels;
 using Newtonsoft.Json;
@@ -37,7 +38,7 @@ namespace MobilOkulProc.WebApp.Controllers
                 {
                     using (HttpClient c = new HttpClient(handler))
                     {
-                        string url = WebApiUrl + "User/User_Login";
+                        string url = WebApiUrl + "User/authenticate";
 
                         StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 

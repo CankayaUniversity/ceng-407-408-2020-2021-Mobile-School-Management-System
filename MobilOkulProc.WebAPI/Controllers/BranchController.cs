@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using MobilOkulProc.WebAPI.Data;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MobilOkulProc.WebAPI.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class BranchController : Controller
