@@ -81,6 +81,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             string date = "1111 - 11 - 11 11:00:00.0000000";          
             m.Mesajlar.Nesne.ReadTime = DateTime.Parse(date);
+
            
             m.Mesajlar.Nesne.MessageType = true;
             m.Mesajlar.Nesne.ReceiveID = m.ReceiverId;
