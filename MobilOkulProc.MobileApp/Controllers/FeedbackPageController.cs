@@ -16,6 +16,10 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult FeedbackPage()
         {
             ViewBag.NameSurname = needs.NameSurname;
+            ViewBag.Userno = HttpContext.Session.GetString("no");
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
             return View();
         }
 
@@ -40,6 +44,12 @@ namespace MobilOkulProc.MobileApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(FeedbackPageModel<FEEDBACK> m)
         {
+            ViewBag.NameSurname = needs.NameSurname;
+            ViewBag.Userno = HttpContext.Session.GetString("no");
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
+
             m.Mesajlar.Nesne.UserID = m.SelectedId;
             m.Mesajlar.Nesne.FeedbackDate = DateTime.Now;
             m.Mesajlar.Nesne.FeedbackType = 1;
@@ -51,6 +61,12 @@ namespace MobilOkulProc.MobileApp.Controllers
         }
         public IActionResult List(string Search, int? page, Mesajlar<FEEDBACK> mb)
         {
+            ViewBag.NameSurname = needs.NameSurname;
+            ViewBag.Userno = HttpContext.Session.GetString("no");
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
+
             FeedbackPageModel<FEEDBACK> m = new FeedbackPageModel<FEEDBACK>();
             Mesajlar<USER> User = new Mesajlar<USER>();
             ViewBag.NameSurname = needs.NameSurname;
@@ -66,8 +82,6 @@ namespace MobilOkulProc.MobileApp.Controllers
                     User = function.Get<USER>(User, "User/User_Select?UserID=" + item.UserID);
                     item.User = User.Nesne;
  
-                
-
             }
 
                 m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);

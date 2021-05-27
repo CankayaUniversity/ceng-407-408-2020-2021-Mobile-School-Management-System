@@ -55,16 +55,17 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                                 var msg = JsonConvert.DeserializeObject<Mesajlar<USER>>(sonuc.Result);
                                
-
+                                
 
 
                                 if (msg.Nesne != null)
                                 {
                                     HttpContext.Session.SetObject("user", msg.Nesne.NameSurname);
                                     HttpContext.Session.SetObject("no", msg.Nesne.ObjectID);
-                                   
-                                   
-
+                                    HttpContext.Session.SetObject("userid",msg.Nesne.UserType);
+                                    HttpContext.Session.SetObject("email", msg.Nesne.Email);
+                                    HttpContext.Session.SetObject("phone", msg.Nesne.Phone);
+                                    
                                     return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
                                 }
                                 else

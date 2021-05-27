@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 
 using X.PagedList;
 using MobilOkulProc.MobileApp.Extensions;
-
+using MobilOkulProc.MobileApp.Models;
 
 namespace MobilOkulProc.MobileApp.Controllers
 {
@@ -22,11 +22,13 @@ namespace MobilOkulProc.MobileApp.Controllers
         public static STUDENT studentt = new STUDENT();
         public static Needs needs = new Needs();
 
+
         public HomePageController(IConfiguration cfg)
         {
             needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
         }
 
+ 
 
         public IActionResult HomePage(USER user)
         {
@@ -34,14 +36,31 @@ namespace MobilOkulProc.MobileApp.Controllers
             if (user.NameSurname != null)
             {
                 needs.NameSurname = user.NameSurname;
-
+                
             }
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = HttpContext.Session.GetString("no");
+            ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
 
 
 
+            TeacherPageModel<TEACHER> t = new TeacherPageModel<TEACHER>();
+            Mesajlar<TEACHER> te=new Mesajlar<TEACHER>();
+            t.Mesajlar = function.Get<TEACHER>(te, "Teacher/Teacher_List");
 
+            foreach (var item in t.Mesajlar.Liste)
+            {
+                if (item.ObjectID == ViewBag.Userno)
+                {
+                    ViewBag.TeacherTcNo = item.TcNo;
+                    ViewBag.BranchID = item.BranchID;
+                    ViewBag.Adress = item.Adress;
+                }
+            }      
+               
+            
             return View();
         }
         public class Needs

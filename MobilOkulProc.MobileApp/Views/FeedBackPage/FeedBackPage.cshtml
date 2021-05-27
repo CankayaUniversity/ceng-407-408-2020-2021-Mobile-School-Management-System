@@ -1,5 +1,17 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
 }
 <body>
 
