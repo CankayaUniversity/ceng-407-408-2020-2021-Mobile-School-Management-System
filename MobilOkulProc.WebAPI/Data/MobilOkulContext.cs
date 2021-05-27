@@ -10,14 +10,15 @@ namespace MobilOkulProc.WebAPI.Data
 {
     public class MobilOkulContext : DbContext
     {
+        protected readonly IConfiguration Configuration;
         public MobilOkulContext()
         {
 
         }
 
-        public MobilOkulContext(DbContextOptions<MobilOkulContext> options) : base(options)
+        public MobilOkulContext(DbContextOptions<MobilOkulContext> options, IConfiguration configuration) : base(options)
         {
-
+            Configuration = configuration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
@@ -56,6 +57,7 @@ namespace MobilOkulProc.WebAPI.Data
         public DbSet<STUDENT_PARENT> STUDENT_PARENTS { get; set; }
         public DbSet<TEACHER> TEACHERS { get; set; }
         public DbSet<USER> USERS { get; set; }
+        public DbSet<zUser> zUsers { get; set; }
 
     }
 }

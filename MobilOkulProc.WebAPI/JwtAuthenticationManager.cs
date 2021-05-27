@@ -27,29 +27,28 @@ namespace MobilOkulProc.WebAPI
        
         public Mesajlar<USER_LOGIN> Authenticate(Mesajlar<USER_LOGIN> User)
         {
-            MobilOkulContext _db = new MobilOkulContext();
-            var user = _db.USERS.Where(x => x.Email == User.Nesne.UserName && x.Password == User.Nesne.Password).FirstOrDefault();
-            if (user == null)
+            clsUser_Proccess uProc = new clsUser_Proccess();
+            Mesajlar<USER> user = uProc.Getir(x => x.Status == true && x.Email == User.Nesne.UserName && x.Password == User.Nesne.Password);
+            if (user.Nesne == null)
             {
                 return null;
             }
+            var token = generateJwtToken(User);
+            return null;
+        }
+        private string generateJwtToken(Mesajlar<USER_LOGIN> user)
+        {
+            // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(_key);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, User.Nesne.UserName)
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(tokenKey),SecurityAlgorithms.HmacSha256Signature)
-
-
+                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, user.Nesne.UserName) }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            User.Nesne.Token = tokenHandler.WriteToken(token);
-            return User;
+            return tokenHandler.WriteToken(token);
         }
     }
 

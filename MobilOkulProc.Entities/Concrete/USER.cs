@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.Json.Serialization;
 using MobilOkulProc.Entities.Abstract;
+using MobilOkulProc.Entities.General;
 
 namespace MobilOkulProc.Entities.Concrete
 {
@@ -34,8 +35,6 @@ namespace MobilOkulProc.Entities.Concrete
         [Display(Name = "UserType")]
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
         public int UserType { get; set; } 
-
-        public string Token { get; set; }
         #endregion
 
         public virtual List<TEACHER> Teacher { get; set; }
@@ -58,5 +57,14 @@ namespace MobilOkulProc.Entities.Concrete
     public class USER_INFO
     {
         public string NameSurname { get; set; }
+    }
+    public class User
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Username { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
     }
 }
