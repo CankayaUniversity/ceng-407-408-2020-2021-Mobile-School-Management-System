@@ -11,9 +11,9 @@ using static MobilOkulProc.MobileApp.Controllers.HomePageController;
 
 namespace MobilOkulProc.MobileApp.Controllers
 {
-    public class FeedBackPageController : Controller
+    public class FeedbackPageController : Controller
     {
-        public IActionResult FeedBackPage()
+        public IActionResult FeedbackPage()
         {
             ViewBag.NameSurname = needs.NameSurname;
             return View();
@@ -47,7 +47,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             m.Mesajlar = function.Add_Update<FEEDBACK>(m.Mesajlar, "Feedback/Feedback_Insert");
             ViewBag.NameSurname = needs.NameSurname;
-            return RedirectToAction("List", "FeedBackPage", m.Mesajlar);
+            return RedirectToAction("List", "FeedbackPage", m.Mesajlar);
         }
         public IActionResult List(string Search, int? page, Mesajlar<FEEDBACK> mb)
         {
