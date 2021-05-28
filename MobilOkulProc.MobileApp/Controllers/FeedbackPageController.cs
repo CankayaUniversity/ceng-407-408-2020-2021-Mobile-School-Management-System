@@ -27,6 +27,12 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult Add()
         {
 
+            ViewBag.NameSurname = needs.NameSurname;
+            ViewBag.Userno = HttpContext.Session.GetString("no");
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
+
             Mesajlar<USER> m = new Mesajlar<USER>();
             m = function.Get<USER>(m, "User/User_List");
             FeedbackPageModel<FEEDBACK> viewModel = new FeedbackPageModel<FEEDBACK>()
