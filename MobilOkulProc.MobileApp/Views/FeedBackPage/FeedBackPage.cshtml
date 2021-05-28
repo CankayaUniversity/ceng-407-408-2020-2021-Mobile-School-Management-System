@@ -1,8 +1,57 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
 }
 <body>
 
+
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    @*<h4>Mauris tristique tempus dapibus. Nulla quis risus euismod, imperdiet nisl sed.</h4>*@
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    @*<h4>Mauris tristique tempus dapibus. Nulla quis risus euismod, imperdiet nisl sed.</h4>*@
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="services">
@@ -14,8 +63,7 @@
                     </div>
                     <div class="text">
                         <br />
-                        <a style="text-decoration:none" href="@Url.Action("Add", "FeedBackPage") "><h1>Send a Feedback</h1></a>
-
+                        <a style="text-decoration:none" href="@Url.Action("Add", "FeedbackPage") "><h1>Send a Feedback</h1></a>
                     </div>
                 </div>
             </div>
@@ -27,15 +75,12 @@
                     </div>
                     <div class="text">
                         <br />
-                        <a style="text-decoration:none" href="@Url.Action("List", "FeedBackPage") "><h1>List your Feedbacks</h1></a>
-
+                        <a style="text-decoration:none" href="@Url.Action("List", "FeedbackPage") "><h1>List your Feedbacks</h1></a>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-
-  
 
 </body>

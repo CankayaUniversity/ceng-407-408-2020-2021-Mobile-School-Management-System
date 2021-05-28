@@ -3,7 +3,19 @@
 @model FeedbackPageModel<FEEDBACK>
 @{
     ViewBag.Title = "Add Feedback";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
 }
 
 @using (Html.BeginForm())
@@ -30,7 +42,6 @@
                             <fieldset>
                                 <br />
                                 @Html.DropDownListFor(m => m.SelectedId, Model.List, "Lütfen Öğrenci Seçiniz", new { @class = "form-control dropdown" })
-
                             </fieldset>
                         </div>                       
                         <div class="col-md-8 col-md-offset-2">
