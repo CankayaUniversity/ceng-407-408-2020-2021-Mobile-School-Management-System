@@ -19,7 +19,7 @@ using AutoMapper;
 
 namespace MobilOkulProc.WebAPI.Controllers
 {
-    [Microsoft.AspNetCore.Authorization.Authorize]
+    
     [ApiController]
     [Route("api/[controller]")]
 

@@ -15,12 +15,12 @@ namespace MobilOkulProc.WebAPI.Models
         public string Token { get; set; }
 
 
-        public AuthenticateResponse(User user, string token)
+        public AuthenticateResponse(int _Id,string _FirstName, string _LastName, string _Username, string token)
         {
-            Id = user.Id;
-            FirstName = user.FirstName;
-            LastName = user.LastName;
-            Username = user.Username;
+            Id = _Id;
+            FirstName = _FirstName;
+            LastName = _LastName;
+            Username = _Username;
             Token = token;
         }
     }

@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
+using MobilOkulProc.WebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace MobilOkulProc.WebAPI.Data
 {
-    public class MobilOkulContext : DbContext
+    public class MobilOkulContext : IdentityDbContext<AppUser, AppRole, int>
     {
         protected readonly IConfiguration Configuration;
         public MobilOkulContext()
@@ -35,6 +36,7 @@ namespace MobilOkulProc.WebAPI.Data
         {
             builder.Entity<USER>().HasMany(t => t.Sender).WithOne(g => g.Sender).HasForeignKey(g => g.SenderID);
             builder.Entity<USER>().HasMany(t => t.Receiver).WithOne(g => g.Receive).HasForeignKey(g => g.ReceiveID).OnDelete(DeleteBehavior.Restrict);
+            base.OnModelCreating(builder);
         }
 
 

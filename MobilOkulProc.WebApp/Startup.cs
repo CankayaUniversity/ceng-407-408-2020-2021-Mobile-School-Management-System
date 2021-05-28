@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MobilOkulProc.WebAPI;
+using MobilOkulProc.WebAPI.Models;
 
 namespace MobilOkulProc.WebApp
 {
@@ -28,6 +29,7 @@ namespace MobilOkulProc.WebApp
         private readonly string key = "Bu benim uzun string deðerim";
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMvc(x => x.EnableEndpointRouting = false)
                 .AddViewOptions(opt => opt.HtmlHelperOptions.ClientValidationEnabled = true)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
@@ -72,6 +74,7 @@ namespace MobilOkulProc.WebApp
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
 
             app.UseMvc(configureRoutes =>
             {

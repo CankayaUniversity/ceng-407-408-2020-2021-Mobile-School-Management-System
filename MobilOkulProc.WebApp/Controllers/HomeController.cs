@@ -26,12 +26,12 @@ namespace MobilOkulProc.WebApp.Controllers
         }
 
 
-        public IActionResult Welcome(USER user)
+        public IActionResult Welcome(AuthenticationResponse user)
         {
-            var Session = HttpContext.Session.GetObject<User>("user");
-            if (user.NameSurname != null)
+            var Session = HttpContext.Session.GetObject<AuthenticationResponse>("Authorization");
+            if (user.FirstName != null)
             {
-                needs.NameSurname = user.NameSurname;
+                needs.NameSurname = user.FirstName + " " + user.LastName;
 
             }
             ViewBag.NameSurname = needs.NameSurname;

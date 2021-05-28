@@ -101,7 +101,17 @@
                             <img src="~/images/avatar.png" class="img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info">
-                            <a class="d-block"><strong>@ViewBag.NameSurname</strong></a>
+                            <a class="d-block"><strong>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @User.Identity.Name
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Login","Login","Login")
+                                }
+	
+                                 </strong></a>
                         </div>
                     </div>
 

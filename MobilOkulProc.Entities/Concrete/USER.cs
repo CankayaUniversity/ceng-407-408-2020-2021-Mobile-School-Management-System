@@ -58,7 +58,7 @@ namespace MobilOkulProc.Entities.Concrete
     {
         public string NameSurname { get; set; }
     }
-    public class User
+    public class AuthenticationResponse
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

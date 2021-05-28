@@ -39,7 +39,7 @@ namespace MobilOkulProc.WebApp.Controllers
                 {
                     using (HttpClient c = new HttpClient(handler))
                     {
-                        string url = WebApiUrl + "User/authenticate";
+                        string url = WebApiUrl + "Account/Login";
 
                         StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 
@@ -50,11 +50,11 @@ namespace MobilOkulProc.WebApp.Controllers
                                 var sonuc = response.Result.Content.ReadAsStringAsync();
                                 sonuc.Wait();
 
-                                var msg = JsonConvert.DeserializeObject<User>(sonuc.Result);
+                                var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
 
                                 if (msg != null)
                                 {
-                                    HttpContext.Session.SetObject("user", msg);
+                                    HttpContext.Session.SetObject("Authorization", msg);
                                     return RedirectToAction("Welcome", "Home", new { NameSurname = msg.FirstName});
                                 }
                                 else
@@ -105,7 +105,7 @@ namespace MobilOkulProc.WebApp.Controllers
                                 var sonuc = response.Result.Content.ReadAsStringAsync();
                                 sonuc.Wait();
 
-                                var msg = JsonConvert.DeserializeObject<User>(sonuc.Result);
+                                var msg = JsonConvert.DeserializeObject<AuthenticationResponse>(sonuc.Result);
 
                                 if (msg != null)
                                 {

@@ -9,7 +9,7 @@ namespace MobilOkulProc.WebAPI.Data
     public class clsSchooll_Proccess:EfEntityRepository<SCHOOL, MobilOkulContext> {}
     public class clsKurumlar:EfEntityRepository<SCHOOL, MobilOkulContext>{}
     public class clsUser_Proccess:EfEntityRepository<USER, MobilOkulContext> {}
-    public class clsUserAuth_Proccess : EfEntityRepository<User, MobilOkulContext> { }
+    public class clsUserAuth_Proccess : EfEntityRepository<AuthenticationResponse, MobilOkulContext> { }
     public class clsStudent_Process: EfEntityRepository<STUDENT,MobilOkulContext>{}
     public class clsBranch_Process : EfEntityRepository<BRANCH, MobilOkulContext>{}
     public class clsEducationalTerm_Process : EfEntityRepository<EDUCATIONAL_TERM, MobilOkulContext>{}

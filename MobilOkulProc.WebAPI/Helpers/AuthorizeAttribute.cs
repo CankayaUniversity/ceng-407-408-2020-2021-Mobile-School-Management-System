@@ -14,7 +14,7 @@ namespace MobilOkulProc.WebAPI.Helpers
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (User)context.HttpContext.Items["User"];
+            var user = (AuthenticationResponse)context.HttpContext.Items["User"];
             if (user == null)
             {
                 // not logged in
