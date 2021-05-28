@@ -86,6 +86,7 @@
                                     @Html.DropDownListFor(m => m.SelectedId, Model.List, "Lütfen Öğrenci Seçiniz", new { @class = "form-control dropdown" })
                                 </fieldset>
                             </div>
+                           <br />
                             <div class="col-md-8 col-md-offset-2">
                                 <fieldset>
                                     @Html.TextAreaFor(model => model.Mesajlar.Nesne.FeedbackContent, new { htmlAttributes = new { @class = "form-control", @placeholder = "Feedback Content...", @rows = "6" } })
@@ -109,43 +110,7 @@
     }
 
 
-    <div class="template-presentation">
-        <div class="container">
-            <div class="col-md-7 hidden-xs hidden-sm">
-                <div class="left-image">
-                    <img src="~/images/school.png" alt="">
-                </div>
-            </div>
-            <div class="col-md-5 hidden-xs hidden-sm">
-                <div class="right-content">
-                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
-                    <div class="author-image">
-                        <img src="" alt="">
-                    </div>
-                   
-                    <div class="blue-button">
-                        @*<a href="#">View More</a>*@
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5 hidden-lg hidden-md">
-                <div class="right-content">
-                    <div class="author-image">
-                        <img src="~/images/school.png" alt="">
-                    </div>
-                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
-                    <div class="blue-button">
-                        @*<a href="#">View More</a>*@
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-7 hidden-lg hidden-md">
-                <div class="left-image">
-                    <img src="img/template-image.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
 </body>
