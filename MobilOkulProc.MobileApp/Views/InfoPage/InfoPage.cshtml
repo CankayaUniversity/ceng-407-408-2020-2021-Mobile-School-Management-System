@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
+}
+
+
+<body>
+
+    @if(ViewBag.Userid==1){
+
+    <h4>StudentNumber: @ViewBag.StudentNumber</h4>
+    <h4>StudentParent : @ViewBag.StudentParent</h4>
+    <h4>StudentRegisterDate : @ViewBag.StudentRegisterDate</h4>
+    <h4>StudentGraduateDate : @ViewBag.StudentGraduateDate</h4>
+    <h4>StudentBloodType : @ViewBag.StudentBloodType</h4>
+    <h4>StudentAdress1 : @ViewBag.StudentAdress1</h4>
+    <h4>StudentAdress2 : @ViewBag.StudentAdress2</h4>
+    <h4>StudentBirthDate : @ViewBag.StudentBirthDate</h4>
+    <h4>StudentBirthPlace : @ViewBag.StudentBirthPlace</h4>
+
+    }
+
+    @if(ViewBag.Userid==2){
+
+    <h4>TeacherTcNo : @ViewBag.TeacherTcNo</h4>
+    <h4>TeacherBranchID : @ViewBag.TeacherBranchID</h4>
+    <h4>TeacherAdress : @ViewBag.TeacherAdress</h4>
+
+    }
+
+    @if(ViewBag.Userid==3){
+
+    <h4>ParentPhone: @ViewBag.ParentPhone</h4>
+    <h4>ParentAdress : @ViewBag.ParentAdress</h4>
+
+    }
+
+</body>

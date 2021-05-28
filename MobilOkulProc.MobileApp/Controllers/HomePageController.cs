@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
-
-using X.PagedList;
-using MobilOkulProc.MobileApp.Extensions;
 using MobilOkulProc.MobileApp.Models;
 
 namespace MobilOkulProc.MobileApp.Controllers
@@ -46,21 +41,6 @@ namespace MobilOkulProc.MobileApp.Controllers
 
 
 
-            TeacherPageModel<TEACHER> t = new TeacherPageModel<TEACHER>();
-            Mesajlar<TEACHER> te=new Mesajlar<TEACHER>();
-            t.Mesajlar = function.Get<TEACHER>(te, "Teacher/Teacher_List");
-
-            foreach (var item in t.Mesajlar.Liste)
-            {
-                if (item.ObjectID == ViewBag.Userno)
-                {
-                    ViewBag.TeacherTcNo = item.TcNo;
-                    ViewBag.BranchID = item.BranchID;
-                    ViewBag.Adress = item.Adress;
-                }
-            }      
-               
-            
             return View();
         }
         public class Needs
