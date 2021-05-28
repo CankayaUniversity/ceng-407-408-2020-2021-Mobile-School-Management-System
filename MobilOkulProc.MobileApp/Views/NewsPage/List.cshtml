@@ -25,70 +25,110 @@
     }
 }
 
+<body>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NewsDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NewsContent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ImageUrl)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Educational_Institution.EducationalName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.School.SchoolName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.NameSurname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.PagedList)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NewsDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NewsContent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageUrl)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Educational_Institution.EducationalName)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NewsDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NewsContent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ImageUrl)
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.School.SchoolName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.NameSurname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Educational_Institution.EducationalName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.School.SchoolName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.NameSurname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PagedList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NewsDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NewsContent)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImageUrl)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Educational_Institution.EducationalName)
+                    </td>
 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.School.SchoolName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.NameSurname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="~/images/school.png" alt="">
+
+                </div>
+            </div>
+
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="~/images/school.png" alt="">
+                    </div>
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>

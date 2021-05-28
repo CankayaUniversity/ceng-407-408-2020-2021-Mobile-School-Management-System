@@ -23,65 +23,102 @@
     }
 }
 
+<body>
+    <table class="table table-bordered table-hover table-primary">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageContent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.SendTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ReadTime)
+                </th>
+                <th>
+                    <h1>Sender</h1>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Sender.NameSurname)
+                </th>
+                <th>
+                    <h1>Receiver</h1>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Receive.NameSurname)
+                </th>
 
-<table class="table table-bordered table-hover table-primary">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageContent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.SendTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ReadTime)
-            </th>
-            <th>
-                <h1>Sender</h1>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Sender.NameSurname)
-            </th>
-            <th>
-                <h1>Receiver</h1>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Receive.NameSurname)
-            </th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.PagedList)
-        {
-            @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PagedList)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MessageTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MessageContent)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SendTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReadTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Sender.NameSurname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Receive.NameSurname)
-                    </td>
-                </tr>
+                @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MessageContent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SendTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReadTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sender.NameSurname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Receive.NameSurname)
+                        </td>
+                    </tr>
+                }
             }
-         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
 
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="~/images/school.png" alt="">
+
+                </div>
+            </div>
+
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="~/images/school.png" alt="">
+                    </div>
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-
-
+</body>

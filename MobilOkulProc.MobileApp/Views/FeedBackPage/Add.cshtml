@@ -18,52 +18,134 @@
     }
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-<div class="contact-form">
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="container-fluid">
-        <div class="col-md-4">
-                <div class="text-content">
-                    <div class="inside-content">
-                       <img src="~/images/send.png" />
+<body>
+
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="~/images/school.png" alt="">
+                </div>
+            </div>
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <div class="author-image">
+                        <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
                     </div>
                 </div>
             </div>
-
-        <div class="col-md-8">
-            <div class="right-content">
-                <div id="contact">           
-                        <div class="col-md-1 col-md-offset-2">                           
-                        </div>
-                        <div class="col-md-4">
-                            <fieldset>
-                                <br />
-                                @Html.DropDownListFor(m => m.SelectedId, Model.List, "Lütfen Öğrenci Seçiniz", new { @class = "form-control dropdown" })
-                            </fieldset>
-                        </div>                       
-                        <div class="col-md-8 col-md-offset-2">
-                            <fieldset>
-                                @Html.TextAreaFor(model => model.Mesajlar.Nesne.FeedbackContent, new { htmlAttributes = new { @class = "form-control", @placeholder = "Feedback Content...", @rows = "6" } })
-                                @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.FeedbackContent, "", new { @class = "text-danger", @placeholder = "Feedback Content...", @rows = "6" })
-                            </fieldset>
-                        </div>
-                        <div class="col-md-4 col-md-offset-2">
-                            <fieldset>
-                                <input type="submit" value="Send your feedback" style="color:white" class="bg-primary" />
-                                
-                                <button class="bg-primary" @Html.ActionLink("Show your feedbacks", "List")></button>
-                            </fieldset>
-                        </div>
-                        <br />                  
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="~/images/school.png" alt="">
+                    </div>
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-}
 
 
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="contact-form">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="container-fluid">
+                <div class="col-md-4">
+                    <div class="text-content">
+                        <div class="inside-content">
+                            <img src="~/images/send.png" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="right-content">
+                        <div id="contact">
+                            <div class="col-md-1 col-md-offset-2">
+                            </div>
+                            <div class="col-md-4">
+                                <fieldset>
+                                    <br />
+                                    @Html.DropDownListFor(m => m.SelectedId, Model.List, "Lütfen Öğrenci Seçiniz", new { @class = "form-control dropdown" })
+                                </fieldset>
+                            </div>
+                            <div class="col-md-8 col-md-offset-2">
+                                <fieldset>
+                                    @Html.TextAreaFor(model => model.Mesajlar.Nesne.FeedbackContent, new { htmlAttributes = new { @class = "form-control", @placeholder = "Feedback Content...", @rows = "6" } })
+                                    @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.FeedbackContent, "", new { @class = "text-danger", @placeholder = "Feedback Content...", @rows = "6" })
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4 col-md-offset-2">
+                                <fieldset>
+                                    <input type="submit" value="Send your feedback" style="color:white" class="bg-primary" />
+
+                                    <button class="bg-primary" @Html.ActionLink("Show your feedbacks", "List")></button>
+                                </fieldset>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="~/images/school.png" alt="">
+                </div>
+            </div>
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="author-image">
+                        <img src="" alt="">
+                    </div>
+                   
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="~/images/school.png" alt="">
+                    </div>
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
