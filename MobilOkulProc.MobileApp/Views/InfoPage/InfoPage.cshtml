@@ -20,32 +20,316 @@
 
 <body>
 
-    @if(ViewBag.Userid==1){
+    @if (ViewBag.Userid == 1)
+    {
 
-    <h4>StudentNumber: @ViewBag.StudentNumber</h4>
-    <h4>StudentParent : @ViewBag.StudentParent</h4>
-    <h4>StudentRegisterDate : @ViewBag.StudentRegisterDate</h4>
-    <h4>StudentGraduateDate : @ViewBag.StudentGraduateDate</h4>
-    <h4>StudentBloodType : @ViewBag.StudentBloodType</h4>
-    <h4>StudentAdress1 : @ViewBag.StudentAdress1</h4>
-    <h4>StudentAdress2 : @ViewBag.StudentAdress2</h4>
-    <h4>StudentBirthDate : @ViewBag.StudentBirthDate</h4>
-    <h4>StudentBirthPlace : @ViewBag.StudentBirthPlace</h4>
+        <div class="services">
+            <div class="container">
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/IDcard.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Student Number</h2>
+                            <h3> @ViewBag.StudentNumber</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/registerdate.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Student RegisterDate</h2>
+                            <h3>@ViewBag.StudentRegisterDate</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/graduatedate.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Student GraduateDate</h2>
+                            <h3>@ViewBag.StudentGraduateDate</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/blood.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Student BloodType</h2>
+                            <h3>@ViewBag.StudentBloodType</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/Address.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Student Adress1</h2>
+                            <h3>@ViewBag.StudentAdress1</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/Address.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Student Adress2</h2>
+                            <h3>@ViewBag.StudentAdress2</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/birthdate.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Student BirthDate</h2>
+                            <h3>@ViewBag.StudentBirthDate</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/birthplace.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Student BirthPlace</h2>
+                            <h3> @ViewBag.StudentBirthPlace</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="template-presentation">
+            <div class="container">
+                <div class="col-md-7 hidden-xs hidden-sm">
+                    <div class="left-image">
+                        <img src="~/images/school.png" alt="">
+
+                    </div>
+                </div>
+
+                <div class="col-md-5 hidden-xs hidden-sm">
+                    <div class="right-content">
+                        <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                        <div class="author-image">
+                            <img src="img/template-author.png" alt="">
+                        </div>
+                        <div class="blue-button">
+                            @*<a href="#">View More</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 hidden-lg hidden-md">
+                    <div class="right-content">
+                        <div class="author-image">
+                            <img src="~/images/school.png" alt="">
+                        </div>
+                        <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                        <div class="blue-button">
+                            @*<a href="#">View More</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 hidden-lg hidden-md">
+                    <div class="left-image">
+                        <img src="img/template-image.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
 
     }
 
-    @if(ViewBag.Userid==2){
+    @if (ViewBag.Userid == 2)
+    {
 
-    <h4>TeacherTcNo : @ViewBag.TeacherTcNo</h4>
-    <h4>TeacherBranchID : @ViewBag.TeacherBranchID</h4>
-    <h4>TeacherAdress : @ViewBag.TeacherAdress</h4>
+        <div class="services">
+            <div class="container">
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/IDcard.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Teacher TcNo</h2>
+                            <h3>@ViewBag.TeacherTcNo </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/branch.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Teacher BranchID</h2>
+                            <h3>@ViewBag.TeacherBranchID</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/Address.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Teacher Address</h2>
+                            <h3>@ViewBag.TeacherAdress</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="template-presentation">
+            <div class="container">
+                <div class="col-md-7 hidden-xs hidden-sm">
+                    <div class="left-image">
+                        <img src="~/images/school.png" alt="">
+
+                    </div>
+                </div>
+
+                <div class="col-md-5 hidden-xs hidden-sm">
+                    <div class="right-content">
+                        <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                        <div class="author-image">
+                            <img src="img/template-author.png" alt="">
+                        </div>
+                        <div class="blue-button">
+                            @*<a href="#">View More</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 hidden-lg hidden-md">
+                    <div class="right-content">
+                        <div class="author-image">
+                            <img src="~/images/school.png" alt="">
+                        </div>
+                        <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                        <div class="blue-button">
+                            @*<a href="#">View More</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 hidden-lg hidden-md">
+                    <div class="left-image">
+                        <img src="img/template-image.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
     }
 
-    @if(ViewBag.Userid==3){
+    @if (ViewBag.Userid == 3)
+    {
 
-    <h4>ParentPhone: @ViewBag.ParentPhone</h4>
-    <h4>ParentAdress : @ViewBag.ParentAdress</h4>
+
+        <div class="services">
+            <div class="container">
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/Phone.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Parent Phone</h2>
+                            <h3>@ViewBag.ParentPhone</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/Address.png" alt="">
+                        </div>
+                        <div class="text">
+                            <h2>Parent Address</h2>
+                            <h3>@ViewBag.ParentAdress</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="template-presentation">
+            <div class="container">
+                <div class="col-md-7 hidden-xs hidden-sm">
+                    <div class="left-image">
+                        <img src="~/images/school.png" alt="">
+
+                    </div>
+                </div>
+
+                <div class="col-md-5 hidden-xs hidden-sm">
+                    <div class="right-content">
+                        <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                        <div class="author-image">
+                            <img src="img/template-author.png" alt="">
+                        </div>
+                        <div class="blue-button">
+                            @*<a href="#">View More</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 hidden-lg hidden-md">
+                    <div class="right-content">
+                        <div class="author-image">
+                            <img src="~/images/school.png" alt="">
+                        </div>
+                        <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                        <div class="blue-button">
+                            @*<a href="#">View More</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 hidden-lg hidden-md">
+                    <div class="left-image">
+                        <img src="img/template-image.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     }
 
