@@ -1,8 +1,7 @@
-﻿using MobilOkulProc.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MobilOkulProc.WebAPI.Entities;
+using System.Text.Json.Serialization;
+
+
 
 namespace MobilOkulProc.WebAPI.Models
 {
@@ -12,16 +11,20 @@ namespace MobilOkulProc.WebAPI.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
-        public string Token { get; set; }
+        public string JwtToken { get; set; }
 
+        [JsonIgnore] // refresh token is returned in http only cookie
+        public string RefreshToken { get; set; }
 
-        public AuthenticateResponse(int _Id,string _FirstName, string _LastName, string _Username, string token)
+        public AuthenticateResponse(zUser user, string jwtToken, string refreshToken)
         {
-            Id = _Id;
-            FirstName = _FirstName;
-            LastName = _LastName;
-            Username = _Username;
-            Token = token;
+            Id = user.Id;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            Username = user.Username;
+            JwtToken = jwtToken;
+            RefreshToken = refreshToken;
         }
     }
 }
+

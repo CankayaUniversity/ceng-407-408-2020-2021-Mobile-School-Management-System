@@ -1,17 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MobilOkulProc.Entities.Concrete;
-using MobilOkulProc.Entities.General;
 using MobilOkulProc.WebAPI.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MobilOkulProc.WebAPI.Controllers
 {
 
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
@@ -24,20 +23,20 @@ namespace MobilOkulProc.WebAPI.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Register(RegisterModel registerModel)
         {
             try
             {
                 ViewBag.Message = "User already registered";
-                AppUser user = await UserMgr.FindByNameAsync("TestUser");
+                AppUser user = await UserMgr.FindByNameAsync(registerModel.Username);
                 if (user == null)
                 {
                     user = new AppUser();
-                    user.UserName = "test";
-                    user.Email = "test@test.com";
-                    user.FirstName = "Murat";
-                    user.LastName = "Şanlısavaş";
-                    IdentityResult result = await UserMgr.CreateAsync(user, "Sanlisavas.2020!");
+                    user.UserName = registerModel.Username;
+                    user.Email = registerModel.Username;
+                    user.FirstName = registerModel.FirstName;
+                    user.LastName = registerModel.LastName;
+                    IdentityResult result = await UserMgr.CreateAsync(user, registerModel.Password);
                     ViewBag.Message = "User was created";
                     return Ok(result);
                 }
@@ -56,13 +55,14 @@ namespace MobilOkulProc.WebAPI.Controllers
             var result = await SignInMgr.PasswordSignInAsync(m.UserName, m.Password, false, false);
             if (result.Succeeded)
             {
+                
                 return Json(m);
             }
             else
             {
                 ViewBag.Result = "result is: " + result.ToString();
+                return Unauthorized(m);
             }
-            return Json(m);
         }
     }
 }

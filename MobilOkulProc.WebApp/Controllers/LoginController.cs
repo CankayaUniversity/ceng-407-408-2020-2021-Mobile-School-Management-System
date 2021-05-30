@@ -26,7 +26,6 @@ namespace MobilOkulProc.WebApp.Controllers
         }
         public IActionResult Login()
         {
-
             return View();
         }
 
@@ -39,7 +38,7 @@ namespace MobilOkulProc.WebApp.Controllers
                 {
                     using (HttpClient c = new HttpClient(handler))
                     {
-                        string url = WebApiUrl + "Account/Login";
+                        string url = "http://localhost:63494/Users/authenticate";
 
                         StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 
@@ -50,12 +49,16 @@ namespace MobilOkulProc.WebApp.Controllers
                                 var sonuc = response.Result.Content.ReadAsStringAsync();
                                 sonuc.Wait();
 
-                                var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
-
-                                if (msg != null)
+                                //var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
+                                //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:55600/authorization");
+                                //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                                //var request = new HttpRequestMessage();
+                                //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", msg.Token);
+                                if (true)
                                 {
-                                    HttpContext.Session.SetObject("Authorization", msg);
-                                    return RedirectToAction("Welcome", "Home", new { NameSurname = msg.FirstName});
+                                    //HttpContext.Session.SetObject("Authorization", msg);
+                                    //HttpContext.Request.Headers.Add("Bearer",msg.Token);
+                                    return RedirectToAction("Welcome", "Home");
                                 }
                                 else
                                 {
@@ -105,12 +108,12 @@ namespace MobilOkulProc.WebApp.Controllers
                                 var sonuc = response.Result.Content.ReadAsStringAsync();
                                 sonuc.Wait();
 
-                                var msg = JsonConvert.DeserializeObject<AuthenticationResponse>(sonuc.Result);
+                                var msg = JsonConvert.DeserializeObject<RegisterModel>(sonuc.Result);
 
                                 if (msg != null)
                                 {
                                     HttpContext.Session.SetObject("user", msg);
-                                    return RedirectToAction("Welcome", "Home", new { NameSurname = msg.FirstName });
+                                    return RedirectToAction("Login", "Home");
                                 }
                                 else
                                 {

@@ -1,62 +1,49 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Serialization;
-using MobilOkulProc.WebAPI.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using MobilOkulProc.WebAPI.Helpers;
 using MobilOkulProc.WebAPI.Services;
-using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using System;
+using MobilOkulProc.WebAPI.Data;
+using Newtonsoft.Json.Serialization;
 using MobilOkulProc.WebAPI.Models;
-using MobilOkulProc.Entities.Concrete;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Hosting;
 
 namespace MobilOkulProc.WebAPI
 {
     public class Startup
     {
-
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
         public IConfiguration Configuration { get; }
-        //private readonly string key = "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING";
+
         public void ConfigureServices(IServiceCollection services)
         {
-           
+            var connStr = Configuration.GetConnectionString("sqlDatabase");
+            services.AddDbContext<MobilOkulContext>(opt => opt.UseSqlServer(connStr));
+            services.AddCors();
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddMvc(x=> x.EnableEndpointRouting= false)
                 .AddViewOptions(opt=> opt.HtmlHelperOptions.ClientValidationEnabled = true)
                 .AddNewtonsoftJson(opt=> opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
-            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddCors();
-            var connStr = Configuration.GetConnectionString("sqlDatabase");
-            services.AddIdentity<AppUser, AppRole>(options =>
-            {
-                options.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<MobilOkulContext>();
 
-            services.AddDbContext<MobilOkulContext>(opt => opt.UseSqlServer(connStr));
-
-            services.AddControllers();
-            services.AddAutoMapper();
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -64,21 +51,6 @@ namespace MobilOkulProc.WebAPI
             })
             .AddJwtBearer(x =>
             {
-                x.Events = new JwtBearerEvents
-                {
-                    OnTokenValidated = context =>
-                    {
-                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                        var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = userService.GetById(userId);
-                        if (user == null)
-                        {
-                            // return unauthorized if user no longer exists
-                            context.Fail("Unauthorized");
-                        }
-                        return Task.CompletedTask;
-                    }
-                };
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
@@ -86,20 +58,29 @@ namespace MobilOkulProc.WebAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                    ClockSkew = TimeSpan.Zero
                 };
             });
-            services.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder(
-                JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
-            });
+
+            // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+
+            services.AddIdentity<AppUser, AppRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<MobilOkulContext>();
+            
+            
+
             services.AddSwaggerDocument(); 
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MobilOkulContext dataContext)
         {
+           
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -109,18 +90,21 @@ namespace MobilOkulProc.WebAPI
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
             // global cors policy
             app.UseCors(x => x
-                .AllowAnyOrigin()
+                .SetIsOriginAllowed(origin => true)
                 .AllowAnyMethod()
-                .AllowAnyHeader());
-            //app.UseMiddleware<JwtMiddleware>();
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
-            
+            app.UseEndpoints(x => x.MapControllers());
+
+
+
+
 
             app.UseOpenApi();
             app.UseSwaggerUi3();

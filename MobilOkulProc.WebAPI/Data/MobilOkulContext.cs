@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
+using MobilOkulProc.WebAPI.Entities;
 using MobilOkulProc.WebAPI.Models;
 using System;
 using System.Collections.Generic;

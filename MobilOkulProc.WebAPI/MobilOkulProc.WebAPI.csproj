@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="JWT\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

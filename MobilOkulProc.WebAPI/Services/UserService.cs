@@ -1,56 +1,106 @@
-﻿using MobilOkulProc.Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using MobilOkulProc.WebAPI.Models;
+using MobilOkulProc.WebAPI.Entities;
 using MobilOkulProc.WebAPI.Helpers;
 using MobilOkulProc.WebAPI.Data;
-using MobilOkulProc.Entities.General;
 
 namespace MobilOkulProc.WebAPI.Services
 {
     public interface IUserService
     {
-        zUser Authenticate(string username, string password);
+        AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress);
+        AuthenticateResponse RefreshToken(string token, string ipAddress);
+        bool RevokeToken(string token, string ipAddress);
         IEnumerable<zUser> GetAll();
         zUser GetById(int id);
-        zUser Create(zUser user, string password);
-        void Update(zUser user, string password = null);
-        void Delete(int id);
     }
 
     public class UserService : IUserService
     {
         private MobilOkulContext _context;
+        private readonly AppSettings _appSettings;
 
-        public UserService(MobilOkulContext context)
+        public UserService(
+            MobilOkulContext context,
+            IOptions<AppSettings> appSettings)
         {
             _context = context;
+            _appSettings = appSettings.Value;
         }
 
-        public zUser Authenticate(string username, string password)
+        public AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                return null;
+            var user = _context.zUsers.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-            var user = _context.zUsers.SingleOrDefault(x => x.Username == username);
+            // return null if user not found
+            if (user == null) return null;
 
-            // check if username exists
-            if (user == null)
-                return null;
+            // authentication successful so generate jwt and refresh tokens
+            var jwtToken = generateJwtToken(user);
+            var refreshToken = generateRefreshToken(ipAddress);
 
-            // check if password is correct
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-                return null;
+            // save refresh token
+            user.RefreshTokens.Add(refreshToken);
+            _context.Update(user);
+            _context.SaveChanges();
 
-            // authentication successful
-            return user;
+            return new AuthenticateResponse(user, jwtToken, refreshToken.Token);
+        }
+
+        public AuthenticateResponse RefreshToken(string token, string ipAddress)
+        {
+            var user = _context.zUsers.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
+
+            // return null if no user found with token
+            if (user == null) return null;
+
+            var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
+
+            // return null if token is no longer active
+            if (!refreshToken.IsActive) return null;
+
+            // replace old refresh token with a new one and save
+            var newRefreshToken = generateRefreshToken(ipAddress);
+            refreshToken.Revoked = DateTime.UtcNow;
+            refreshToken.RevokedByIp = ipAddress;
+            refreshToken.ReplacedByToken = newRefreshToken.Token;
+            user.RefreshTokens.Add(newRefreshToken);
+            _context.Update(user);
+            _context.SaveChanges();
+
+            // generate new jwt
+            var jwtToken = generateJwtToken(user);
+
+            return new AuthenticateResponse(user, jwtToken, newRefreshToken.Token);
+        }
+
+        public bool RevokeToken(string token, string ipAddress)
+        {
+            var user = _context.zUsers.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
+
+            // return false if no user found with token
+            if (user == null) return false;
+
+            var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
+
+            // return false if token is not active
+            if (!refreshToken.IsActive) return false;
+
+            // revoke token and save
+            refreshToken.Revoked = DateTime.UtcNow;
+            refreshToken.RevokedByIp = ipAddress;
+            _context.Update(user);
+            _context.SaveChanges();
+
+            return true;
         }
 
         public IEnumerable<zUser> GetAll()
@@ -63,107 +113,39 @@ namespace MobilOkulProc.WebAPI.Services
             return _context.zUsers.Find(id);
         }
 
-        public zUser Create(zUser user, string password)
+        // helper methods
+
+        private string generateJwtToken(zUser user)
         {
-            // validation
-            if (string.IsNullOrWhiteSpace(password))
-                throw new AppException("Password is required");
-
-            if (_context.zUsers.Any(x => x.Username == user.Username))
-                throw new AppException("Username \"" + user.Username + "\" is already taken");
-
-            byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
-
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-
-            _context.zUsers.Add(user);
-            _context.SaveChanges();
-
-            return user;
-        }
-
-        public void Update(zUser userParam, string password = null)
-        {
-            var user = _context.zUsers.Find(userParam.Id);
-
-            if (user == null)
-                throw new AppException("User not found");
-
-            // update username if it has changed
-            if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                // throw error if the new username is already taken
-                if (_context.zUsers.Any(x => x.Username == userParam.Username))
-                    throw new AppException("Username " + userParam.Username + " is already taken");
-
-                user.Username = userParam.Username;
-            }
-
-            // update user properties if provided
-            if (!string.IsNullOrWhiteSpace(userParam.FirstName))
-                user.FirstName = userParam.FirstName;
-
-            if (!string.IsNullOrWhiteSpace(userParam.LastName))
-                user.LastName = userParam.LastName;
-
-            // update password if provided
-            if (!string.IsNullOrWhiteSpace(password))
-            {
-                byte[] passwordHash, passwordSalt;
-                CreatePasswordHash(password, out passwordHash, out passwordSalt);
-
-                user.PasswordHash = passwordHash;
-                user.PasswordSalt = passwordSalt;
-            }
-
-            _context.zUsers.Update(user);
-            _context.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            var user = _context.zUsers.Find(id);
-            if (user != null)
-            {
-                _context.zUsers.Remove(user);
-                _context.SaveChanges();
-            }
-        }
-
-        // private helper methods
-
-        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
-
-        private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
-        {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-            if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
-            if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
-
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
+                Subject = new ClaimsIdentity(new Claim[]
                 {
-                    if (computedHash[i] != storedHash[i]) return false;
-                }
-            }
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(15),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
 
-            return true;
+        private RefreshToken generateRefreshToken(string ipAddress)
+        {
+            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+            {
+                var randomBytes = new byte[64];
+                rngCryptoServiceProvider.GetBytes(randomBytes);
+                return new RefreshToken
+                {
+                    Token = Convert.ToBase64String(randomBytes),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    Created = DateTime.UtcNow,
+                    CreatedByIp = ipAddress
+                };
+            }
         }
     }
 }
-
