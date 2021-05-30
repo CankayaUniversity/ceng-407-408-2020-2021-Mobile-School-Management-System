@@ -51,6 +51,8 @@ namespace MobilOkulProc.Entities.Concrete
         public int UserID { get; set; }
         public virtual USER User { get; set; }
 
+        public virtual List<TEACHER_SCHOOL> TeacherSchool { get; set; }
+
         #endregion
         [NotMapped]
         public string FullName

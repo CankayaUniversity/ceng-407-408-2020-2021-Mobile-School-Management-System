@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MobilOkulProc.WebAPI.Data;
 
 namespace MobilOkulProc.WebAPI.Migrations
 {
     [DbContext(typeof(MobilOkulContext))]
-    partial class MobilOkulContextModelSnapshot : ModelSnapshot
+    [Migration("20210530174230_MgNewDbTables")]
+    partial class MgNewDbTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -581,7 +583,7 @@ namespace MobilOkulProc.WebAPI.Migrations
 
                     b.HasIndex("StudentID");
 
-                    b.ToTable("SCHOOL_STUDENTS");
+                    b.ToTable("SCHOOL_STUDENT");
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.SECTION", b =>
@@ -803,7 +805,7 @@ namespace MobilOkulProc.WebAPI.Migrations
 
                     b.HasIndex("TeacherID");
 
-                    b.ToTable("TEACHER_SCHOOLS");
+                    b.ToTable("TEACHER_SCHOOL");
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.USER", b =>
