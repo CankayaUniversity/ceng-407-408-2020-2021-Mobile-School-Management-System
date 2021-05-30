@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MobilOkulProc.WebAPI.Controllers
 {
+    
     [ApiController]
     [Route("api/[controller]")]
     public class BranchController : Controller

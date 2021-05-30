@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using MobilOkulProc.MobileApp.Extensions;
+using MobilOkulProc.WebAPI.Models;
 using Newtonsoft.Json;
 
 namespace MobilOkulProc.MobileApp.Controllers
@@ -42,7 +43,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                 {
                     using (HttpClient c = new HttpClient(handler))
                     {
-                        string url = WebApiUrl + "User/User_Login";
+                        string url = WebApiUrl + "Account/Login";
 
                         StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 
@@ -53,20 +54,19 @@ namespace MobilOkulProc.MobileApp.Controllers
                                 var sonuc = response.Result.Content.ReadAsStringAsync();
                                 sonuc.Wait();
 
-                                var msg = JsonConvert.DeserializeObject<Mesajlar<USER>>(sonuc.Result);
+                                var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
                                
                                 
 
 
-                                if (msg.Nesne != null)
+                                if (msg != null)
                                 {
-                                    HttpContext.Session.SetObject("user", msg.Nesne.NameSurname);
-                                    HttpContext.Session.SetObject("no", msg.Nesne.ObjectID);
-                                    HttpContext.Session.SetObject("userid",msg.Nesne.UserType);
-                                    HttpContext.Session.SetObject("email", msg.Nesne.Email);
-                                    HttpContext.Session.SetObject("phone", msg.Nesne.Phone);
+                                    HttpContext.Session.SetObject("firstname", msg.FirstName);
+                                    HttpContext.Session.SetObject("lastname",msg.LastName);
+                                    HttpContext.Session.SetObject("id", msg.Id);
+                                    HttpContext.Session.SetObject("username", msg.Username);
                                     
-                                    return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
+                                    //return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
                                 }
                                 else
                                 {

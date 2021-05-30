@@ -15,6 +15,7 @@ namespace MobilOkulProc.WebApp.Controllers
 {
     public class StudentController : Controller
     {
+        
         public IActionResult List(string Search, int? page, Mesajlar<STUDENT> mb)
         {
             StudentViewModel<STUDENT> m = new StudentViewModel<STUDENT>();

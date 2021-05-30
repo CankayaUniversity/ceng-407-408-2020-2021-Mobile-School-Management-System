@@ -34,5 +34,7 @@ namespace MobilOkulProc.Entities.Concrete
         public virtual List<NEWS> News { get; set; }
         public virtual List<SCHOOL_EMPLOYER> SchoolEmployers { get; set; }
         public virtual List<SECTION> Section { get; set; }
+        public virtual List<SCHOOL_STUDENT> SchoolStudent { get; set; }
+        public virtual List<TEACHER_SCHOOL> TeacherSchool { get; set; }
     }
 }
