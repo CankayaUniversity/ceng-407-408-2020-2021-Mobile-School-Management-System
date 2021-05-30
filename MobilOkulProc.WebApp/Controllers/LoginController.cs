@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
+using MobilOkulProc.WebAPI;
+using MobilOkulProc.WebAPI.Models;
 using MobilOkulProc.WebApp.Extensions;
 using MobilOkulProc.WebApp.ViewModels;
 using Newtonsoft.Json;
@@ -37,7 +39,7 @@ namespace MobilOkulProc.WebApp.Controllers
                 {
                     using (HttpClient c = new HttpClient(handler))
                     {
-                        string url = WebApiUrl + "User/User_Login";
+                        string url = WebApiUrl + "Account/Login";
 
                         StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 
@@ -48,12 +50,12 @@ namespace MobilOkulProc.WebApp.Controllers
                                 var sonuc = response.Result.Content.ReadAsStringAsync();
                                 sonuc.Wait();
 
-                                var msg = JsonConvert.DeserializeObject<Mesajlar<USER>>(sonuc.Result);
+                                var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
 
-                                if (msg.Nesne != null)
+                                if (msg != null)
                                 {
-                                    HttpContext.Session.SetObject("user", msg.Nesne);
-                                    return RedirectToAction("Welcome", "Home", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne});
+                                    HttpContext.Session.SetObject("Authorization", msg);
+                                    return RedirectToAction("Welcome", "Home", new { NameSurname = msg.FirstName});
                                 }
                                 else
                                 {
@@ -77,6 +79,57 @@ namespace MobilOkulProc.WebApp.Controllers
             }
 
             return View(m);
+        }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Register(RegisterModel register)
+        {
+
+            try
+            {
+                using (HttpClientHandler handler = new HttpClientHandler())
+                {
+                    using (HttpClient c = new HttpClient(handler))
+                    {
+                        string url = WebApiUrl + "User/register";
+
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(register), System.Text.Encoding.UTF8, "application/json");
+
+                        using (var response = c.PostAsync(url, content))
+                        {
+                            if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                            {
+                                var sonuc = response.Result.Content.ReadAsStringAsync();
+                                sonuc.Wait();
+
+                                var msg = JsonConvert.DeserializeObject<AuthenticationResponse>(sonuc.Result);
+
+                                if (msg != null)
+                                {
+                                    HttpContext.Session.SetObject("user", msg);
+                                    return RedirectToAction("Welcome", "Home", new { NameSurname = msg.FirstName });
+                                }
+                                else
+                                {
+                                    return View();
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
+            catch
+            {
+                return View();
+            }
+            
+
+            return View();
         }
 
         

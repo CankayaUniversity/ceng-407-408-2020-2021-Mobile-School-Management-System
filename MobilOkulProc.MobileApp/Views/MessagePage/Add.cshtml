@@ -3,112 +3,124 @@
 @model MessagePageModel<MESSAGE>
 @{
     ViewBag.Title = "Add Message";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
 }
 
+<body>
 
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="~/images/school.png" alt="">
 
+                </div>
+            </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-    <hr />
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.PriorityID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.PriorityID, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.PriorityID, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.MessageTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.MessageTitle, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageTitle, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.MessageContent, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.MessageContent, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageContent, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.SendTime, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.SendTime, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.SendTime, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.ReadTime, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.ReadTime, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.ReadTime, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.MessageType, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.MessageType, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageType, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
-        
-    @*<div class="form-group">
-        <strong class="col-md-2">Gönderen</strong>
-        <div class="col-md-2">
-            @Html.DropDownListFor(m => m.SenderId, Model.SenderList, "Lütfen Gönderici Seçiniz", new { @class = "form-control dropdown" })
-        </div>
-    </div>*@
-    <div class="form-group">
-        <strong class="col-md-2">Alıcı</strong>
-        <div class="col-md-2">
-            @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Lütfen Alıcı Seçiniz", new { @class = "form-control dropdown" })
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="~/images/school.png" alt="">
+                    </div>
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
         </div>
     </div>
-    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Mesajlar.Nesne.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-2">
-            @Html.EditorFor(model => model.Mesajlar.Nesne.Status, new { htmlAttributes = new { @class = "" } })
-            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Status, "", new { @class = "text-danger" })
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="contact-form">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="container-fluid">
+                <div class="col-md-4">
+                    <div class="text-content">
+                        <div class="inside-content">
+                            <img src="~/images/send.png" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="right-content">
+                        <div id="contact">
+                            <div class="col-md-1 col-md-offset-2">
+                            </div>
+                            <div class="col-md-4">
+                                <fieldset>
+                                    <br />
+                                    @Html.EditorFor(model => model.Mesajlar.Nesne.MessageTitle, new { htmlAttributes = new { @class = "form-control", @placeholder = "Message Title Here..." } })
+                                    @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageTitle, "", new { @class = "text-danger" })
+
+                                </fieldset>
+                            </div>
+                            <div class="col-md-8 col-md-offset-2">
+                                <fieldset>
+                                    @Html.TextAreaFor(model => model.Mesajlar.Nesne.MessageContent, new { htmlAttributes = new { @class = "form-control", } })
+                                    @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageContent, "", new { @class = "text-danger" })
+                                </fieldset>
+                            </div>
+
+                            <div class="col-md-8 col-md-offset-2">
+                                <fieldset>
+                                    @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Choose a receiver", new { @class = "form-control dropdown" })
+                                </fieldset>
+                            </div>
+                            <br />
+                            <div class="col-md-4 col-md-offset-2">
+                                <fieldset>
+                                    <input type="submit" value="Send your message" style="color:white" class="bg-primary" />
+
+                                </fieldset>
+                            </div>
+
+                            <div class="col-md-4 col-md-offset-2">
+                                <fieldset>
+                                    <button class="bg-primary" @Html.ActionLink("Show your messages", "List")></button>
+                                </fieldset>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>*@
+
+    }
 
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Ekle" class="btn btn-success" /> | @Html.ActionLink("Listeye Geri Dön", "List")
-        </div>
-    </div>
-</div>
-}
 
-<br />
-<p>
-    <div class="input-group">
-        @if (Model.Mesajlar != null)
-        {
-            if (Model.Mesajlar.Mesaj != null)
-            {
-                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
-            }
-
-
-        }
-    </div>
-    <br />
-
-</p>
-<br />
-
+</body>

@@ -18,12 +18,20 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult MessagePage()
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = HttpContext.Session.GetString("no");
+            ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
+            
             return View();
         }
         public IActionResult List(string Search, int? page, Mesajlar<MESSAGE> mb)
         {
+            ViewBag.NameSurname = needs.NameSurname;
             ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
 
             MessagePageModel<MESSAGE> m = new MessagePageModel<MESSAGE>();
             Mesajlar<USER> Sender = new Mesajlar<USER>();
@@ -53,6 +61,11 @@ namespace MobilOkulProc.MobileApp.Controllers
         }
         public IActionResult Add()
         {
+            ViewBag.NameSurname = needs.NameSurname;
+            ViewBag.Userno = HttpContext.Session.GetString("no");
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
 
             Mesajlar<USER> Sender = new Mesajlar<USER>();
             Sender = function.Get<USER>(Sender, "User/User_List");
@@ -73,6 +86,12 @@ namespace MobilOkulProc.MobileApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(MessagePageModel<MESSAGE> m)
         {
+            ViewBag.NameSurname = needs.NameSurname;
+            ViewBag.Userno = HttpContext.Session.GetString("no");
+            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Phone = HttpContext.Session.GetString("phone");
+
             var userid= int.Parse(HttpContext.Session.GetString("no"));
             m.Mesajlar.Nesne.SenderID = userid;
 
@@ -81,6 +100,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             string date = "1111 - 11 - 11 11:00:00.0000000";          
             m.Mesajlar.Nesne.ReadTime = DateTime.Parse(date);
+
            
             m.Mesajlar.Nesne.MessageType = true;
             m.Mesajlar.Nesne.ReceiveID = m.ReceiverId;
@@ -89,23 +109,6 @@ namespace MobilOkulProc.MobileApp.Controllers
             ViewBag.NameSurname = needs.NameSurname;
             return RedirectToAction("List", "MessagePage", m.Mesajlar);
         }       
-        public IActionResult Details(int id)
-        {
-
-            Mesajlar<MESSAGE> m = new Mesajlar<MESSAGE>();
-            m = function.Get<MESSAGE>(m, "Messages/Message_Select?MessageID=" + id);
-            MessagePageModel<MESSAGE> MessagePageModel = new MessagePageModel<MESSAGE>();
-
-            ViewBag.NameSurname = needs.NameSurname;
-            MessagePageModel.Mesajlar = m;
-            Mesajlar<USER> Sender = new Mesajlar<USER>();
-            Mesajlar<USER> Receiver = new Mesajlar<USER>();
-            Sender = function.Get<USER>(Sender, "User/User_Select?UserID=" + m.Nesne.SenderID);
-            Receiver = function.Get<USER>(Receiver, "User/User_Select?UserID=" + m.Nesne.ReceiveID);
-            MessagePageModel.Mesajlar.Nesne.Sender = Sender.Nesne;
-            MessagePageModel.Mesajlar.Nesne.Receive = Receiver.Nesne;
-            return View(MessagePageModel);
-        }
        
     }
 }

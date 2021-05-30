@@ -1,20 +1,71 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
 }
 
 <body>
+
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="~/images/school.png" alt="">
+
+                </div>
+            </div>
+
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="~/images/school.png" alt="">
+                    </div>
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="services">
         <div class="container">
             <div class="col-md-4">
                 <div class="service-item">
                     <div class="icon">
                         <img src="~/images/message.png" alt="">
-                        
+
                     </div>
                     <div class="text">
                         <br />
                         <a style="text-decoration:none" href="@Url.Action("Add", "MessagePage") "><h1>Send a Message</h1></a>
-
                     </div>
                 </div>
             </div>
@@ -23,16 +74,18 @@
                 <div class="service-item">
                     <div class="icon">
                         <img src="~/images/list.png" alt="">
-                        
+
                     </div>
                     <div class="text">
                         <br />
-                        <a style="text-decoration:none" href="@Url.Action("List", "MessagePage") "><h1>List all Message</h1></a>
-
+                        <a style="text-decoration:none" href="@Url.Action("List", "MessagePage") "><h1>List your Messages</h1></a>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
+
+
+    
 </body>

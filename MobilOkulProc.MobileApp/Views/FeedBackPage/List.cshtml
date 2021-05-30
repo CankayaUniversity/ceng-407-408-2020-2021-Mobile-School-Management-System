@@ -4,51 +4,103 @@
 
 @{
     ViewData["Title"] = "List Feedback";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
 }
 
 
+<body>
+    <table class="table table-bordered table-hover table-primary">
+        <thead class="thead-dark">
 
-<table class="table table-bordered table-hover table-primary">
-    <thead class="thead-dark">
-        
-        <tr>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)
-            </th>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)
+                </th>
 
-            
-        </tr>
-        
+
+            </tr>
+
         </thead>
-        
-    <tbody>
-        @foreach (var item in Model.PagedList)
-        {
-            @if (item.UserID==@ViewBag.Userno)
+
+        <tbody>
+            @foreach (var item in Model.PagedList)
             {
+                @if (item.UserID == @ViewBag.Userno)
+                {
 
 
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FeedbackContent)
-            </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FeedbackContent)
+                        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.FeedbackDate)
-            </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FeedbackDate)
+                        </td>
 
-        </tr>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
+    <div class="col-md-4 col-md-offset-2">
 
+      
 
+    </div>
 
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="~/images/school.png" alt="">
+                </div>
+            </div>
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    @*<h4>Mauris tristique tempus dapibus. Nulla quis risus euismod, imperdiet nisl sed.</h4>*@
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    @*<h4>Mauris tristique tempus dapibus. Nulla quis risus euismod, imperdiet nisl sed.</h4>*@
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 
-
+</body>

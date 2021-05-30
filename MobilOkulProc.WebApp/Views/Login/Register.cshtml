@@ -1,0 +1,46 @@
+﻿@model MobilOkulProc.WebAPI.Models.RegisterModel
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<h4>zUser</h4>
+<hr />
+@using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @autocomplete = "on" }))
+{
+    <h2>Giriş Yap</h2>
+    <p>
+        <label for="username" class="uname" data-icon="u"><span>Kullanıcı Adı</span></label>
+        @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "Ad" })
+    </p>
+    <p>
+        <label for="username" class="uname" data-icon="u"><span>Kullanıcı Adı</span></label>
+        @Html.TextBoxFor(m => m.LastName, new { @placeholder = "Soyad" })
+    </p>
+    <p>
+        <label for="username" class="uname" data-icon="u"><span>Kullanıcı Adı</span></label>
+        @Html.TextBoxFor(m => m.Username, new { @placeholder = "kullanıcıadı" })
+    </p>
+    <p>
+        <label for="password" class="youpasswd" data-icon="p"><span>Parola</span></label>
+        @Html.PasswordFor(m => m.Password, new { @placeholder = "Parola" })
+    </p>
+    
+    <p class="login button">
+        <input type="submit" value="Login" />
+    </p>
+    
+    
+
+}
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

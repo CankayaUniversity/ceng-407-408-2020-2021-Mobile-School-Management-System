@@ -9,7 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobilOkulProc.WebAPI", "Mob
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobilOkulProc.WebApp", "MobilOkulProc.WebApp\MobilOkulProc.WebApp.csproj", "{0C4B3A84-F00F-4A69-A18A-FCA6DA677BFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobilOkulProc.MobileApp", "MobilOkulProc.MobileApp\MobilOkulProc.MobileApp.csproj", "{E812A71A-89A7-46BA-9C9A-1F4AE2C45080}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobilOkulProc.MobileApp", "MobilOkulProc.MobileApp\MobilOkulProc.MobileApp.csproj", "{E812A71A-89A7-46BA-9C9A-1F4AE2C45080}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D2F76DFF-EAE4-4308-9DF4-B24E9969E9C3} = {D2F76DFF-EAE4-4308-9DF4-B24E9969E9C3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

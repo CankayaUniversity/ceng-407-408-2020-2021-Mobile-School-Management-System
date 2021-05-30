@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -17,6 +16,8 @@
     <link rel="stylesheet" href="~/css/datepicker.css">
     <link rel="stylesheet" href="~/css/tooplate-style.css">
 
+    
+
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -26,7 +27,6 @@
 
 @*https://www.tooplate.com/view/2112-brunch*@
 <body>
-
     <div class="wrap">
         <header id="header">
             <div class="container-fluid">
@@ -35,7 +35,9 @@
                     <div class="logo">
                         @*<a href="index.html"><img src="~/images/logo2.png" alt="Brunch Template"></a>*@
                     </div>
+
                     <nav id="primary-nav" class="dropdown cf">
+
                         <ul class="dropdown menu">
 
                             <li><a href="@Url.Action("HomePage", "HomePage")" class="nav-link">Home</a></li>
@@ -43,12 +45,12 @@
                             <li>
                                 <a href="#">Functions</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="generic-page.html">Class/Section</a></li>
-                                    <li><a href="@Url.Action("FeedBackPage", "FeedBackPage")" class="nav-link">FeedBack</a></li>
+
+                                    <li><a href="@Url.Action("FeedbackPage", "FeedbackPage")" class="nav-link">Feedback</a></li>
                                     <li><a href="@Url.Action("MessagePage", "MessagePage")" class="nav-link">Message</a></li>
-                                    <li><a href="generic-page.html">News</a></li>
-                                    <li><a href="generic-page.html">School</a></li>
-                                    <li><a href="generic-page.html">Teacher</a></li>
+                                    <li><a href="@Url.Action("NewsPage", "NewsPage")" class="nav-link">News</a></li>
+                                    <li><a href="@Url.Action("InfoPage", "InfoPage")" class="nav-link">Info</a></li>
+
 
                                 </ul>
                             </li>
@@ -77,7 +79,9 @@
                 <div class="left-content">
                     <div class="inside-content">
                         <h4>Welcome @ViewBag.NameSurname </h4>
-                        @*<h4>Your object id = @ViewBag.Userno </h4>*@
+                        <h4>Email: @ViewBag.Email</h4>
+                        <h4>Phone: @ViewBag.Phone</h4>
+                       
                         <div class="white-border-button">
                             @*<a href="#">View More</a>*@
                         </div>
@@ -94,33 +98,21 @@
             <div class="col-md-5 col-sm-5 col-xs-12">
                 <div class="right-content">
                     @*<div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <a style="text-decoration:none" href="@Url.Action("FeedBackPage", "FeedBackPage")"><h1>Feedback</h1></a>
+                            <div class="item">
+                                <a style="text-decoration:none" href="@Url.Action("FeedBackPage", "FeedBackPage")"><h1>Feedback</h1></a>
 
-                        </div>
-                        <div class="item">
-                            <a style="text-decoration:none" href="#"><h1>News</h1></a>
-                        </div>
-                        <div class="item">
-                            <a style="text-decoration:none" href="#"><h1>Message</h1></a>
-                        </div>
-                    </div>*@
+                            </div>
+                            <div class="item">
+                                <a style="text-decoration:none" href="#"><h1>News</h1></a>
+                            </div>
+                            <div class="item">
+                                <a style="text-decoration:none" href="#"><h1>Message</h1></a>
+                            </div>
+                        </div>*@
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     <div class="content">
@@ -129,9 +121,6 @@
         </div><!-- /.container-fluid -->
     </div>
 
-    <footer>
-        <br />
-    </footer>
 
 
 

@@ -26,12 +26,12 @@ namespace MobilOkulProc.WebApp.Controllers
         }
 
 
-        public IActionResult Welcome(USER user)
+        public IActionResult Welcome(AuthenticationResponse user)
         {
-            //var Session = HttpContext.Session.GetObject<USER>("user");
-            if (user.NameSurname != null)
+            var Session = HttpContext.Session.GetObject<AuthenticationResponse>("Authorization");
+            if (user.FirstName != null)
             {
-                needs.NameSurname = user.NameSurname;
+                needs.NameSurname = user.FirstName + " " + user.LastName;
 
             }
             ViewBag.NameSurname = needs.NameSurname;
@@ -91,6 +91,7 @@ namespace MobilOkulProc.WebApp.Controllers
                         using (HttpClient c = new HttpClient(handler))
                         {
                             string url = needs.WebApiUrl + ApiURL;
+                            
 
                             //StringContent content = new StringContent(JsonConvert.SerializeObject(m.Mesajlar.Nesne), System.Text.Encoding.UTF8, "application/json");
 

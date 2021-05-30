@@ -1,23 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
+using MobilOkulProc.WebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace MobilOkulProc.WebAPI.Data
 {
-    public class MobilOkulContext : DbContext
+    public class MobilOkulContext : IdentityDbContext<AppUser, AppRole, int>
     {
+        protected readonly IConfiguration Configuration;
         public MobilOkulContext()
         {
 
         }
 
-        public MobilOkulContext(DbContextOptions<MobilOkulContext> options) : base(options)
+        public MobilOkulContext(DbContextOptions<MobilOkulContext> options, IConfiguration configuration) : base(options)
         {
-
+            Configuration = configuration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
@@ -34,6 +36,7 @@ namespace MobilOkulProc.WebAPI.Data
         {
             builder.Entity<USER>().HasMany(t => t.Sender).WithOne(g => g.Sender).HasForeignKey(g => g.SenderID);
             builder.Entity<USER>().HasMany(t => t.Receiver).WithOne(g => g.Receive).HasForeignKey(g => g.ReceiveID).OnDelete(DeleteBehavior.Restrict);
+            base.OnModelCreating(builder);
         }
 
 
@@ -56,6 +59,7 @@ namespace MobilOkulProc.WebAPI.Data
         public DbSet<STUDENT_PARENT> STUDENT_PARENTS { get; set; }
         public DbSet<TEACHER> TEACHERS { get; set; }
         public DbSet<USER> USERS { get; set; }
+        public DbSet<zUser> zUsers { get; set; }
 
     }
 }

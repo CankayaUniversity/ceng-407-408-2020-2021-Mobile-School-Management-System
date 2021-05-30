@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.Json.Serialization;
 using MobilOkulProc.Entities.Abstract;
+using MobilOkulProc.Entities.General;
 
 namespace MobilOkulProc.Entities.Concrete
 {
@@ -51,9 +52,19 @@ namespace MobilOkulProc.Entities.Concrete
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string Token { get; set; }
     }
     public class USER_INFO
     {
         public string NameSurname { get; set; }
+    }
+    public class AuthenticationResponse
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Username { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
     }
 }

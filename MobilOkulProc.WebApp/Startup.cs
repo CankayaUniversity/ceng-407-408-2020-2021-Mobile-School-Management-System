@@ -11,6 +11,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Serialization;
 using MobilOkulProc.WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using MobilOkulProc.WebAPI;
+using MobilOkulProc.WebAPI.Models;
 
 namespace MobilOkulProc.WebApp
 {
@@ -21,13 +26,31 @@ namespace MobilOkulProc.WebApp
         {
             Configuration = configuration;
         }
-
+        private readonly string key = "Bu benim uzun string deðerim";
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMvc(x => x.EnableEndpointRouting = false)
                 .AddViewOptions(opt => opt.HtmlHelperOptions.ClientValidationEnabled = true)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            services.AddSingleton<IJWTAuthenticationManager>(new JwtAuthenticationManager(key));
 
 
             services.AddCors();
@@ -50,8 +73,8 @@ namespace MobilOkulProc.WebApp
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            
             app.UseSession();
+            app.UseAuthentication();
 
             app.UseMvc(configureRoutes =>
             {
