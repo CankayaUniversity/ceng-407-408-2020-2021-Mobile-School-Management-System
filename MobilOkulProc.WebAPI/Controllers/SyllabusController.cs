@@ -14,7 +14,7 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class SyllabusController : Controller
     {
         [HttpPost("Syllabus_Insert")]
-        public IActionResult Syllabus_Insert([FromBody] Syllabus Syllabus)
+        public IActionResult Syllabus_Insert([FromBody] SYLLABUS Syllabus)
         {
             Mesajlar<SYLLABUS> m = new clsSyllabus_Process().Ekle(Syllabus);
 

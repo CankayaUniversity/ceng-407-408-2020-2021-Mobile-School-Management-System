@@ -12,12 +12,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20210418094036_1.cs" />
-    <Compile Remove="Migrations\20210418094036_1.Designer.cs" />
+    <Compile Remove="JWT\**" />
+    <Content Remove="JWT\**" />
+    <EmbeddedResource Remove="JWT\**" />
+    <None Remove="JWT\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="JWT\" />
+    <Compile Remove="Migrations\20210418094036_1.cs" />
+    <Compile Remove="Migrations\20210418094036_1.Designer.cs" />
+    <Compile Remove="Migrations\20210531082029_MgLectureGradeSyllabusDays.cs" />
+    <Compile Remove="Migrations\20210531082029_MgLectureGradeSyllabusDays.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
 

@@ -1,0 +1,89 @@
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.WebApp.ViewModels
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Fluent
+@model GradeViewModel<GRADE>
+
+@{
+    ViewData["Title"] = "List Grades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("List", "Grade", FormMethod.Get))
+{
+    <input type="text" name="Search" placeholder="Ara" />
+
+    <input id="Ara" name="Ara" type="submit" value="Ara" class="
+               btn btn-default" onclick="SearchClick()" />
+
+}
+
+<p>
+    @Html.ActionLink("+Yeni", "Add")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Grade)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Lecture.LectureName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PagedList)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grade)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit", new { id = item.ObjectID }) |
+                @Html.ActionLink("Görüntüle", "Details", new { id = item.ObjectID}) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.ObjectID })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<p>
+    <div class="input-group">
+        @if (Model.Mesajlar != null)
+        {
+            if (Model.Mesajlar.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>
+
+<script>
+    function SearchClick(theButton) {
+        document.getElementById('Search').value = theButton.name;
+        return true;
+    }
+</script>
+
+@Html.PagedListPager(Model.PagedList, page => Url.Action("List", "Grade", new { page, Search = Context.Request.Query["Search"] }))
+
+
+
