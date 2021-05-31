@@ -29,5 +29,9 @@ namespace MobilOkulProc.WebAPI.Data
     public class clsClass_Process : EfEntityRepository<CLASS, MobilOkulContext>{}
     public class clsTeacherSchool_Process: EfEntityRepository<TEACHER_SCHOOL, MobilOkulContext> { }
     public class clsSchoolStudent_Process: EfEntityRepository<SCHOOL_STUDENT,MobilOkulContext> { }
+    public class clsLecture_Process: EfEntityRepository<LECTURE, MobilOkulContext> { }
+    public class clsGrade_Process : EfEntityRepository<GRADE, MobilOkulContext> { }
+    public class clsSyllabus_Process : EfEntityRepository<SYLLABUS, MobilOkulContext> { }
+    public class clsDays_Process : EfEntityRepository<DAYS, MobilOkulContext> { }
 
 }

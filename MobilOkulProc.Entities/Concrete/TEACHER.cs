@@ -52,6 +52,7 @@ namespace MobilOkulProc.Entities.Concrete
         public virtual USER User { get; set; }
 
         public virtual List<TEACHER_SCHOOL> TeacherSchool { get; set; }
+        public virtual List<LECTURE> Lecture { get; set; }
 
         #endregion
         [NotMapped]

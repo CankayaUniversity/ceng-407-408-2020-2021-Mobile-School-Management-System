@@ -63,6 +63,10 @@ namespace MobilOkulProc.WebAPI.Data
         public DbSet<zUser> zUsers { get; set; }
         public DbSet<TEACHER_SCHOOL> TEACHER_SCHOOLS { get; set; }
         public DbSet<SCHOOL_STUDENT> SCHOOL_STUDENTS { get; set; }
+        public DbSet<LECTURE> LECTURES { get; set; }
+        public DbSet<GRADE> GRADES { get; set; }
+        public DbSet<SYLLABUS> SYLLABUSES { get; set; }
+        public DbSet<DAYS> DAYSES { get; set; }
 
     }
 }
