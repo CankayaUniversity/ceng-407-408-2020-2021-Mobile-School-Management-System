@@ -20,10 +20,12 @@ namespace MobilOkulProc.MobileApp.Controllers
 
         public HomePageController(IConfiguration cfg)
         {
+
             needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
+
         }
 
- 
+
 
         public IActionResult HomePage(USER user)
         {
@@ -31,13 +33,31 @@ namespace MobilOkulProc.MobileApp.Controllers
             if (user.NameSurname != null)
             {
                 needs.NameSurname = user.NameSurname;
-                
+
             }
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
             ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+
+            // Notification 
+            Mesajlar<MESSAGE> mb = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> m = new MessagePageModel<MESSAGE>();
+            m.Mesajlar = function.Get<MESSAGE>(mb, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in m.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.Userno || item.ReceiveID == ViewBag.Userno)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
 
 
 

@@ -24,11 +24,6 @@
 
     <script src="~/js/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
-<styles>
-    .margin-top{
-    margin-top: 5
-    }
-</styles>
 
 @*https://www.tooplate.com/view/2112-brunch*@
 <body>
@@ -62,6 +57,7 @@
                             </li>
 
                             <li><a href="@Url.Action("Logout", "LoginPage")" class="nav-link">Logout</a></li>
+                            <li><a href="@Url.Action("List", "MessagePage")" class="nav-link"><img width="25" height="25" src="~/images/notification.jpg" />@ViewBag.Notification</a></li>
 
                             <li>
                                 <a class="nav-link">
@@ -115,10 +111,7 @@
                                 <a style="text-decoration:none" href="#"><h1>Message</h1></a>
                             </div>
                         </div>*@
-                    <div style="margin-top:5">
-                        asdasdasdasd
-
-                    </div>
+                  
             </div>
         </div>
     </div>
