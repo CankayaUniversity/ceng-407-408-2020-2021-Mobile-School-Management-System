@@ -365,7 +365,7 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.Property<double>("Grade")
                         .HasColumnType("float");
 
-                    b.Property<int?>("LectureObjectID")
+                    b.Property<int>("LectureID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -373,7 +373,7 @@ namespace MobilOkulProc.WebAPI.Migrations
 
                     b.HasKey("ObjectID");
 
-                    b.HasIndex("LectureObjectID");
+                    b.HasIndex("LectureID");
 
                     b.ToTable("GRADES");
                 });
@@ -393,17 +393,17 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("StudentObjectID")
+                    b.Property<int>("StudentsID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeacherObjectID")
+                    b.Property<int>("TeacherID")
                         .HasColumnType("int");
 
                     b.HasKey("ObjectID");
 
-                    b.HasIndex("StudentObjectID");
+                    b.HasIndex("StudentsID");
 
-                    b.HasIndex("TeacherObjectID");
+                    b.HasIndex("TeacherID");
 
                     b.ToTable("LECTURES");
                 });
@@ -809,10 +809,10 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DaysObjectID")
+                    b.Property<int>("DaysID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LectureObjectID")
+                    b.Property<int>("LectureID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -820,9 +820,9 @@ namespace MobilOkulProc.WebAPI.Migrations
 
                     b.HasKey("ObjectID");
 
-                    b.HasIndex("DaysObjectID");
+                    b.HasIndex("DaysID");
 
-                    b.HasIndex("LectureObjectID");
+                    b.HasIndex("LectureID");
 
                     b.ToTable("SYLLABUSES");
                 });
@@ -1173,18 +1173,24 @@ namespace MobilOkulProc.WebAPI.Migrations
                 {
                     b.HasOne("MobilOkulProc.Entities.Concrete.LECTURE", "Lecture")
                         .WithMany("Grade")
-                        .HasForeignKey("LectureObjectID");
+                        .HasForeignKey("LectureID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.LECTURE", b =>
                 {
-                    b.HasOne("MobilOkulProc.Entities.Concrete.STUDENT", "Student")
+                    b.HasOne("MobilOkulProc.Entities.Concrete.STUDENT", "Students")
                         .WithMany("Lecture")
-                        .HasForeignKey("StudentObjectID");
+                        .HasForeignKey("StudentsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MobilOkulProc.Entities.Concrete.TEACHER", "Teacher")
                         .WithMany("Lecture")
-                        .HasForeignKey("TeacherObjectID");
+                        .HasForeignKey("TeacherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.MESSAGE", b =>
@@ -1335,11 +1341,15 @@ namespace MobilOkulProc.WebAPI.Migrations
                 {
                     b.HasOne("MobilOkulProc.Entities.Concrete.DAYS", "Days")
                         .WithMany("Syllabus")
-                        .HasForeignKey("DaysObjectID");
+                        .HasForeignKey("DaysID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MobilOkulProc.Entities.Concrete.LECTURE", "Lecture")
                         .WithMany("Syllabus")
-                        .HasForeignKey("LectureObjectID");
+                        .HasForeignKey("LectureID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.TEACHER", b =>

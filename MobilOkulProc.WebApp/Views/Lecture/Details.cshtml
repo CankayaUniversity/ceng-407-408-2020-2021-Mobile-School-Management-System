@@ -1,0 +1,58 @@
+﻿@using MobilOkulProc.WebApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model LectureViewModel<LECTURE>
+
+@{
+    ViewData["Title"] = "Lecture Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.LectureName)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.LectureName)
+        </dd>
+        
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Students.StdName)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Students.StdName)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Teacher.FullName)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Teacher.FullName)
+        </dd>
+        <dt class="col-md-2">
+            @Html.DisplayNameFor(m => m.Mesajlar.Nesne.Status)
+        </dt>
+        <dd class="col-md-10">
+            @Html.DisplayFor(m => m.Mesajlar.Nesne.Status)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.Mesajlar.Nesne.ObjectID }) |
+    @Html.ActionLink("Listeye Geri Dön", "List")
+</div>
+<p>
+    <div class="input-group">
+        @if (Model.Mesajlar != null)
+        {
+            if (Model.Mesajlar.Mesaj != null)
+            {
+                <div class="alert alert-@Model.Mesajlar.Status" role="alert">@Model.Mesajlar.Mesaj</div>
+            }
+
+
+        }
+    </div>
+    <br />
+
+</p>

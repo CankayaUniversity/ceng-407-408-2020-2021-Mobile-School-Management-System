@@ -10,8 +10,8 @@ using MobilOkulProc.WebAPI.Data;
 namespace MobilOkulProc.WebAPI.Migrations
 {
     [DbContext(typeof(MobilOkulContext))]
-    [Migration("20210425152329_Mg_MessageTableFix")]
-    partial class Mg_MessageTableFix
+    [Migration("20210601102047_MgRelationalUpdate")]
+    partial class MgRelationalUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,107 @@ namespace MobilOkulProc.WebAPI.Migrations
                 .HasAnnotation("ProductVersion", "3.1.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.BRANCH", b =>
                 {
@@ -118,6 +219,25 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.HasIndex("SectionID");
 
                     b.ToTable("CLASS_SECTIONS");
+                });
+
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.DAYS", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DayName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ObjectID");
+
+                    b.ToTable("DAYSES");
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.EDUCATIONAL_INSTITUTION", b =>
@@ -235,6 +355,59 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("FEEDBACKS");
+                });
+
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.GRADE", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Grade")
+                        .HasColumnType("float");
+
+                    b.Property<int>("LectureID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ObjectID");
+
+                    b.HasIndex("LectureID");
+
+                    b.ToTable("GRADES");
+                });
+
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.LECTURE", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LectureName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentsID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ObjectID");
+
+                    b.HasIndex("StudentsID");
+
+                    b.HasIndex("TeacherID");
+
+                    b.ToTable("LECTURES");
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.MESSAGE", b =>
@@ -460,6 +633,31 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.ToTable("SCHOOL_EMPLOYERS");
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.SCHOOL_STUDENT", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SchoolID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ObjectID");
+
+                    b.HasIndex("SchoolID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("SCHOOL_STUDENTS");
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.SECTION", b =>
                 {
                     b.Property<int>("ObjectID")
@@ -603,6 +801,34 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.ToTable("STUDENT_PARENTS");
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.SYLLABUS", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DaysID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LectureID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ObjectID");
+
+                    b.HasIndex("DaysID");
+
+                    b.HasIndex("LectureID");
+
+                    b.ToTable("SYLLABUSES");
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.TEACHER", b =>
                 {
                     b.Property<int>("ObjectID")
@@ -657,6 +883,31 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.ToTable("TEACHERS");
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.TEACHER_SCHOOL", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SchoolID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TeacherID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ObjectID");
+
+                    b.HasIndex("SchoolID");
+
+                    b.HasIndex("TeacherID");
+
+                    b.ToTable("TEACHER_SCHOOLS");
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.USER", b =>
                 {
                     b.Property<int>("ObjectID")
@@ -693,6 +944,183 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.HasKey("ObjectID");
 
                     b.ToTable("USERS");
+                });
+
+            modelBuilder.Entity("MobilOkulProc.WebAPI.Entities.zUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("zUsers");
+                });
+
+            modelBuilder.Entity("MobilOkulProc.WebAPI.Models.AppRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("MobilOkulProc.WebAPI.Models.AppUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("MobilOkulProc.WebAPI.Models.AppRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("MobilOkulProc.WebAPI.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("MobilOkulProc.WebAPI.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("MobilOkulProc.WebAPI.Models.AppRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MobilOkulProc.WebAPI.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("MobilOkulProc.WebAPI.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.CLASS", b =>
@@ -739,6 +1167,30 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.HasOne("MobilOkulProc.Entities.Concrete.USER", "User")
                         .WithMany("Feedback")
                         .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.GRADE", b =>
+                {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.LECTURE", "Lecture")
+                        .WithMany("Grade")
+                        .HasForeignKey("LectureID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.LECTURE", b =>
+                {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.STUDENT", "Students")
+                        .WithMany("Lecture")
+                        .HasForeignKey("StudentsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MobilOkulProc.Entities.Concrete.TEACHER", "Teacher")
+                        .WithMany("Lecture")
+                        .HasForeignKey("TeacherID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -824,6 +1276,21 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.SCHOOL_STUDENT", b =>
+                {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.SCHOOL", "School")
+                        .WithMany("SchoolStudent")
+                        .HasForeignKey("SchoolID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MobilOkulProc.Entities.Concrete.STUDENT", "Student")
+                        .WithMany("SchoolStudent")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.SECTION", b =>
                 {
                     b.HasOne("MobilOkulProc.Entities.Concrete.SCHOOL", "School")
@@ -872,6 +1339,21 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.SYLLABUS", b =>
+                {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.DAYS", "Days")
+                        .WithMany("Syllabus")
+                        .HasForeignKey("DaysID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MobilOkulProc.Entities.Concrete.LECTURE", "Lecture")
+                        .WithMany("Syllabus")
+                        .HasForeignKey("LectureID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.TEACHER", b =>
                 {
                     b.HasOne("MobilOkulProc.Entities.Concrete.BRANCH", "Branch")
@@ -885,6 +1367,65 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.TEACHER_SCHOOL", b =>
+                {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.SCHOOL", "School")
+                        .WithMany("TeacherSchool")
+                        .HasForeignKey("SchoolID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MobilOkulProc.Entities.Concrete.TEACHER", "Teacher")
+                        .WithMany("TeacherSchool")
+                        .HasForeignKey("TeacherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MobilOkulProc.WebAPI.Entities.zUser", b =>
+                {
+                    b.OwnsMany("MobilOkulProc.WebAPI.Entities.RefreshToken", "RefreshTokens", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("Created")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("CreatedByIp")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<DateTime>("Expires")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("ReplacedByToken")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<DateTime?>("Revoked")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("RevokedByIp")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Token")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("zUserId")
+                                .HasColumnType("int");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("zUserId");
+
+                            b1.ToTable("RefreshToken");
+
+                            b1.WithOwner()
+                                .HasForeignKey("zUserId");
+                        });
                 });
 #pragma warning restore 612, 618
         }

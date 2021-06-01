@@ -23,7 +23,7 @@ namespace MobilOkulProc.WebApp.Controllers
             m.Mesajlar = function.Get<GRADE>(mb, "Grade/Grade_List");
             foreach (var item in m.Mesajlar.Liste)
             {
-                User = function.Get<LECTURE>(User, "Lecture/Lecture_Select?LectureID=" + item.Lecture.ObjectID);
+                User = function.Get<LECTURE>(User, "Lecture/Lecture_Select?LectureID=" + item.LectureID);
                 item.Lecture = User.Nesne;
             }
             if (Search != null)
@@ -51,7 +51,7 @@ namespace MobilOkulProc.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(GradeViewModel<GRADE> m)
         {
-            m.Mesajlar.Nesne.Lecture.ObjectID = m.SelectedId;
+            m.Mesajlar.Nesne.LectureID = m.SelectedId;
             m.Mesajlar = function.Add_Update<GRADE>(m.Mesajlar, "Grade/Grade_Insert");
             ViewBag.NameSurname = needs.NameSurname;
             return RedirectToAction("List", "Grade", m.Mesajlar);
@@ -85,7 +85,7 @@ namespace MobilOkulProc.WebApp.Controllers
             ViewBag.NameSurname = needs.NameSurname;
             GradeViewModel.Mesajlar = m;
             Mesajlar<LECTURE> mesajlar = new Mesajlar<LECTURE>();
-            mesajlar = function.Get<LECTURE>(mesajlar, "Lecture/Lecture_Select?LectureID=" + m.Nesne.Lecture.ObjectID);
+            mesajlar = function.Get<LECTURE>(mesajlar, "Lecture/Lecture_Select?LectureID=" + m.Nesne.LectureID);
             GradeViewModel.Mesajlar.Nesne.Lecture = mesajlar.Nesne;
             return View(GradeViewModel);
         }
@@ -98,7 +98,7 @@ namespace MobilOkulProc.WebApp.Controllers
             GradeViewModel<GRADE> GradeViewModel = new GradeViewModel<GRADE>()
             {
                 List = new SelectList(m.Liste, "ObjectID", "LectureName"),
-                SelectedId = mesajlar.Nesne.Lecture.ObjectID
+                SelectedId = mesajlar.Nesne.LectureID
             };
 
             GradeViewModel.Mesajlar = mesajlar;
@@ -110,7 +110,7 @@ namespace MobilOkulProc.WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(GradeViewModel<GRADE> m)
         {
-            m.Mesajlar.Nesne.Lecture.ObjectID = m.SelectedId;
+            m.Mesajlar.Nesne.LectureID = m.SelectedId;
             m.Mesajlar = function.Add_Update<GRADE>(m.Mesajlar, "Grade/Grade_Update");
             ViewBag.NameSurname = needs.NameSurname;
             return RedirectToAction("List", "Grade", m);

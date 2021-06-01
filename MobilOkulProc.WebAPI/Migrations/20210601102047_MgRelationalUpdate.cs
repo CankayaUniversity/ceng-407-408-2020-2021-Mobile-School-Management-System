@@ -3,10 +3,53 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MobilOkulProc.WebAPI.Migrations
 {
-    public partial class MG_1 : Migration
+    public partial class MgRelationalUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "BRANCHS",
                 columns: table => new
@@ -33,6 +76,20 @@ namespace MobilOkulProc.WebAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CITYS", x => x.ObjectID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DAYSES",
+                columns: table => new
+                {
+                    ObjectID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<bool>(nullable: false),
+                    DayName = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DAYSES", x => x.ObjectID);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,6 +136,128 @@ namespace MobilOkulProc.WebAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_USERS", x => x.ObjectID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "zUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_zUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
+                    ProviderDisplayName = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false),
+                    RoleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +331,12 @@ namespace MobilOkulProc.WebAPI.Migrations
                     table.ForeignKey(
                         name: "FK_MESSAGES_USERS_ReceiveID",
                         column: x => x.ReceiveID,
+                        principalTable: "USERS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MESSAGES_USERS_SenderID",
+                        column: x => x.SenderID,
                         principalTable: "USERS",
                         principalColumn: "ObjectID",
                         onDelete: ReferentialAction.NoAction);
@@ -247,6 +432,32 @@ namespace MobilOkulProc.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RefreshToken",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Token = table.Column<string>(nullable: true),
+                    Expires = table.Column<DateTime>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    CreatedByIp = table.Column<string>(nullable: true),
+                    Revoked = table.Column<DateTime>(nullable: true),
+                    RevokedByIp = table.Column<string>(nullable: true),
+                    ReplacedByToken = table.Column<string>(nullable: true),
+                    zUserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshToken", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RefreshToken_zUsers_zUserId",
+                        column: x => x.zUserId,
+                        principalTable: "zUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SCHOOLS",
                 columns: table => new
                 {
@@ -292,6 +503,34 @@ namespace MobilOkulProc.WebAPI.Migrations
                         name: "FK_STUDENT_PARENTS_STUDENTS_StudentID",
                         column: x => x.StudentID,
                         principalTable: "STUDENTS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LECTURES",
+                columns: table => new
+                {
+                    ObjectID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<bool>(nullable: false),
+                    LectureName = table.Column<string>(maxLength: 100, nullable: false),
+                    StudentsID = table.Column<int>(nullable: false),
+                    TeacherID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LECTURES", x => x.ObjectID);
+                    table.ForeignKey(
+                        name: "FK_LECTURES_STUDENTS_StudentsID",
+                        column: x => x.StudentsID,
+                        principalTable: "STUDENTS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_LECTURES_TEACHERS_TeacherID",
+                        column: x => x.TeacherID,
+                        principalTable: "TEACHERS",
                         principalColumn: "ObjectID",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -401,6 +640,33 @@ namespace MobilOkulProc.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SCHOOL_STUDENTS",
+                columns: table => new
+                {
+                    ObjectID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<bool>(nullable: false),
+                    SchoolID = table.Column<int>(nullable: false),
+                    StudentID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SCHOOL_STUDENTS", x => x.ObjectID);
+                    table.ForeignKey(
+                        name: "FK_SCHOOL_STUDENTS_SCHOOLS_SchoolID",
+                        column: x => x.SchoolID,
+                        principalTable: "SCHOOLS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_SCHOOL_STUDENTS_STUDENTS_StudentID",
+                        column: x => x.StudentID,
+                        principalTable: "STUDENTS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SECTIONS",
                 columns: table => new
                 {
@@ -417,6 +683,82 @@ namespace MobilOkulProc.WebAPI.Migrations
                         name: "FK_SECTIONS_SCHOOLS_SchoolID",
                         column: x => x.SchoolID,
                         principalTable: "SCHOOLS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TEACHER_SCHOOLS",
+                columns: table => new
+                {
+                    ObjectID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<bool>(nullable: false),
+                    TeacherID = table.Column<int>(nullable: false),
+                    SchoolID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TEACHER_SCHOOLS", x => x.ObjectID);
+                    table.ForeignKey(
+                        name: "FK_TEACHER_SCHOOLS_SCHOOLS_SchoolID",
+                        column: x => x.SchoolID,
+                        principalTable: "SCHOOLS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_TEACHER_SCHOOLS_TEACHERS_TeacherID",
+                        column: x => x.TeacherID,
+                        principalTable: "TEACHERS",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GRADES",
+                columns: table => new
+                {
+                    ObjectID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<bool>(nullable: false),
+                    Grade = table.Column<double>(nullable: false),
+                    LectureID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GRADES", x => x.ObjectID);
+                    table.ForeignKey(
+                        name: "FK_GRADES_LECTURES_LectureID",
+                        column: x => x.LectureID,
+                        principalTable: "LECTURES",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SYLLABUSES",
+                columns: table => new
+                {
+                    ObjectID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<bool>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    LectureID = table.Column<int>(nullable: false),
+                    DaysID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SYLLABUSES", x => x.ObjectID);
+                    table.ForeignKey(
+                        name: "FK_SYLLABUSES_DAYSES_DaysID",
+                        column: x => x.DaysID,
+                        principalTable: "DAYSES",
+                        principalColumn: "ObjectID",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_SYLLABUSES_LECTURES_LectureID",
+                        column: x => x.LectureID,
+                        principalTable: "LECTURES",
                         principalColumn: "ObjectID",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -484,6 +826,45 @@ namespace MobilOkulProc.WebAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CLASS_SECTIONS_ClassID",
                 table: "CLASS_SECTIONS",
                 column: "ClassID");
@@ -514,9 +895,29 @@ namespace MobilOkulProc.WebAPI.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GRADES_LectureID",
+                table: "GRADES",
+                column: "LectureID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LECTURES_StudentsID",
+                table: "LECTURES",
+                column: "StudentsID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LECTURES_TeacherID",
+                table: "LECTURES",
+                column: "TeacherID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MESSAGES_ReceiveID",
                 table: "MESSAGES",
                 column: "ReceiveID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MESSAGES_SenderID",
+                table: "MESSAGES",
+                column: "SenderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NEWSES_EducationID",
@@ -539,6 +940,11 @@ namespace MobilOkulProc.WebAPI.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RefreshToken_zUserId",
+                table: "RefreshToken",
+                column: "zUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SCHOOL_EMPLOYERS_EducationID",
                 table: "SCHOOL_EMPLOYERS",
                 column: "EducationID");
@@ -557,6 +963,16 @@ namespace MobilOkulProc.WebAPI.Migrations
                 name: "IX_SCHOOL_EMPLOYERS_UserID",
                 table: "SCHOOL_EMPLOYERS",
                 column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SCHOOL_STUDENTS_SchoolID",
+                table: "SCHOOL_STUDENTS",
+                column: "SchoolID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SCHOOL_STUDENTS_StudentID",
+                table: "SCHOOL_STUDENTS",
+                column: "StudentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SCHOOLS_EducationID",
@@ -594,6 +1010,26 @@ namespace MobilOkulProc.WebAPI.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SYLLABUSES_DaysID",
+                table: "SYLLABUSES",
+                column: "DaysID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SYLLABUSES_LectureID",
+                table: "SYLLABUSES",
+                column: "LectureID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TEACHER_SCHOOLS_SchoolID",
+                table: "TEACHER_SCHOOLS",
+                column: "SchoolID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TEACHER_SCHOOLS_TeacherID",
+                table: "TEACHER_SCHOOLS",
+                column: "TeacherID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TEACHERS_BranchID",
                 table: "TEACHERS",
                 column: "BranchID");
@@ -607,7 +1043,25 @@ namespace MobilOkulProc.WebAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
                 name: "FEEDBACKS");
+
+            migrationBuilder.DropTable(
+                name: "GRADES");
 
             migrationBuilder.DropTable(
                 name: "MESSAGES");
@@ -616,7 +1070,13 @@ namespace MobilOkulProc.WebAPI.Migrations
                 name: "NEWSES");
 
             migrationBuilder.DropTable(
+                name: "RefreshToken");
+
+            migrationBuilder.DropTable(
                 name: "SCHOOL_EMPLOYERS");
+
+            migrationBuilder.DropTable(
+                name: "SCHOOL_STUDENTS");
 
             migrationBuilder.DropTable(
                 name: "STUDENT_CLASSes");
@@ -625,7 +1085,19 @@ namespace MobilOkulProc.WebAPI.Migrations
                 name: "STUDENT_PARENTS");
 
             migrationBuilder.DropTable(
-                name: "TEACHERS");
+                name: "SYLLABUSES");
+
+            migrationBuilder.DropTable(
+                name: "TEACHER_SCHOOLS");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "zUsers");
 
             migrationBuilder.DropTable(
                 name: "EMPLOYEE_TYPES");
@@ -637,10 +1109,10 @@ namespace MobilOkulProc.WebAPI.Migrations
                 name: "PARENTS");
 
             migrationBuilder.DropTable(
-                name: "STUDENTS");
+                name: "DAYSES");
 
             migrationBuilder.DropTable(
-                name: "BRANCHS");
+                name: "LECTURES");
 
             migrationBuilder.DropTable(
                 name: "CLASSES");
@@ -652,10 +1124,19 @@ namespace MobilOkulProc.WebAPI.Migrations
                 name: "SECTIONS");
 
             migrationBuilder.DropTable(
-                name: "USERS");
+                name: "STUDENTS");
+
+            migrationBuilder.DropTable(
+                name: "TEACHERS");
 
             migrationBuilder.DropTable(
                 name: "SCHOOLS");
+
+            migrationBuilder.DropTable(
+                name: "BRANCHS");
+
+            migrationBuilder.DropTable(
+                name: "USERS");
 
             migrationBuilder.DropTable(
                 name: "EDUCATIONAL_INSTITUTIONs");
