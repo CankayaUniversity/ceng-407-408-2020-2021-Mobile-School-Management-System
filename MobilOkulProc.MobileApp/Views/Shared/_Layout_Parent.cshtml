@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/css/datepicker.css">
     <link rel="stylesheet" href="~/css/tooplate-style.css">
 
-    
+
 
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -45,20 +45,18 @@
                             <li>
                                 <a href="#">Functions</a>
                                 <ul class="dropdown-menu">
+
                                     <li><a href="@Url.Action("FeedbackPage", "FeedbackPage")" class="nav-link">Feedback</a></li>
                                     <li><a href="@Url.Action("MessagePage", "MessagePage")" class="nav-link">Message</a></li>
                                     <li><a href="@Url.Action("NewsPage", "NewsPage")" class="nav-link">News</a></li>
                                     <li><a href="@Url.Action("InfoPage", "InfoPage")" class="nav-link">Info</a></li>
-                                    <li><a href="@Url.Action("", "")" class="nav-link">Syllabus</a></li>
+                                    <li><a href="@Url.Action("SyllabusPage", "SyllabusPage")" class="nav-link">Syllabus</a></li>
                                     <li><a href="@Url.Action("", "")" class="nav-link">Grades</a></li>
-                                    <li><a href="@Url.Action("", "")" class="nav-link">Attendance</a></li>
-
                                 </ul>
                             </li>
 
                             <li><a href="@Url.Action("Logout", "LoginPage")" class="nav-link">Logout</a></li>
                             <li><a href="@Url.Action("List", "MessagePage")" class="nav-link"><img width="25" height="25" src="~/images/notification.jpg" />@ViewBag.Notification</a></li>
-
                             <li>
                                 <a class="nav-link">
 
@@ -83,7 +81,7 @@
                         <h4>Welcome @ViewBag.NameSurname </h4>
                         <h4>Email: @ViewBag.Email</h4>
                         <h4>Phone: @ViewBag.Phone</h4>
-                        @*<h4>Your object id = @ViewBag.Userno </h4>*@
+
                         <div class="white-border-button">
                             @*<a href="#">View More</a>*@
                         </div>
@@ -98,7 +96,7 @@
                 </div>
             </div>
             <div class="col-md-5 col-sm-5 col-xs-12">
-                <div class="right-content" style="margin-top:auto">
+                <div class="right-content">
                     @*<div class="owl-carousel owl-theme">
                             <div class="item">
                                 <a style="text-decoration:none" href="@Url.Action("FeedBackPage", "FeedBackPage")"><h1>Feedback</h1></a>
@@ -111,7 +109,7 @@
                                 <a style="text-decoration:none" href="#"><h1>Message</h1></a>
                             </div>
                         </div>*@
-                  
+                </div>
             </div>
         </div>
     </div>
@@ -123,7 +121,8 @@
         </div><!-- /.container-fluid -->
     </div>
 
-   
+
+
 
     <div class="sub-footer">
         <div class="container">

@@ -1,0 +1,114 @@
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.MobileApp.Models
+@model SyllabusPageModel<SYLLABUS>
+
+@{
+
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
+}
+
+
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Date)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Days.DayName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Lecture.LectureName)
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PagedList)
+            {
+
+
+
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Days.DayName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+                    </td>
+
+
+                </tr>
+
+
+            }
+        </tbody>
+    </table>
+
+    <div class="col-md-4 col-md-offset-2">
+
+
+
+    </div>
+
+    <div class="template-presentation">
+        <div class="container">
+            <div class="col-md-7 hidden-xs hidden-sm">
+                <div class="left-image">
+                    <img src="~/images/school.png" alt="">
+                </div>
+            </div>
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <div class="right-content">
+                    <h4>SCHOOL MANAGEMENT SYSTEM</h4>
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    @*<h4>Mauris tristique tempus dapibus. Nulla quis risus euismod, imperdiet nisl sed.</h4>*@
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 hidden-lg hidden-md">
+                <div class="right-content">
+                    <div class="author-image">
+                        <img src="img/template-author.png" alt="">
+                    </div>
+                    @*<h4>Mauris tristique tempus dapibus. Nulla quis risus euismod, imperdiet nisl sed.</h4>*@
+                    <div class="blue-button">
+                        @*<a href="#">View More</a>*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 hidden-lg hidden-md">
+                <div class="left-image">
+                    <img src="img/template-image.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+message.txt
+4 KB

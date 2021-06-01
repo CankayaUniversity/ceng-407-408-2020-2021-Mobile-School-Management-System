@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/css/datepicker.css">
     <link rel="stylesheet" href="~/css/tooplate-style.css">
 
-    
+
 
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
@@ -49,14 +49,14 @@
                                     <li><a href="@Url.Action("MessagePage", "MessagePage")" class="nav-link">Message</a></li>
                                     <li><a href="@Url.Action("NewsPage", "NewsPage")" class="nav-link">News</a></li>
                                     <li><a href="@Url.Action("InfoPage", "InfoPage")" class="nav-link">Info</a></li>
-                                    <li><a href="@Url.Action("", "")" class="nav-link">Syllabus</a></li>
+                                    <li><a href="@Url.Action("SyllabusPage", "SyllabusPage")" class="nav-link">Syllabus</a></li>
 
 
                                 </ul>
                             </li>
 
                             <li><a href="@Url.Action("Logout", "LoginPage")" class="nav-link">Logout</a></li>
-
+                            <li><a href="@Url.Action("List", "MessagePage")" class="nav-link"><img width="25" height="25" src="~/images/notification.jpg" />@ViewBag.Notification</a></li>
                             <li>
                                 <a class="nav-link">
 
@@ -121,7 +121,7 @@
         </div><!-- /.container-fluid -->
     </div>
 
-    
+
 
 
 
