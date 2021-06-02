@@ -1,0 +1,66 @@
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.MobileApp.Models
+
+@model GradePageModel<GRADE>
+
+@{
+    if (ViewBag.Userid == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+
+    else if (ViewBag.Userid == 3)
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Userid == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    }
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Grade)
+            </th>  
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Lecture.LectureName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PagedList)
+        {
+            @if (item.Lecture.StudentsID==ViewBag.Student)
+            {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+
+

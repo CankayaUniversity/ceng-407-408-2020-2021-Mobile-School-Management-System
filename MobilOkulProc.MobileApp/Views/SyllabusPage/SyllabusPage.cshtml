@@ -34,33 +34,48 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Lecture.LectureName)
                 </th>
-
-
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.PagedList)
             {
 
+                @if (ViewBag.Userid == 1 || ViewBag.Userid == 3 && item.Lecture.StudentsID == ViewBag.Student)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
 
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Days.DayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+                        </td>
+                    </tr>
 
+                }
+            }
+            @foreach (var item in Model.PagedList)
+            {
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
+                @if (ViewBag.Userid == 2 && item.Lecture.TeacherID == ViewBag.Teacher)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Days.DayName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lecture.LectureName)
-                    </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Days.DayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+                        </td>
+                    </tr>
 
-
-                </tr>
-
-
+                }
             }
         </tbody>
     </table>
