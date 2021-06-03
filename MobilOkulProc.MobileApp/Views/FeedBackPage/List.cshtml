@@ -21,43 +21,85 @@
 
 
 <body>
-    <table class="table table-secondary table-hover table-sm">
-        <thead class="thead-dark">
 
-            <tr>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)
-                </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)
-                </th>
+    @*
+        <table class="table table-secondary table-hover table-sm">
+            <thead class="thead-dark">
+
+                <tr>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)
+                    </th>
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)
+                    </th>
 
 
-            </tr>
+                </tr>
 
-        </thead>
+            </thead>
 
-        <tbody>
-            @foreach (var item in Model.PagedList)
-            {
-                @if (item.UserID == @ViewBag.Userno)
+            <tbody>
+                @foreach (var item in Model.PagedList)
                 {
+                    @if (item.UserID == @ViewBag.Userno)
+                    {
 
 
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FeedbackContent)
-                        </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FeedbackContent)
+                            </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FeedbackDate)
-                        </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FeedbackDate)
+                            </td>
 
-                    </tr>
+                        </tr>
+                    }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+
+    *@
+
+
+    <br />
+
+    <div class="accordions">
+        <div class="container-fluid">
+            <div class="col-md-8 col-md-offset-2">
+                <ul class="accordion">
+                    <li>
+                        <a> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)</a>
+                        <p>
+                            @foreach (var item in Model.PagedList)
+                            {
+                                @if (item.UserID == @ViewBag.Userno)
+                                {
+                                    @Html.DisplayFor(modelItem => item.FeedbackContent)
+                                }
+                            }
+                        </p>
+                    </li>
+                    <li>
+                        <a> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)</a>
+                        <p>
+                            @foreach (var item in Model.PagedList)
+                            {
+                                @if (item.UserID == @ViewBag.Userno)
+                                {
+                                    @Html.DisplayFor(modelItem => item.FeedbackDate)
+                                }
+                            }
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <div class="template-presentation">

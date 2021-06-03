@@ -24,61 +24,159 @@
 }
 
 <body>
-    <table class="table table-secondary table-hover table-sm">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageContent)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.SendTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ReadTime)
-                </th>
-                <th>
-                    <h1>Sender</h1>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Sender.NameSurname)
-                </th>
-                <th>
-                    <h1>Receiver</h1>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Receive.NameSurname)
-                </th>
+    @*
+        <table class="table table-secondary table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageContent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.SendTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ReadTime)
+                    </th>
+                    <th>
+                        <h1>Sender</h1>
+                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Sender.NameSurname)
+                    </th>
+                    <th>
+                        <h1>Receiver</h1>
+                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Receive.NameSurname)
+                    </th>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.PagedList)
-            {
-                @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PagedList)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MessageTitle)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MessageContent)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SendTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ReadTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Sender.NameSurname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Receive.NameSurname)
-                        </td>
-                    </tr>
+                    @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MessageTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MessageContent)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SendTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReadTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sender.NameSurname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Receive.NameSurname)
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    *@
+
+    <br />
+
+
+
+    <div class="accordions">
+        <div class="container-fluid">
+            <div class="col-md-8 col-md-offset-2">
+                <ul class="accordion">
+                    <li>
+                        <a> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageTitle)</a>
+                        <p>
+                            @foreach (var item in Model.PagedList)
+                            {
+                                @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                                {
+                                    @Html.DisplayFor(modelItem => item.MessageTitle)
+                                }
+                            }
+                        </p>
+                    </li>
+                    <li>
+                        <a> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageContent)</a>
+                        <p>
+                            @foreach (var item in Model.PagedList)
+                            {
+                                @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                                {
+                                    @Html.DisplayFor(modelItem => item.MessageContent)
+                                }
+                            }
+                        </p>
+                    </li>
+                    <li>
+                        <a> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.SendTime)</a>
+                        <p>
+                            @foreach (var item in Model.PagedList)
+                            {
+                                @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                                {
+                                    @Html.DisplayFor(modelItem => item.SendTime)
+                                }
+                            }
+                        </p>
+                    </li>
+                    <li>
+                        <a> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ReadTime)</a>
+                        <p>
+                            @foreach (var item in Model.PagedList)
+                            {
+                                @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                                {
+                                    @Html.DisplayFor(modelItem => item.ReadTime)
+                                }
+                            }
+                        </p>
+                    </li>
+                    <li>
+                        <a>
+                            <h1>Sender</h1>
+                            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Sender.NameSurname)
+                        </a>
+                        <p>
+                            @foreach (var item in Model.PagedList)
+                            {
+                                @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                                {
+                                    @Html.DisplayFor(modelItem => item.Sender.NameSurname)
+                                }
+                            }
+                        </p>
+                    </li>
+                    <li>
+                        <a>
+                            <h1>Receiver</h1>
+                            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Receive.NameSurname)
+                        </a>
+                        <p>
+                            @foreach (var item in Model.PagedList)
+                            {
+                                @if (item.SenderID == @ViewBag.Userno || item.ReceiveID == @ViewBag.Userno)
+                                {
+                                    @Html.DisplayFor(modelItem => item.Receive.NameSurname)
+                                }
+                            }
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 
 
     <div class="template-presentation">
