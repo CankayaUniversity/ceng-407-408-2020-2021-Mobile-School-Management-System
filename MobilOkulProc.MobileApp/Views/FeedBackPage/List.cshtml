@@ -70,31 +70,25 @@
         <div class="container-fluid">
             <div class="col-md-8 col-md-offset-2">
                 <ul class="accordion">
-                    <li>
-                        <a> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)</a>
-                        <p>
-                            @foreach (var item in Model.PagedList)
-                            {
+                    @foreach (var item in Model.PagedList)
+                    {
+                        <li>
+                            <a>
+                               
+                                @Html.DisplayFor(modelItem => item.FeedbackDate)
+                            </a>
+                            <p>
+
                                 @if (item.UserID == @ViewBag.Userno)
                                 {
+                                    
                                     @Html.DisplayFor(modelItem => item.FeedbackContent)
                                 }
-                            }
-                        </p>
-                    </li>
-                    <li>
-                        <a> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)</a>
-                        <p>
-                            @foreach (var item in Model.PagedList)
-                            {
-                                @if (item.UserID == @ViewBag.Userno)
-                                {
-                                    @Html.DisplayFor(modelItem => item.FeedbackDate)
-                                }
-                            }
-                        </p>
-                    </li>
-                </ul>
+
+                            </p>
+                        </li>
+                    }
+                    </ul>
             </div>
         </div>
     </div>
