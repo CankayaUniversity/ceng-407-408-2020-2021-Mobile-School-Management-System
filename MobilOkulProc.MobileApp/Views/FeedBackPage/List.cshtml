@@ -72,21 +72,31 @@
                 <ul class="accordion">
                     @foreach (var item in Model.PagedList)
                     {
-                        <li>
+                    <li>
+                        @if (item.UserID == @ViewBag.Userno)
+                        {
                             <a>
-                               
+
                                 @Html.DisplayFor(modelItem => item.FeedbackDate)
                             </a>
+                        }
+                        else {
+                    <a>
+                        <h4>You have no feedbacks</h4>
+                        
+                    </a>
+                            break;
+                        }
                             <p>
 
                                 @if (item.UserID == @ViewBag.Userno)
                                 {
-                                    
+
                                     @Html.DisplayFor(modelItem => item.FeedbackContent)
                                 }
 
                             </p>
-                        </li>
+</li>
                     }
                     </ul>
             </div>
