@@ -66,7 +66,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                                     HttpContext.Session.SetObject("email", msg.Nesne.Email);
                                     HttpContext.Session.SetObject("phone", msg.Nesne.Phone);
 
-                                    return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Mesajlar = msg.Nesne });
+                                    return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Email= msg.Nesne.Email, Mesajlar = msg.Nesne });
                                 }
                                 else
                                 {

@@ -70,7 +70,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                 foreach (var item in p.Mesajlar.Liste)
                 {
-                    if (item.UserID == ViewBag.Userno)
+                    if (item.Email == needs.Email)
                     {
                         ViewBag.ParentPhone = item.Phone;
                         ViewBag.ParentAdress = item.Adress;

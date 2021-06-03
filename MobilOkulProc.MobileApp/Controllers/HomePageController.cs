@@ -33,6 +33,7 @@ namespace MobilOkulProc.MobileApp.Controllers
             if (user.NameSurname != null)
             {
                 needs.NameSurname = user.NameSurname;
+                needs.Email = user.Email;
 
             }
             ViewBag.NameSurname = needs.NameSurname;
@@ -67,6 +68,7 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
             public string WebApiUrl = "";
             public string NameSurname = "";
+            public string Email = "";
         }
 
         public class Functions
