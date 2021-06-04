@@ -102,14 +102,7 @@
                                 @Html.DisplayFor(modelItem => item.SendTime)
 
                             </a>
-                        }
-                        else
-                        {
-                            <a>
-                                <h4>You have no messages</h4>
-                            </a>
-                            break;
-                        }
+                        }                       
                         <p>
 
 
@@ -134,9 +127,22 @@
 
                     </li>
                     }
+                <li>
+                    @foreach (var item in Model.PagedList)
+                    {
+                        @if (item.SenderID != @ViewBag.Userno || item.ReceiveID != @ViewBag.Userno)
+                        {
+                            <a>
+                                
+                                <h4>You have no messages.</h4>
+
+                            </a>
+                        }
+                    }
+                    </li>
                 </ul>
-                </div>
             </div>
+        </div>
         
     </div>
 
