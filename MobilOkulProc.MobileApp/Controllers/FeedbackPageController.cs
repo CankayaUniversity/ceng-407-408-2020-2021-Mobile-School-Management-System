@@ -66,16 +66,34 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             ViewBag.Notification = count;
 
-            Mesajlar<USER> m = new Mesajlar<USER>();
-            m = function.Get<USER>(m, "User/User_List");
-            FeedbackPageModel<FEEDBACK> viewModel = new FeedbackPageModel<FEEDBACK>()
+            if (ViewBag.Usertype == 1)
             {
-                List = new SelectList(m.Liste, "ObjectID", "NameSurname"),
-                SelectedId = -1,
-            };
+                Mesajlar<TEACHER> m = new Mesajlar<TEACHER>();
+                m = function.Get<TEACHER>(m, "Teacher/Teacher_List");
+                FeedbackPageModel<FEEDBACK> viewModel = new FeedbackPageModel<FEEDBACK>()
+                {
+                    List = new SelectList(m.Liste, "ObjectID", "Name"),
+                    SelectedId = -1,
+                };
 
-            ViewBag.NameSurname = needs.NameSurname;
-            return View(viewModel);
+
+                return View(viewModel);
+            }
+            else if (ViewBag.Usertype == 2)
+            {
+                Mesajlar<STUDENT> m = new Mesajlar<STUDENT>();
+                m = function.Get<STUDENT>(m, "Student/Student_List");
+                FeedbackPageModel<FEEDBACK> viewModel = new FeedbackPageModel<FEEDBACK>()
+                {
+                    List = new SelectList(m.Liste, "ObjectID", "StdName"),
+                    SelectedId = -1,
+                };
+
+
+                return View(viewModel);
+            }
+
+            return View();
         }
 
 
@@ -114,6 +132,23 @@ namespace MobilOkulProc.MobileApp.Controllers
             notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
 
 
+            if (ViewBag.Usertype == 2)
+            {
+                TeacherPageModel<TEACHER> t = new TeacherPageModel<TEACHER>();
+                Mesajlar<TEACHER> te = new Mesajlar<TEACHER>();
+                t.Mesajlar = function.Get<TEACHER>(te, "Teacher/Teacher_List");
+
+                foreach (var item in t.Mesajlar.Liste)
+                {
+                    if (item.UserID == ViewBag.ObjectID)
+                    {
+                        ViewBag.TeacherID = item.ObjectID;
+                    }
+                }
+            }
+
+
+
             int count = 0;
             foreach (var item in notif.Mesajlar.Liste)
             {
@@ -130,24 +165,24 @@ namespace MobilOkulProc.MobileApp.Controllers
             ViewBag.NameSurname = needs.NameSurname;
             m.Mesajlar = function.Get<FEEDBACK>(mb, "Feedback/Feedback_List");
 
-            ViewBag.ObjectID= int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
 
-  
+
 
             foreach (var item in m.Mesajlar.Liste)
             {
- 
-                    User = function.Get<USER>(User, "User/User_Select?UserID=" + item.UserID);
-                    item.User = User.Nesne;
- 
+
+                User = function.Get<USER>(User, "User/User_Select?UserID=" + item.UserID);
+                item.User = User.Nesne;
+
             }
 
-                m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
-                return View(m);
-            
+            m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
+            return View(m);
+
         }
 
 
     }
-       
+
 }

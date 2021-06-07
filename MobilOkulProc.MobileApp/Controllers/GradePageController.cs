@@ -14,7 +14,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 {
     public class GradePageController : Controller
     {
-        public IActionResult GradePage( int? page, Mesajlar<GRADE> mb)
+        public IActionResult GradePage(int? page, Mesajlar<GRADE> mb)
         {
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
@@ -52,21 +52,25 @@ namespace MobilOkulProc.MobileApp.Controllers
                 }
             }
 
-            ParentPageModel<PARENT> p = new ParentPageModel<PARENT>();
-            Mesajlar<PARENT> par = new Mesajlar<PARENT>();
-            p.Mesajlar = function.Get<PARENT>(par, "Parent/Parent_List");
-
-            foreach (var item in p.Mesajlar.Liste)
+            if (ViewBag.Usertype == 3)
             {
-                foreach (var item2 in st.Mesajlar.Liste)
-                {
-                    if (item.UserID == item2.ObjectID)
-                    {
-                        ViewBag.Student = item2.ObjectID;
+                ParentPageModel<PARENT> p = new ParentPageModel<PARENT>();
+                Mesajlar<PARENT> par = new Mesajlar<PARENT>();
+                p.Mesajlar = function.Get<PARENT>(par, "Parent/Parent_List");
 
+                foreach (var item in p.Mesajlar.Liste)
+                {
+                    foreach (var item2 in st.Mesajlar.Liste)
+                    {
+                        if (item.UserID == item2.ObjectID)
+                        {
+                            ViewBag.Student = item2.ObjectID;
+
+                        }
                     }
                 }
             }
+
 
             GradePageModel<GRADE> m = new GradePageModel<GRADE>();
             Mesajlar<LECTURE> User = new Mesajlar<LECTURE>();

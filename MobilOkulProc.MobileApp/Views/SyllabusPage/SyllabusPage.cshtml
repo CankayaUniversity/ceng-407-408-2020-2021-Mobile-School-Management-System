@@ -2,22 +2,19 @@
 @using MobilOkulProc.MobileApp.Models
 @model SyllabusPageModel<SYLLABUS>
 
-@{
+@{ if (ViewBag.Usertype == 1)
+                {
+                    Layout = "~/Views/Shared/_Layout_Student.cshtml";
+                }
 
-    if (ViewBag.Usertype == 1)
-    {
-        Layout = "~/Views/Shared/_Layout_Student.cshtml";
-    }
-
-    else if (ViewBag.Usertype == 3)
-    {
-        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
-    }
-    else if (ViewBag.Usertype == 2)
-    {
-        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
-    }
-}
+                else if (ViewBag.Usertype == 3)
+                {
+                    Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+                }
+                else if (ViewBag.Usertype == 2)
+                {
+                    Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+                } }
 
 
 <body>
@@ -40,43 +37,54 @@
             @foreach (var item in Model.PagedList)
             {
 
-                @if (ViewBag.Usertype == 1 || ViewBag.Usertype == 3 && item.Lecture.StudentsID == ViewBag.Student)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
+@if (ViewBag.Usertype == 1 && item.Lecture.StudentsID == ViewBag.Student)
+{
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Date)
+    </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Days.DayName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Lecture.LectureName)
-                        </td>
-                    </tr>
-
-                }
-            }
+    <td>
+        @Html.DisplayFor(modelItem => item.Days.DayName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+    </td>
+</tr>                }            }
             @foreach (var item in Model.PagedList)
             {
 
-                @if (ViewBag.Usertype == 2 && item.Lecture.TeacherID == ViewBag.Teacher)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
+@if (ViewBag.Usertype == 3 && item.Lecture.StudentsID == ViewBag.Student)
+{
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Date)
+    </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Days.DayName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Lecture.LectureName)
-                        </td>
-                    </tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Days.DayName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+    </td>
+</tr>                }            }
+            @foreach (var item in Model.PagedList)
+            {
 
-                }
-            }
+@if (ViewBag.Usertype == 2 && item.Lecture.TeacherID == ViewBag.Teacher)
+{
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Date)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Days.DayName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+    </td>
+</tr>                }            }
         </tbody>
     </table>
 

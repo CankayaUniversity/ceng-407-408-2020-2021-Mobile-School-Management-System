@@ -21,49 +21,7 @@
 
 
 <body>
-
-    @*
-        <table class="table table-secondary table-hover table-sm">
-            <thead class="thead-dark">
-
-                <tr>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackContent)
-                    </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FeedbackDate)
-                    </th>
-
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-                @foreach (var item in Model.PagedList)
-                {
-                    @if (item.UserID == @ViewBag.ObjectID)
-                    {
-
-
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FeedbackContent)
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FeedbackDate)
-                            </td>
-
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-
-    *@
-
-
+    @{int flag = 0; }
     <br />
 
     <div class="accordions">
@@ -72,33 +30,36 @@
                 <ul class="accordion">
                     @foreach (var item in Model.PagedList)
                     {
-                    <li>
-                        @if (item.UserID == @ViewBag.ObjectID)
-                        {
-                            <a>
+                        <li>
+                            @if (item.UserID == @ViewBag.TeacherID)
+                            {
+                                <a>
 
-                                @Html.DisplayFor(modelItem => item.FeedbackDate)
-                            </a>
-                        }
-                        else {
-                    <a>
-                        <h4>You have no feedbacks</h4>
-                        
-                    </a>
-                            break;
-                        }
+                                    @Html.DisplayFor(modelItem => item.FeedbackDate)
+
+                                </a>
+                                flag++;
+                            }
                             <p>
 
-                                @if (item.UserID == @ViewBag.ObjectID)
+                                @if (item.UserID == @ViewBag.TeacherID)
                                 {
 
                                     @Html.DisplayFor(modelItem => item.FeedbackContent)
                                 }
 
                             </p>
-</li>
+                        </li>
                     }
-                    </ul>
+                    <li>
+                        @if (flag == 0)
+                        {
+                            <a>
+                                <h4>You have no feedbacks.</h4>
+                            </a>
+                        }
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
