@@ -4,16 +4,16 @@
 
 @{
 
-    if (ViewBag.Userid == 1)
+    if (ViewBag.Usertype == 1)
     {
         Layout = "~/Views/Shared/_Layout_Student.cshtml";
     }
 
-    else if (ViewBag.Userid == 3)
+    else if (ViewBag.Usertype == 3)
     {
         Layout = "~/Views/Shared/_Layout_Parent.cshtml";
     }
-    else if (ViewBag.Userid == 2)
+    else if (ViewBag.Usertype == 2)
     {
         Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
     }
@@ -40,7 +40,7 @@
             @foreach (var item in Model.PagedList)
             {
 
-                @if (ViewBag.Userid == 1 || ViewBag.Userid == 3 && item.Lecture.StudentsID == ViewBag.Student)
+                @if (ViewBag.Usertype == 1 || ViewBag.Usertype == 3 && item.Lecture.StudentsID == ViewBag.Student)
                 {
                     <tr>
                         <td>
@@ -60,7 +60,7 @@
             @foreach (var item in Model.PagedList)
             {
 
-                @if (ViewBag.Userid == 2 && item.Lecture.TeacherID == ViewBag.Teacher)
+                @if (ViewBag.Usertype == 2 && item.Lecture.TeacherID == ViewBag.Teacher)
                 {
                     <tr>
                         <td>

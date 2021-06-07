@@ -37,22 +37,22 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             }
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
 
             // Notification 
-            Mesajlar<MESSAGE> mb = new Mesajlar<MESSAGE>();
-            MessagePageModel<MESSAGE> m = new MessagePageModel<MESSAGE>();
-            m.Mesajlar = function.Get<MESSAGE>(mb, "Messages/Message_List");
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
 
 
             int count = 0;
-            foreach (var item in m.Mesajlar.Liste)
+            foreach (var item in notif.Mesajlar.Liste)
             {
-                if (item.SenderID == ViewBag.Userno || item.ReceiveID == ViewBag.Userno)
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
                 {
                     count++;
                 }

@@ -2,16 +2,16 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    if (ViewBag.Userid == 1)
+    if (ViewBag.Usertype == 1)
     {
         Layout = "~/Views/Shared/_Layout_Student.cshtml";
     }
 
-    else if (ViewBag.Userid == 3)
+    else if (ViewBag.Usertype == 3)
     {
         Layout = "~/Views/Shared/_Layout_Parent.cshtml";
     }
-    else if (ViewBag.Userid == 2)
+    else if (ViewBag.Usertype == 2)
     {
         Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
     }
@@ -20,7 +20,7 @@
 
 <body>
 
-    @if (ViewBag.Userid == 1)
+    @if (ViewBag.Usertype == 1)
     {
 
         <div class="services">
@@ -172,7 +172,7 @@
 
     }
 
-    @if (ViewBag.Userid == 2)
+    @if (ViewBag.Usertype == 2)
     {
 
         <div class="services">
@@ -255,7 +255,7 @@
         </div>
     }
 
-    @if (ViewBag.Userid == 3)
+    @if (ViewBag.Usertype == 3)
     {
 
         <div class="services">

@@ -16,10 +16,26 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult SyllabusPage(int? page)
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in notif.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
 
             SyllabusPageModel<SYLLABUS> m = new SyllabusPageModel<SYLLABUS>();
             Mesajlar<DAYS> Days = new Mesajlar<DAYS>();
@@ -28,22 +44,26 @@ namespace MobilOkulProc.MobileApp.Controllers
             Mesajlar<SYLLABUS> mb = new Mesajlar<SYLLABUS>();
             m.Mesajlar = function.Get<SYLLABUS>(mb, "Syllabus/Syllabus_List");
 
-            if (ViewBag.Userid == 1 || ViewBag.Userid == 3)
+            if (ViewBag.Usertype == 1 )
             {
-
-
                 StudentPageModel<STUDENT> st = new StudentPageModel<STUDENT>();
                 Mesajlar<STUDENT> stu = new Mesajlar<STUDENT>();
                 st.Mesajlar = function.Get<STUDENT>(stu, "Student/Student_List");
 
                 foreach (var item in st.Mesajlar.Liste)
                 {
-                    if (item.UserID == ViewBag.Userno)
+                    if (item.UserID == ViewBag.ObjectID)
                     {
                         ViewBag.Student = item.ObjectID;
 
                     }
                 }
+            }
+            else if ( ViewBag.Usertype == 3)
+            {
+                StudentPageModel<STUDENT> st = new StudentPageModel<STUDENT>();
+                Mesajlar<STUDENT> stu = new Mesajlar<STUDENT>();
+                st.Mesajlar = function.Get<STUDENT>(stu, "Student/Student_List");
 
                 ParentPageModel<PARENT> p = new ParentPageModel<PARENT>();
                 Mesajlar<PARENT> par = new Mesajlar<PARENT>();
@@ -61,7 +81,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                     }
                 }
             }
-            else if (ViewBag.Userid == 2)
+            else if (ViewBag.Usertype == 2)
             {
                 TeacherPageModel<TEACHER> t = new TeacherPageModel<TEACHER>();
                 Mesajlar<TEACHER> te = new Mesajlar<TEACHER>();
@@ -76,7 +96,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                 {
                     foreach (var item2 in l.Mesajlar.Liste)
                     {
-                        if (item.ObjectID == item2.TeacherID && ViewBag.Userno==item.UserID)
+                        if (item.ObjectID == item2.TeacherID && ViewBag.ObjectID==item.UserID)
                         {
                             ViewBag.Teacher = item.ObjectID;
 

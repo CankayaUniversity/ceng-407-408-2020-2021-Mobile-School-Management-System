@@ -16,10 +16,27 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult FeedbackPage()
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = HttpContext.Session.GetString("no");
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in notif.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
+
             return View();
         }
 
@@ -28,10 +45,26 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
 
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = HttpContext.Session.GetString("no");
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in notif.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
 
             Mesajlar<USER> m = new Mesajlar<USER>();
             m = function.Get<USER>(m, "User/User_List");
@@ -51,10 +84,13 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult Add(FeedbackPageModel<FEEDBACK> m)
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = HttpContext.Session.GetString("no");
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+
+
 
             m.Mesajlar.Nesne.UserID = m.SelectedId;
             m.Mesajlar.Nesne.FeedbackDate = DateTime.Now;
@@ -68,17 +104,33 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult List(string Search, int? page, Mesajlar<FEEDBACK> mb)
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = HttpContext.Session.GetString("no");
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in notif.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
 
             FeedbackPageModel<FEEDBACK> m = new FeedbackPageModel<FEEDBACK>();
             Mesajlar<USER> User = new Mesajlar<USER>();
             ViewBag.NameSurname = needs.NameSurname;
             m.Mesajlar = function.Get<FEEDBACK>(mb, "Feedback/Feedback_List");
 
-            ViewBag.Userno= int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.ObjectID= int.Parse(HttpContext.Session.GetString("no"));
 
   
 

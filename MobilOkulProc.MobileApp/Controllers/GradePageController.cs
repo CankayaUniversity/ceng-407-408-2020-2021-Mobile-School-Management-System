@@ -17,10 +17,26 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult GradePage( int? page, Mesajlar<GRADE> mb)
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in notif.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
 
 
             StudentPageModel<STUDENT> st = new StudentPageModel<STUDENT>();
@@ -29,7 +45,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             foreach (var item in st.Mesajlar.Liste)
             {
-                if (item.UserID == ViewBag.Userno)
+                if (item.UserID == ViewBag.ObjectID)
                 {
                     ViewBag.Student = item.ObjectID;
 
@@ -51,7 +67,6 @@ namespace MobilOkulProc.MobileApp.Controllers
                     }
                 }
             }
-
 
             GradePageModel<GRADE> m = new GradePageModel<GRADE>();
             Mesajlar<LECTURE> User = new Mesajlar<LECTURE>();

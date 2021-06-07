@@ -1,18 +1,19 @@
 ﻿@using MobilOkulProc.MobileApp.Models
 @using MobilOkulProc.Entities.Concrete
 @model MessagePageModel<MESSAGE>
+
 @{
     ViewBag.Title = "Add Message";
-    if (ViewBag.Userid == 1)
+    if (ViewBag.Usertype == 1)
     {
         Layout = "~/Views/Shared/_Layout_Student.cshtml";
     }
 
-    else if (ViewBag.Userid == 3)
+    else if (ViewBag.Usertype == 3)
     {
         Layout = "~/Views/Shared/_Layout_Parent.cshtml";
     }
-    else if (ViewBag.Userid == 2)
+    else if (ViewBag.Usertype == 2)
     {
         Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
     }
@@ -97,7 +98,10 @@
 
                             <div class="col-md-8 col-md-offset-2">
                                 <fieldset>
-                                    @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Choose a receiver", new { @class = "form-control dropdown" })
+                                   
+                                        @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Choose a receiver", new { @class = "form-control dropdown" })
+                                    
+
                                 </fieldset>
                             </div>
                             <br />

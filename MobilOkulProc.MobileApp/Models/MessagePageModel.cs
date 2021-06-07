@@ -13,5 +13,6 @@ namespace MobilOkulProc.MobileApp.Models
         public int SenderId { get; set; }
         public SelectList ReceiverList { get; set; }
         public int ReceiverId { get; set; }
+        public SelectList StudentList { get; set; }
     }
 }
