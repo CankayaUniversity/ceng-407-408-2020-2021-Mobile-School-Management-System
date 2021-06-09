@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobilOkulProc.MobileApp", "
 		{D2F76DFF-EAE4-4308-9DF4-B24E9969E9C3} = {D2F76DFF-EAE4-4308-9DF4-B24E9969E9C3}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUserApp", "WebUserApp\WebUserApp.csproj", "{382BE99E-B62C-4392-A77F-559698696BFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{E812A71A-89A7-46BA-9C9A-1F4AE2C45080}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E812A71A-89A7-46BA-9C9A-1F4AE2C45080}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E812A71A-89A7-46BA-9C9A-1F4AE2C45080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{382BE99E-B62C-4392-A77F-559698696BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382BE99E-B62C-4392-A77F-559698696BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382BE99E-B62C-4392-A77F-559698696BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382BE99E-B62C-4392-A77F-559698696BFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
