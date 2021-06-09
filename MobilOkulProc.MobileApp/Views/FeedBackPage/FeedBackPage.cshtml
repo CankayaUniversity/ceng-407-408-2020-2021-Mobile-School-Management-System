@@ -1,14 +1,14 @@
 ﻿@{
-    if (ViewBag.Userid == 1)
+    if (ViewBag.Usertype == 1)
     {
         Layout = "~/Views/Shared/_Layout_Student.cshtml";
     }
 
-    else if (ViewBag.Userid == 3)
+    else if (ViewBag.Usertype == 3)
     {
         Layout = "~/Views/Shared/_Layout_Parent.cshtml";
     }
-    else if (ViewBag.Userid == 2)
+    else if (ViewBag.Usertype == 2)
     {
         Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
     }
@@ -21,10 +21,10 @@
             <div class="col-md-7 hidden-xs hidden-sm">
                 <div class="left-image">
                     <img src="~/images/school.png" alt="">
-                    
+
                 </div>
             </div>
-            
+
             <div class="col-md-5 hidden-xs hidden-sm">
                 <div class="right-content">
                     <h4>SCHOOL MANAGEMENT SYSTEM</h4>
@@ -58,35 +58,44 @@
 
     <div class="services">
         <div class="container">
-            <div class="col-md-4">
-                <div class="service-item">
-                    <div class="icon">
-                        <img src="~/images/send.png" alt="">
-                    </div>
-                    <div class="text">
-                        <br />
-                        <a style="text-decoration:none" href="@Url.Action("Add", "FeedbackPage") "><h1>Send a Feedback</h1></a>
-                    </div>
-                </div>
-            </div>
+            @if (ViewBag.Usertype == 1)
+            {
 
-            <div class="col-md-4">
-                <div class="service-item">
-                    <div class="icon">
-                        <img src="~/images/list.png" alt="">
-                    </div>
-                    <div class="text">
-                        <br />
-                        <a style="text-decoration:none" href="@Url.Action("List", "FeedbackPage") "><h1>List your Feedbacks</h1></a>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/send.png" alt="">
+                        </div>
+                        <div class="text">
+                            <br />
+                            <a style="text-decoration:none" href="@Url.Action("Add", "FeedbackPage") "><h1>Send a Feedback</h1></a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+
+            @if (ViewBag.Usertype == 2)
+            {
+
+
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <div class="icon">
+                            <img src="~/images/list.png" alt="">
+                        </div>
+                        <div class="text">
+                            <br />
+                            <a style="text-decoration:none" href="@Url.Action("List", "FeedbackPage") "><h1>List your Feedbacks</h1></a>
+                        </div>
+                    </div>
+                </div>
+            }
 
         </div>
     </div>
 
 
-    
+
 
 
 </body>

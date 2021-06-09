@@ -16,20 +16,57 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult NewsPage()
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = HttpContext.Session.GetString("no");
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in notif.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
+
+
+
             return View();
         }
 
         public IActionResult List(string Search, int? page, Mesajlar<NEWS> mb)
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = HttpContext.Session.GetString("no");
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in notif.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
+
+
 
             NewsPageModel<NEWS> m = new NewsPageModel<NEWS>();
             Mesajlar<EDUCATIONAL_INSTITUTION> EdIns = new Mesajlar<EDUCATIONAL_INSTITUTION>();

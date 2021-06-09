@@ -14,13 +14,29 @@ namespace MobilOkulProc.MobileApp.Controllers
 {
     public class GradePageController : Controller
     {
-        public IActionResult GradePage( int? page, Mesajlar<GRADE> mb)
+        public IActionResult GradePage(int? page, Mesajlar<GRADE> mb)
         {
             ViewBag.NameSurname = needs.NameSurname;
-            ViewBag.Userno = int.Parse(HttpContext.Session.GetString("no"));
-            ViewBag.Userid = int.Parse(HttpContext.Session.GetString("userid"));
+            ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
+            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
             ViewBag.Email = HttpContext.Session.GetString("email");
             ViewBag.Phone = HttpContext.Session.GetString("phone");
+
+            Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
+            MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
+            notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
+
+
+            int count = 0;
+            foreach (var item in notif.Mesajlar.Liste)
+            {
+                if (item.SenderID == ViewBag.ObjectID || item.ReceiveID == ViewBag.ObjectID)
+                {
+                    count++;
+                }
+            }
+
+            ViewBag.Notification = count;
 
 
             StudentPageModel<STUDENT> st = new StudentPageModel<STUDENT>();
@@ -29,25 +45,28 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             foreach (var item in st.Mesajlar.Liste)
             {
-                if (item.UserID == ViewBag.Userno)
+                if (item.UserID == ViewBag.ObjectID)
                 {
                     ViewBag.Student = item.ObjectID;
 
                 }
             }
 
-            ParentPageModel<PARENT> p = new ParentPageModel<PARENT>();
-            Mesajlar<PARENT> par = new Mesajlar<PARENT>();
-            p.Mesajlar = function.Get<PARENT>(par, "Parent/Parent_List");
-
-            foreach (var item in p.Mesajlar.Liste)
+            if (ViewBag.Usertype == 3)
             {
-                foreach (var item2 in st.Mesajlar.Liste)
-                {
-                    if (item.UserID == item2.ObjectID)
-                    {
-                        ViewBag.Student = item2.ObjectID;
+                ParentPageModel<PARENT> p = new ParentPageModel<PARENT>();
+                Mesajlar<PARENT> par = new Mesajlar<PARENT>();
+                p.Mesajlar = function.Get<PARENT>(par, "Parent/Parent_List");
 
+                foreach (var item in p.Mesajlar.Liste)
+                {
+                    foreach (var item2 in st.Mesajlar.Liste)
+                    {
+                        if (item.UserID == item2.ObjectID)
+                        {
+                            ViewBag.Student = item2.ObjectID;
+
+                        }
                     }
                 }
             }
