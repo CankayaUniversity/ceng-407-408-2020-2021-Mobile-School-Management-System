@@ -54,7 +54,7 @@ namespace MobilOkulProc.WebApp.Controllers
             m.Mesajlar.Nesne.SchoolID = m.SelectedId;
             m.Mesajlar = function.Add_Update<CLASS>(m.Mesajlar, "Class/Class_Insert");
             ViewBag.NameSurname = needs.NameSurname;
-            return RedirectToAction("List", "School", m.Mesajlar);
+            return RedirectToAction("List", "Class", m.Mesajlar);
         }
         public IActionResult Delete(int id)
         {
@@ -71,7 +71,7 @@ namespace MobilOkulProc.WebApp.Controllers
             ViewBag.NameSurname = needs.NameSurname;
             if (mb.Mesajlar.Mesaj == "Bilgiler silindi")
             {
-                return RedirectToAction("List", "School", mb);
+                return RedirectToAction("List", "Class", mb);
             }
             return View(mb);
         }

@@ -63,6 +63,14 @@ namespace MobilOkulProc.Entities.Concrete
         public string GoogleMap { get; set; }
 
 
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return StdName + " " + StdSurname;
+            }
+        }
 
         [Display(Name = "User Name")]
         [ForeignKey("User")]
