@@ -121,7 +121,34 @@
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
     with font-awesome or any other icon font library -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p style="color:white">
+                                        Absence
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Add", "Absence")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
 
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("List", "Absence")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Absence -->
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link active">
                                     <i class=""></i>
@@ -327,6 +354,35 @@
                                 <a href="#" class="nav-link active">
                                     <i class=""></i>
                                     <p style="color:white">
+                                        Exam
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Add", "Exam")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("List", "Exam")" class="nav-link">
+                                            <i class="fas fa-edit" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+
+                            </li> <!-- Exam -->
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p style="color:white">
                                         Feedback
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
@@ -379,6 +435,35 @@
 
 
                             </li> <!-- Grade -->
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link active">
+                                    <i class=""></i>
+                                    <p style="color:white">
+                                        Grade Type
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Add", "GradeType")" class="nav-link">
+                                            <i class="fas fa-plus-square" style="color:black"></i>
+                                            <p style="color:black">Insert</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("List", "GradeType")" class="nav-link">
+                                            <i class="fas fa-list" style="color:black"></i>
+                                            <p style="color:black">List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li> <!-- Grade Type-->
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link active">
                                     <i class=""></i>
@@ -692,7 +777,7 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                        <a href="@Url.Action("Add", "StudentParent")" class="nav-link">
                                             <i class="fas fa-plus-square" style="color:black"></i>
                                             <p style="color:black">Insert</p>
                                         </a>
@@ -700,36 +785,13 @@
                                 </ul>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
+                                        <a href="@Url.Action("List", "StudentParent")" class="nav-link">
                                             <i class="fas fa-edit" style="color:black"></i>
-                                            <p style="color:black">Update</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
-                                            <i class="fas fa-minus-square" style="color:black"></i>
-                                            <p style="color:black">Delete</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
-                                            <i class="fas fa-hand-pointer" style="color:black"></i>
-                                            <p style="color:black">Select</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="@Url.Action("ActionName", "Controller")" class="nav-link">
-                                            <i class="fas fa-list" style="color:black"></i>
                                             <p style="color:black">List</p>
                                         </a>
                                     </li>
                                 </ul>
+                                
 
 
                             </li> <!-- StudentParent -->

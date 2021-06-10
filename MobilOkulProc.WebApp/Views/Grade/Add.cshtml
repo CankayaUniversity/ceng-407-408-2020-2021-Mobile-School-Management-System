@@ -30,6 +30,12 @@
             @Html.DropDownListFor(m => m.SelectedId, Model.List, "Lütfen Ders Seçiniz", new { @class = "form-control dropdown" })
         </div>
     </div>
+    <div class="form-group">
+        <strong class="col-md-2">Sınav Türü</strong>
+        <div class="col-md-2">
+            @Html.DropDownListFor(m => m.SelectedId2, Model.List2, "Lütfen Sınav Türü Seçiniz", new { @class = "form-control dropdown" })
+        </div>
+    </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.Mesajlar.Nesne.Status, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -27,9 +27,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Grade)
             </th>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Lecture.LectureName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.GradeType.GradeName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
@@ -44,16 +47,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Grade)
             </td>
-           
+
             <td>
                 @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GradeType.GradeName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.ActionLink("Düzenle", "Edit", new { id = item.ObjectID }) |
-                @Html.ActionLink("Görüntüle", "Details", new { id = item.ObjectID}) |
+                @Html.ActionLink("Görüntüle", "Details", new { id = item.ObjectID }) |
                 @Html.ActionLink("Sil", "Delete", new { id = item.ObjectID })
             </td>
         </tr>

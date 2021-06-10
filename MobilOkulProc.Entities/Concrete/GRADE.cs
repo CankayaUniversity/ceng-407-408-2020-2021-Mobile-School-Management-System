@@ -25,5 +25,7 @@ namespace MobilOkulProc.Entities.Concrete
         public int GradeTypeID { get; set; }
         public virtual GRADETYPE GradeType { get; set; }
 
+
+
     }
 }

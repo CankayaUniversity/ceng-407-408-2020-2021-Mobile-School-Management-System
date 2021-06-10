@@ -21,11 +21,17 @@
             @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Grade, "", new { @class = "text-danger" })
         </div>
     </div>
-    
+
     <div class="form-group">
         <strong class="col-md-2">Ders</strong>
         <div class="col-md-2">
             @Html.DropDownListFor(m => m.SelectedId, Model.List, "Lütfen Ders Seçiniz", new { @class = "form-control dropdown" })
+        </div>
+    </div>
+    <div class="form-group">
+        <strong class="col-md-2">Sınav Türü</strong>
+        <div class="col-md-2">
+            @Html.DropDownListFor(m => m.SelectedId2, Model.List2, "Lütfen Sınav Türü Seçiniz", new { @class = "form-control dropdown" })
         </div>
     </div>
     <div class="form-group">

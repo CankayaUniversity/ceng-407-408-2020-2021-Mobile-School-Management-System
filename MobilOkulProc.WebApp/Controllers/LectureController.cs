@@ -132,5 +132,25 @@ namespace MobilOkulProc.WebApp.Controllers
             ViewBag.NameSurname = needs.NameSurname;
             return RedirectToAction("List", "Lecture", m);
         }
+
+        [HttpGet]
+        public IActionResult AddToClass()
+        {
+
+
+            Mesajlar<CLASS> c = new Mesajlar<CLASS>();
+            Mesajlar<LECTURE> l = new Mesajlar<LECTURE>();
+            l = function.Get<LECTURE>(l, "Lecture/Lecture_List");
+            c = function.Get<CLASS>(c, "Class/Class_List");
+            LectureViewModel<LECTURE> viewModel = new LectureViewModel<LECTURE>()
+            {
+                StudentList = new SelectList(c.Liste, "ObjectID", "Class_Name"),
+                StudentId = -1,
+                TeacherList = new SelectList(l.Liste, "ObjectID", "LectureName"),
+                TeacherId = -1
+            };
+
+            return View();
+        }
     }
 }

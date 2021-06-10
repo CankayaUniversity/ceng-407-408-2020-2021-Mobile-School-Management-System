@@ -15,5 +15,7 @@ namespace MobilOkulProc.WebApp.ViewModels
         public IPagedList<T> PagedList { get; set; }
         public SelectList List { get; set; }
         public int SelectedId { get; set; }
+        public SelectList List2 { get; set; }
+        public int SelectedId2 { get; set; }
     }
 }
