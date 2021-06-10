@@ -59,6 +59,9 @@ namespace MobilOkulProc.Entities.Concrete
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
         public DateTime BirthDate { get; set; }
 
+        [Display(Name = "GoogleMap")]
+        public string GoogleMap { get; set; }
+
 
 
         [Display(Name = "User Name")]
@@ -67,10 +70,13 @@ namespace MobilOkulProc.Entities.Concrete
         public int UserID { get; set; }
         public virtual USER User { get; set; }
 
+
+
         
         public virtual List<STUDENT_PARENT> StudentParent { get; set; }
         public virtual List<SCHOOL_STUDENT> SchoolStudent { get; set; }
         public virtual List<LECTURE> Lecture { get; set; }
+        public virtual List<ABSENCE> Absence { get; set; }
     }
 
 

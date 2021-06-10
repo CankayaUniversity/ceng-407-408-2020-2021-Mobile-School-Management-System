@@ -67,6 +67,10 @@ namespace MobilOkulProc.WebAPI.Data
         public DbSet<GRADE> GRADES { get; set; }
         public DbSet<SYLLABUS> SYLLABUSES { get; set; }
         public DbSet<DAYS> DAYSES { get; set; }
+        public DbSet<GRADETYPE> GRADETYPES { get; set; }
+        public DbSet<EXAM> EXAMS { get; set; }
+        public DbSet<ABSENCE> ABSENCES { get; set; }
+
 
     }
 }

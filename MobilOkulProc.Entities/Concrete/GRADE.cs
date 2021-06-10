@@ -18,5 +18,12 @@ namespace MobilOkulProc.Entities.Concrete
         public int LectureID { get; set; }
         public virtual LECTURE Lecture { get; set; }
 
+
+        [Display(Name = "Grade Type")]
+        [ForeignKey("GradeType")]
+        [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
+        public int GradeTypeID { get; set; }
+        public virtual GRADETYPE GradeType { get; set; }
+
     }
 }

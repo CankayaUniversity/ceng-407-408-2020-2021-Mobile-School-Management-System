@@ -120,6 +120,42 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.ABSENCE", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AbsenceCommentary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<DateTime>("AbsenceDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AbsenceDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalAbsence")
+                        .HasColumnType("float");
+
+                    b.HasKey("ObjectID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("ABSENCES");
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.BRANCH", b =>
                 {
                     b.Property<int>("ObjectID")
@@ -324,6 +360,34 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.ToTable("EMPLOYEE_TYPES");
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.EXAM", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("ExamDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExamDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<int>("LectureID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ObjectID");
+
+                    b.HasIndex("LectureID");
+
+                    b.ToTable("EXAMS");
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.FEEDBACK", b =>
                 {
                     b.Property<int>("ObjectID")
@@ -365,6 +429,9 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.Property<double>("Grade")
                         .HasColumnType("float");
 
+                    b.Property<int>("GradeTypeID")
+                        .HasColumnType("int");
+
                     b.Property<int>("LectureID")
                         .HasColumnType("int");
 
@@ -373,9 +440,31 @@ namespace MobilOkulProc.WebAPI.Migrations
 
                     b.HasKey("ObjectID");
 
+                    b.HasIndex("GradeTypeID");
+
                     b.HasIndex("LectureID");
 
                     b.ToTable("GRADES");
+                });
+
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.GRADETYPE", b =>
+                {
+                    b.Property<int>("ObjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GradeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ObjectID");
+
+                    b.ToTable("GRADETYPES");
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.LECTURE", b =>
@@ -710,6 +799,9 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
+
+                    b.Property<string>("GoogleMap")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("GraduateDate")
                         .HasColumnType("datetime2");
@@ -1121,6 +1213,15 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.ABSENCE", b =>
+                {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.STUDENT", "Student")
+                        .WithMany("Absence")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.CLASS", b =>
                 {
                     b.HasOne("MobilOkulProc.Entities.Concrete.SCHOOL", "School")
@@ -1160,6 +1261,15 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.EXAM", b =>
+                {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.LECTURE", "Lecture")
+                        .WithMany("Exam")
+                        .HasForeignKey("LectureID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.FEEDBACK", b =>
                 {
                     b.HasOne("MobilOkulProc.Entities.Concrete.USER", "User")
@@ -1171,6 +1281,12 @@ namespace MobilOkulProc.WebAPI.Migrations
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.GRADE", b =>
                 {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.GRADETYPE", "GradeType")
+                        .WithMany("Grade")
+                        .HasForeignKey("GradeTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MobilOkulProc.Entities.Concrete.LECTURE", "Lecture")
                         .WithMany("Grade")
                         .HasForeignKey("LectureID")
