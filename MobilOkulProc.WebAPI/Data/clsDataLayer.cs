@@ -33,5 +33,8 @@ namespace MobilOkulProc.WebAPI.Data
     public class clsGrade_Process : EfEntityRepository<GRADE, MobilOkulContext> { }
     public class clsSyllabus_Process : EfEntityRepository<SYLLABUS, MobilOkulContext> { }
     public class clsDays_Process : EfEntityRepository<DAYS, MobilOkulContext> { }
+    public class clsExam_Process : EfEntityRepository<EXAM, MobilOkulContext> { }
+    public class clsGradeType_Process : EfEntityRepository<GRADETYPE, MobilOkulContext> { }
+    public class clsAbsence_Process : EfEntityRepository<ABSENCE, MobilOkulContext> { }
 
 }
