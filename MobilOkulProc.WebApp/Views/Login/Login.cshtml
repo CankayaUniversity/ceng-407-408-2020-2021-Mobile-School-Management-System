@@ -1,6 +1,6 @@
 ﻿@using MobilOkulProc.Entities.General
-@using MobilOkulProc.Entities.Concrete 
-@model Mesajlar<USER_LOGIN>
+@using MobilOkulProc.WebAPI.Models
+@model AuthenticateRequest
 @{
     ViewBag.Title = "Login";
 
@@ -43,23 +43,22 @@
                     <h2>Giriş Yap</h2>
                     <p>
                         <label for="username" class="uname" data-icon="u"><span>Kullanıcı Adı</span></label>
-                        @Html.TextBoxFor(m => m.Nesne.UserName, new { @placeholder = "Kullanıcı Adı" })
+                        @Html.TextBoxFor(m => m.Username, new { @placeholder = "Kullanıcı Adı" })
                     </p>
                     <p>
                         <label for="password" class="youpasswd" data-icon="p"><span>Parola</span></label>
-                        @Html.PasswordFor(m => m.Nesne.Password, new { @placeholder = "Parola" })
+                        @Html.PasswordFor(m => m.Password, new { @placeholder = "Parola" })
                     </p>
                     <p class="login button">
                         <input type="submit" value="Login" />
                     </p>
                     <p>
                         <div class="input-group">
-                            @if (Model != null)
+                            @if (ViewBag.Result != null)
                             {
-                                if (Model.Durum == false)
-                                {
-                                    <div class="alert alert-@Model.Status" role="alert">@Model.Mesaj</div>
-                                }
+
+                                <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+
                             }
 
 

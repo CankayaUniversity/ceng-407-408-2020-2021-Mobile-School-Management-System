@@ -16,12 +16,12 @@ namespace MobilOkulProc.WebAPI.Models
         [JsonIgnore] // refresh token is returned in http only cookie
         public string RefreshToken { get; set; }
 
-        public AuthenticateResponse(zUser user, string jwtToken, string refreshToken)
+        public AuthenticateResponse(int Id,string FirstName, string LastName,string Username, string jwtToken, string refreshToken)
         {
-            Id = user.Id;
-            FirstName = user.FirstName;
-            LastName = user.LastName;
-            Username = user.Username;
+            this.Id = Id;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Username = Username;
             JwtToken = jwtToken;
             RefreshToken = refreshToken;
         }

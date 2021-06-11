@@ -52,7 +52,7 @@ namespace MobilOkulProc.WebAPI.Services
             _context.Update(user);
             _context.SaveChanges();
 
-            return new AuthenticateResponse(user, jwtToken, refreshToken.Token);
+            return new AuthenticateResponse(user.Id,user.FirstName,user.LastName,user.Username, jwtToken, refreshToken.Token);
         }
 
         public AuthenticateResponse RefreshToken(string token, string ipAddress)
@@ -79,7 +79,7 @@ namespace MobilOkulProc.WebAPI.Services
             // generate new jwt
             var jwtToken = generateJwtToken(user);
 
-            return new AuthenticateResponse(user, jwtToken, newRefreshToken.Token);
+            return new AuthenticateResponse(user.Id, user.FirstName, user.LastName, user.Username, jwtToken, refreshToken.Token);
         }
 
         public bool RevokeToken(string token, string ipAddress)

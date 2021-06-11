@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using MobilOkulProc.WebAPI.Data;
@@ -8,6 +9,7 @@ namespace MobilOkulProc.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    
     public class AbsenceController : Controller
     {
         [HttpPost("Absence_Insert")]
@@ -53,7 +55,7 @@ namespace MobilOkulProc.WebAPI.Controllers
             return Json(m);
         }
 
-
+        [Authorize]
         [HttpGet("Absence_List")]
         public IActionResult Absence_List()
         {

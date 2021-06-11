@@ -102,9 +102,9 @@
                         </div>
                         <div class="info">
                             <a class="d-block"><strong>
-                                @if (User.Identity.IsAuthenticated)
+                                @if (ViewBag.NameSurname != null)
                                 {
-                                    @User.Identity.Name
+                                    @ViewBag.NameSurname
                                 }
                                 else
                                 {

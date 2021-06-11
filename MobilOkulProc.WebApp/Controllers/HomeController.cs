@@ -28,7 +28,6 @@ namespace MobilOkulProc.WebApp.Controllers
 
         public IActionResult Welcome(AuthenticationResponse user)
         {
-            var Session = HttpContext.Session.GetObject<AuthenticationResponse>("Authorization");
             if (user.FirstName != null)
             {
                 needs.NameSurname = user.FirstName + " " + user.LastName;
@@ -41,6 +40,8 @@ namespace MobilOkulProc.WebApp.Controllers
         {
             public string WebApiUrl = "";
             public string NameSurname = "";
+            public string JwtToken = "";
+            public string RefreshToken = "";
         }
 
         public class Functions
@@ -54,6 +55,7 @@ namespace MobilOkulProc.WebApp.Controllers
                         using (HttpClient c = new HttpClient(handler))
                         {
                             string url = needs.WebApiUrl + ApiURL;
+                            c.DefaultRequestHeaders.Add("Authorization", "Bearer " + needs.JwtToken);
 
                             StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
 
@@ -91,7 +93,7 @@ namespace MobilOkulProc.WebApp.Controllers
                         using (HttpClient c = new HttpClient(handler))
                         {
                             string url = needs.WebApiUrl + ApiURL;
-                            
+                            c.DefaultRequestHeaders.Add("Authorization", "Bearer " + needs.JwtToken);
 
                             //StringContent content = new StringContent(JsonConvert.SerializeObject(m.Mesajlar.Nesne), System.Text.Encoding.UTF8, "application/json");
 

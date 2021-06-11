@@ -14,6 +14,7 @@ using MobilOkulProc.WebAPI.Models;
 using MobilOkulProc.WebApp.Extensions;
 using MobilOkulProc.WebApp.ViewModels;
 using Newtonsoft.Json;
+using static MobilOkulProc.WebApp.Controllers.HomeController;
 
 namespace MobilOkulProc.WebApp.Controllers
 {
@@ -30,7 +31,7 @@ namespace MobilOkulProc.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Mesajlar<USER_LOGIN> m)
+        public IActionResult Login(AuthenticateRequest m)
         {
             try
             {
@@ -40,7 +41,7 @@ namespace MobilOkulProc.WebApp.Controllers
                     {
                         string url = "http://localhost:63494/Users/authenticate";
 
-                        StringContent content = new StringContent(JsonConvert.SerializeObject(m.Nesne), System.Text.Encoding.UTF8, "application/json");
+                        StringContent content = new StringContent(JsonConvert.SerializeObject(m), System.Text.Encoding.UTF8, "application/json");
 
                         using (var response = c.PostAsync(url, content))
                         {
@@ -49,7 +50,13 @@ namespace MobilOkulProc.WebApp.Controllers
                                 var sonuc = response.Result.Content.ReadAsStringAsync();
                                 sonuc.Wait();
 
-                                //var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
+                                var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
+                                needs.JwtToken = msg.JwtToken;
+                                needs.RefreshToken = msg.RefreshToken;
+                                needs.NameSurname = msg.FirstName + " " + msg.LastName;
+                               
+
+
                                 //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:55600/authorization");
                                 //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
                                 //var request = new HttpRequestMessage();
@@ -62,9 +69,8 @@ namespace MobilOkulProc.WebApp.Controllers
                                 }
                                 else
                                 {
-                                    m.Durum = false;
-                                    m.Mesaj = "Kullanıcı adı veya parola hatalı!";
-                                    m.Status = "danger";
+
+                                    
                                     return View(m);
                                 }
                             }
@@ -76,9 +82,8 @@ namespace MobilOkulProc.WebApp.Controllers
             }
             catch (Exception ex)
             {
-                m.Durum = false;
-                m.Mesaj = ex.Message;
-                m.Status = "danger";
+                ViewBag.Result = "Kullanıcı adı veya parola hatalı!";
+                ViewBag.Status = "danger";
             }
 
             return View(m);

@@ -67,10 +67,10 @@ namespace MobilOkulProc.WebAPI
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
 
-            services.AddIdentity<AppUser, AppRole>(options =>
-            {
-                options.User.RequireUniqueEmail = true;
-            }).AddEntityFrameworkStores<MobilOkulContext>();
+            //services.AddIdentity<AppUser, AppRole>(options =>
+            //{
+            //    options.User.RequireUniqueEmail = true;
+            //}).AddEntityFrameworkStores<MobilOkulContext>();
             
             
 
