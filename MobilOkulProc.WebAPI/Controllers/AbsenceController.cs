@@ -44,7 +44,7 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpGet("Absence_Select")]
         public IActionResult Absence_Select(int AbsenceID)
         {

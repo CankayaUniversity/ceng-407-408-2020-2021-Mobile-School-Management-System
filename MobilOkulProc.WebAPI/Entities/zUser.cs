@@ -13,6 +13,9 @@ namespace MobilOkulProc.WebAPI.Entities
         [JsonIgnore]
         public string Password { get; set; }
 
+        public string Role { get; set; }
+        public string Token { get; set; }
+
         [JsonIgnore]
         public List<RefreshToken> RefreshTokens { get; set; }
     }

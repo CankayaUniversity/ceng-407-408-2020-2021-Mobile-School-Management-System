@@ -1919,4 +1919,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MobilOkulProc.Entities\MobilOkulProc.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -8,6 +8,9 @@ namespace MobilOkulProc.WebAPI.Models
 {
     public class AppRole : IdentityRole<int>
     {
+        public string Admin = "Admin";
+        public string Student = "Student";
+        public string Teacher = "Teacher";
 
     }
 }

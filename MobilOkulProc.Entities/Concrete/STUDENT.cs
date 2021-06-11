@@ -59,8 +59,7 @@ namespace MobilOkulProc.Entities.Concrete
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
         public DateTime BirthDate { get; set; }
 
-        [Display(Name = "GoogleMap")]
-        public string GoogleMap { get; set; }
+        
 
 
         [NotMapped]

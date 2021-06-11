@@ -28,6 +28,9 @@ namespace MobilOkulProc.Entities.Concrete
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
         public string Phone { get; set; }
 
+        [Display(Name = "GoogleMap")]
+        public string GoogleMap { get; set; }
+
 
         public virtual EDUCATIONAL_INSTITUTION Education { get; set; }
         public virtual List<CLASS> Class { get; set; }
