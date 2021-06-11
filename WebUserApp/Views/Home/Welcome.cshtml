@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Welcome";
+    ViewBag.Title = "Hoş Geldin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
@@ -302,7 +302,7 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix">
                 @*<a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>*@  @*öğretmende kullanılacak*@
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Tümünü Gör</a>
+                <a href="/Student/Exams" class="btn btn-sm btn-secondary float-right">Tümünü Gör</a>
             </div>
             <!-- /.card-footer -->
         </div>
@@ -373,7 +373,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer text-center">
-                        <a href="javascript:">Tüm Öğretmenleri Gör</a>
+                        <a href="/Student/Teachers">Tüm Öğretmenleri Gör</a>
                     </div>
                     <!-- /.card-footer -->
                 </div>
@@ -386,12 +386,13 @@
                     <span class="info-box-icon"><i class="fas fa-tag"></i></span>
 
                     <div class="info-box-content">
+                        <span class="info-box-text">En Yakın Sınav</span>
                         <div class="row">
-                            <span class="info-box-text col-md-8">En Yakın Sınav</span>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
+                            <span class="info-box-number  col-md-8">20.08.2021 - Matematik</span>
+                            <a href="/Student/Exams" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
                         </div>
 
-                        <span class="info-box-number">20.08.2021 - Matematik</span>
+                        
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -400,12 +401,13 @@
                     <span class="info-box-icon"><i class="far fa-heart"></i></span>
 
                     <div class="info-box-content">
+                        <span class="info-box-text">Kalan Sınav Adeti</span>
                         <div class="row">
-                            <span class="info-box-text col-md-8">Kalan Sınav Adeti</span>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
+                            <span class="info-box-number col-md-8">36</span>
+                            <a href="/Student/Exams" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
                         </div>
 
-                        <span class="info-box-number">36</span>
+                        
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -414,12 +416,13 @@
                     <span class="info-box-icon"><i class="fas fa-cloud-download-alt"></i></span>
 
                     <div class="info-box-content">
+                        <span class="info-box-text">Son Alınan Not</span>
                         <div class="row">
-                            <span class="info-box-text col-md-8">Son Alınan Not</span>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
+                            <span class="info-box-number col-md-8">100 - Matematik</span>
+                            <a href="/Student/Notes" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
                         </div>
 
-                        <span class="info-box-number">100 - Matematik</span>
+                        
 
                     </div>
                     <!-- /.info-box-content -->
@@ -429,11 +432,12 @@
                     <span class="info-box-icon"><i class="far fa-comment"></i></span>
 
                     <div class="info-box-content">
+                        <span class="info-box-text">Mesajlar</span>
                         <div class="row">
-                            <span class="info-box-text col-md-8">Mesajlar</span>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
+                            <span class="info-box-number  col-md-8">67</span>
+                            <a href="/Message/Mailbox" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
                         </div>
-                        <span class="info-box-number">67</span>
+                       
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -479,7 +483,7 @@
             <!-- /.card-body -->
 
             <div class="card-footer text-center">
-                <a href="javascript:void(0)" class="uppercase">Tüm Duyuruları Gör</a>
+                <a href="/Student/Announcements" class="uppercase">Tüm Duyuruları Gör</a>
             </div>
             <!-- /.card-footer -->
             <!-- /.card -->
