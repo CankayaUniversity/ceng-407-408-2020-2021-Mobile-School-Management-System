@@ -39,10 +39,30 @@ namespace WebUserApp.Controllers
             Mesajlar<EXAM> exam = new Mesajlar<EXAM>();
             double TotalAbsence = 0;
             int WeekyLoad = 0;
+            #region Syllabus
+            string[,] Syllabus = new string[7, 10];
+            Syllabus[0, 0] = "Gün";
+            Syllabus[0, 1] = "9:00-9:40";
+            Syllabus[0, 2] = "10:00-10:40";
+            Syllabus[0, 3] = "11:00-11:40";
+            Syllabus[0, 4] = "12:00-12:40";
+            Syllabus[0, 5] = "13:00-13:40";
+            Syllabus[0, 6] = "14:00-14:40";
+            Syllabus[0, 7] = "15:00-15:40";
+            Syllabus[0, 8] = "16:00-16:40";
+            Syllabus[0, 9] = "17:00-17:40";
+            Syllabus[1, 0] = "Pazartesi";
+            Syllabus[2, 0] = "Salı";
+            Syllabus[3, 0] = "Çarşamba";
+            Syllabus[4, 0] = "Perşembe";
+            Syllabus[5, 0] = "Cuma";
+            Syllabus[6, 0] = "Cumartesi";
+            Syllabus[7, 0] = "Pazar"; 
+            #endregion
             #endregion
 
 
-           
+
 
             #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
             studentClass = functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + UserID);
@@ -65,7 +85,16 @@ namespace WebUserApp.Controllers
 
             #region Syllabus
             syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelational");
-
+            foreach (var item in syllabus.Liste)
+            {
+                for (int i = 1; i <= 7; i++)
+                {
+                    for (int j = 1; j <= 10; j++)
+                    {
+                        Syllabus[i, j] = item.Lecture.LectureName;
+                    }
+                }
+            }
             #endregion
 
             #region Exam List
