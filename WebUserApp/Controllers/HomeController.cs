@@ -34,7 +34,17 @@ namespace WebUserApp.Controllers
             Mesajlar<STUDENT_CLASS> studentClass = new Mesajlar<STUDENT_CLASS>();
             Mesajlar<CLASS_SECTION> classSection = new Mesajlar<CLASS_SECTION>();
             Mesajlar<ABSENCE> absence = new Mesajlar<ABSENCE>();
+            Mesajlar<LECTURE> lecture = new Mesajlar<LECTURE>();
+            Mesajlar<SYLLABUS> syllabus = new Mesajlar<SYLLABUS>();
             double TotalAbsence = 0;
+            #endregion
+
+
+           
+
+            #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
+            studentClass = functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + UserID);
+            classSection = functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
             #endregion
 
             #region Calculate total absence of a student
@@ -48,9 +58,22 @@ namespace WebUserApp.Controllers
             }
             #endregion
 
-            #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
-            studentClass = functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + UserID);
-            classSection = functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
+            #region Calculate Weekly Load of a Student
+            lecture = functions.Get<LECTURE>(lecture, "Lecture/Lecture_List");
+            foreach (var item in lecture.Liste)
+            {
+                if (item.StudentsID == UserID)
+                {
+                    syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_List");
+                    foreach (var itemS in syllabus.Liste)
+                    {
+                        if (itemS.LectureID == item.ObjectID)
+                        {
+
+                        }
+                    }
+                }
+            }
             #endregion
 
 

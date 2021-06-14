@@ -65,6 +65,33 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Syllabus_ListObject")]
+        public IActionResult Syllabus_ListObject(int ObjectID)
+        {
+            clsSyllabus_Process tProc = new clsSyllabus_Process();
+
+            Mesajlar<SYLLABUS> m = tProc.Listele(x => x.Status == true && x.ObjectID == ObjectID);
+
+            return Json(m);
+        }
+        [HttpGet("Syllabus_ListLecture")]
+        public IActionResult Syllabus_ListLecture(int LectureID)
+        {
+            clsSyllabus_Process tProc = new clsSyllabus_Process();
+
+            Mesajlar<SYLLABUS> m = tProc.Listele(x => x.Status == true && x.LectureID == LectureID);
+
+            return Json(m);
+        }
+        [HttpGet("Syllabus_ListDays")]
+        public IActionResult Syllabus_ListDays(int DaysID)
+        {
+            clsSyllabus_Process tProc = new clsSyllabus_Process();
+
+            Mesajlar<SYLLABUS> m = tProc.Listele(x => x.Status == true && x.DaysID == DaysID);
+
+            return Json(m);
+        }
         [HttpGet("Syllabus_SelectRelational")]
         public IActionResult Syllabus_SelectRelational(int SyllabusID)
         {
