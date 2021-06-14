@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
+using MobilOkulProc.WebUserApp.ViewModels;
 using Newtonsoft.Json;
 using WebUserApp.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
+
 
 namespace WebUserApp.Controllers
 {
@@ -17,18 +20,46 @@ namespace WebUserApp.Controllers
         private readonly ILogger<HomeController> _logger;
         public static Needs needs = new Needs();
         public static Functions functions = new Functions();
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration cfg)
         {
             _logger = logger;
+            needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
         }
 
-        public IActionResult Welcome()
-        {
-            if (functions.HasToken(""))
-            {
 
+        public IActionResult Welcome(int UserID)
+        {
+            #region Initializations
+            HomeViewModel homeViewModel = new HomeViewModel();
+            Mesajlar<STUDENT_CLASS> studentClass = new Mesajlar<STUDENT_CLASS>();
+            Mesajlar<CLASS_SECTION> classSection = new Mesajlar<CLASS_SECTION>();
+            Mesajlar<ABSENCE> absence = new Mesajlar<ABSENCE>();
+            double TotalAbsence = 0;
+            #endregion
+
+            #region Calculate total absence of a student
+            absence = functions.Get<ABSENCE>(absence, "Absence/Absence_List");
+            foreach (var item in absence.Liste)
+            {
+                if (item.StudentID == UserID)
+                {
+                    TotalAbsence += item.TotalAbsence;
+                }
             }
-            return View();
+            #endregion
+
+            #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
+            studentClass = functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + UserID);
+            classSection = functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
+            #endregion
+
+
+            #region Fill the ViewModel
+            homeViewModel.ClassName = classSection.Nesne.ClassSectionName;
+            homeViewModel.TotalAbsence = TotalAbsence.ToString() + " Gün";
+            #endregion
+
+            return View(homeViewModel);
         }
 
         

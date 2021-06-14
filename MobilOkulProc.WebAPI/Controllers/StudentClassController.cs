@@ -43,13 +43,31 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
-
         [HttpGet("StudentClass_Select")]
-        public IActionResult StudentClass_Select(int StudentClassID)
+        public IActionResult StudentClass_Select(int ObjectID)
         {
             clsStudentClass_Process sProc = new clsStudentClass_Process();
 
-            Mesajlar<STUDENT_CLASS> m = sProc.Getir(x => x.ObjectID == StudentClassID);
+            Mesajlar<STUDENT_CLASS> m = sProc.Getir(x => x.ObjectID == ObjectID);
+
+            return Json(m);
+        }
+
+        [HttpGet("StudentClass_SelectStudent")]
+        public IActionResult StudentClass_SelectStudent(int StudentID)
+        {
+            clsStudentClass_Process sProc = new clsStudentClass_Process();
+
+            Mesajlar<STUDENT_CLASS> m = sProc.Getir(x => x.StudentID == StudentID);
+
+            return Json(m);
+        }
+        [HttpGet("StudentClass_SelectClassSection")]
+        public IActionResult StudentClass_SelectClassSection(int ClassSectionID)
+        {
+            clsStudentClass_Process sProc = new clsStudentClass_Process();
+
+            Mesajlar<STUDENT_CLASS> m = sProc.Getir(x => x.ClassSectionID == ClassSectionID);
 
             return Json(m);
         }

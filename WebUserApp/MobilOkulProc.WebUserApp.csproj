@@ -1921,6 +1921,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MobilOkulProc.Entities\MobilOkulProc.Entities.csproj" />
+    <ProjectReference Include="..\MobilOkulProc.WebAPI\MobilOkulProc.WebAPI.csproj" />
   </ItemGroup>
 
 </Project>

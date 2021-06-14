@@ -1,7 +1,9 @@
-﻿@{
+﻿@using MobilOkulProc.WebUserApp.ViewModels
+@{
     ViewBag.Title = "Hoş Geldin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model HomeViewModel 
 <style>
     .map-responsive {
         overflow: hidden;
@@ -30,7 +32,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">Sınıf</span>
                         <span class="info-box-number">
-                            10 - Fen - A
+                            @Model.ClassName
                         </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -60,7 +62,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Devamsızlık</span>
-                        <span class="info-box-number">18 Gün</span>
+                        <span class="info-box-number">@Model.TotalAbsence</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

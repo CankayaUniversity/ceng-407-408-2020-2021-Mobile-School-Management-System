@@ -45,11 +45,29 @@ namespace MobilOkulProc.WebAPI.Controllers
         }
 
         [HttpGet("ClassSection_Select")]
-        public IActionResult ClassSection_Select(int ClassSectionID)
+        public IActionResult ClassSection_Select(int ObjectID)
         {
             clsClassSection_Process sProc = new clsClassSection_Process();
 
-            Mesajlar<CLASS_SECTION> m = sProc.Getir(x => x.ObjectID == ClassSectionID);
+            Mesajlar<CLASS_SECTION> m = sProc.Getir(x => x.ObjectID == ObjectID);
+
+            return Json(m);
+        }
+        [HttpGet("ClassSection_SelectSection")]
+        public IActionResult ClassSection_SelectSection(int SectionID)
+        {
+            clsClassSection_Process sProc = new clsClassSection_Process();
+
+            Mesajlar<CLASS_SECTION> m = sProc.Getir(x => x.SectionID == SectionID);
+
+            return Json(m);
+        }
+        [HttpGet("ClassSection_SelectSectionEducationTerm")]
+        public IActionResult ClassSection_SelectEducationTerm(int EdicationTermID)
+        {
+            clsClassSection_Process sProc = new clsClassSection_Process();
+
+            Mesajlar<CLASS_SECTION> m = sProc.Getir(x => x.EducationTermID == EdicationTermID);
 
             return Json(m);
         }

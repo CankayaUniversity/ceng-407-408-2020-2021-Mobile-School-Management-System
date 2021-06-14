@@ -47,7 +47,7 @@ namespace WebUserApp
 
             app.UseMvc(configureRoutes =>
             {
-                configureRoutes.MapRoute(name: "default", template: "{controller=Home}/{action=Welcome}/{id?}");
+                configureRoutes.MapRoute(name: "default", template: "{controller=Login}/{action=Login}/{id?}");
             });
 
         }
