@@ -65,6 +65,26 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [Authorize]
+        [HttpGet("Absence_ListObject")]
+        public IActionResult Absence_ListObject(int ObjectID)
+        {
+            clsAbsence_Process tProc = new clsAbsence_Process();
+
+            Mesajlar<ABSENCE> m = tProc.Listele(x => x.Status == true && x.ObjectID == ObjectID);
+
+            return Json(m);
+        }
+        [Authorize]
+        [HttpGet("Absence_ListStudent")]
+        public IActionResult Absence_ListStudent(int StudentID)
+        {
+            clsAbsence_Process tProc = new clsAbsence_Process();
+
+            Mesajlar<ABSENCE> m = tProc.Listele(x => x.Status == true && x.StudentID == StudentID);
+
+            return Json(m);
+        }
         [HttpGet("Absence_SelectRelational")]
         public IActionResult Absence_SelectRelational(int AbsenceID)
         {

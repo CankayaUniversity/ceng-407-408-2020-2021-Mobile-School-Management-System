@@ -36,7 +36,9 @@ namespace WebUserApp.Controllers
             Mesajlar<ABSENCE> absence = new Mesajlar<ABSENCE>();
             Mesajlar<LECTURE> lecture = new Mesajlar<LECTURE>();
             Mesajlar<SYLLABUS> syllabus = new Mesajlar<SYLLABUS>();
+            Mesajlar<EXAM> exam = new Mesajlar<EXAM>();
             double TotalAbsence = 0;
+            int WeekyLoad = 0;
             #endregion
 
 
@@ -48,38 +50,35 @@ namespace WebUserApp.Controllers
             #endregion
 
             #region Calculate total absence of a student
-            absence = functions.Get<ABSENCE>(absence, "Absence/Absence_List");
+            absence = functions.Get<ABSENCE>(absence, "Absence/Absence_ListStudent?StudentID="+UserID);
             foreach (var item in absence.Liste)
             {
-                if (item.StudentID == UserID)
-                {
                     TotalAbsence += item.TotalAbsence;
-                }
             }
             #endregion
 
             #region Calculate Weekly Load of a Student
-            lecture = functions.Get<LECTURE>(lecture, "Lecture/Lecture_List");
-            foreach (var item in lecture.Liste)
-            {
-                if (item.StudentsID == UserID)
-                {
-                    syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_List");
-                    foreach (var itemS in syllabus.Liste)
-                    {
-                        if (itemS.LectureID == item.ObjectID)
-                        {
+            lecture = functions.Get<LECTURE>(lecture, "Lecture/Lecture_ListStudent?StudentID=" + UserID);
+            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_SelectRelationalLecture?LectureID=" + lecture.Liste[0].ObjectID);
+            WeekyLoad = syllabus.Liste.Count;
+            #endregion
 
-                        }
-                    }
-                }
-            }
+            #region Syllabus
+            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_List");
+
+            #endregion
+
+            #region Exam List
+            exam = functions.Get<EXAM>(exam, "Exam/Exam_ListLecture?LectureID="+ lecture.Liste[0].ObjectID);
             #endregion
 
 
             #region Fill the ViewModel
             homeViewModel.ClassName = classSection.Nesne.ClassSectionName;
             homeViewModel.TotalAbsence = TotalAbsence.ToString() + " Gün";
+            homeViewModel.WeeklyLoad = WeekyLoad.ToString() + " Saat";
+            homeViewModel.SyllabusList = syllabus.Liste;
+            homeViewModel.ExamList = exam.Liste;
             #endregion
 
             return View(homeViewModel);

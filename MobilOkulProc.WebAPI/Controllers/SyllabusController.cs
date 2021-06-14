@@ -35,7 +35,7 @@ namespace MobilOkulProc.WebAPI.Controllers
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir(x => x.ObjectID == SyllabusID);
+            Mesajlar<SYLLABUS> m = tProc.Getir(x => x.Status == true && x.ObjectID == SyllabusID);
 
             if (m.Nesne != null)
             {
@@ -50,7 +50,7 @@ namespace MobilOkulProc.WebAPI.Controllers
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir(x => x.ObjectID == SyllabusID);
+            Mesajlar<SYLLABUS> m = tProc.Getir(x => x.Status == true && x.ObjectID == SyllabusID);
 
             return Json(m);
         }
@@ -97,7 +97,34 @@ namespace MobilOkulProc.WebAPI.Controllers
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir_Iliskisel(x => x.ObjectID == SyllabusID);
+            Mesajlar<SYLLABUS> m = tProc.Getir_Iliskisel(x => x.Status == true && x.ObjectID == SyllabusID);
+
+            return Json(m);
+        }
+        [HttpGet("Syllabus_ListRelational")]
+        public IActionResult Syllabus_ListRelational()
+        {
+            clsSyllabus_Process tProc = new clsSyllabus_Process();
+
+            Mesajlar<SYLLABUS> m = tProc.Getir_ListeIliskisel(x => x.Status == true);
+
+            return Json(m);
+        }
+        [HttpGet("Syllabus_ListRelationalDays")]
+        public IActionResult Syllabus_ListRelationalDays(int DaysID)
+        {
+            clsSyllabus_Process tProc = new clsSyllabus_Process();
+
+            Mesajlar<SYLLABUS> m = tProc.Getir_ListeIliskisel(x => x.Status == true && x.DaysID == DaysID);
+
+            return Json(m);
+        }
+        [HttpGet("Syllabus_ListRelationalLecture")]
+        public IActionResult Syllabus_ListRelationalLecture(int LectureID)
+        {
+            clsSyllabus_Process tProc = new clsSyllabus_Process();
+
+            Mesajlar<SYLLABUS> m = tProc.Getir_ListeIliskisel(x => x.Status == true && x.LectureID == LectureID);
 
             return Json(m);
         }

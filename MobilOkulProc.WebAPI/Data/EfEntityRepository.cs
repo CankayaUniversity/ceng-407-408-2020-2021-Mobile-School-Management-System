@@ -169,6 +169,46 @@ namespace MobilOkulProc.WebAPI.Data
 
             return mesajlar;
         }
+        public Mesajlar<TEntity> Getir_ListeIliskisel(Expression<Func<TEntity, bool>> filtre = null)
+        {
+            Mesajlar<TEntity> mesajlar = new Mesajlar<TEntity>();
+
+            try
+            {
+                using (var cnt = new TContext())
+                {
+                    IQueryable<TEntity> obj = cnt.Set<TEntity>();
+
+                    Type tip = typeof(TEntity);
+
+                    PropertyInfo[] pi = tip.GetProperties();
+
+                    foreach (var i in pi)
+                    {
+                        ForeignKeyAttribute fk = i.GetCustomAttribute<ForeignKeyAttribute>();
+
+                        if (fk != null)
+                        {
+                            obj = obj.Include(fk.Name);
+                        }
+                    }
+
+                    mesajlar.Liste = obj.Where(filtre).ToList();
+                }
+
+                mesajlar.Durum = true;
+                mesajlar.Mesaj = "Bilgiler getirildi.";
+                mesajlar.Status = "success";
+            }
+            catch (Exception ex)
+            {
+                mesajlar.Durum = false;
+                mesajlar.Mesaj = ex.Message + Environment.NewLine + ex.InnerException;
+
+            }
+
+            return mesajlar;
+        }
 
         public int Get_KayitID(EntityEntry<TEntity> _entry, TEntity ent)
         {

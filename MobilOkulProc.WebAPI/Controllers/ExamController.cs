@@ -63,6 +63,15 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Exam_ListLecture")]
+        public IActionResult Exam_ListLecture(int LectureID)
+        {
+            clsExam_Process tProc = new clsExam_Process();
+
+            Mesajlar<EXAM> m = tProc.Listele(x => x.Status == true && x.LectureID == LectureID);
+
+            return Json(m);
+        }
         [HttpGet("Exam_SelectRelational")]
         public IActionResult Exam_SelectRelational(int ExamID)
         {

@@ -75,7 +75,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Haftalık Ders Saati</span>
-                        <span class="info-box-number">40 Saat</span>
+                        <span class="info-box-number">@Model.WeeklyLoad</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -122,15 +122,13 @@
                                 <tbody>
                                     <tr>
                                         <td>Pazartesi</td>
-                                        <td>Matematik</td>
-                                        <td>Matematik</td>
-                                        <td>Fizik</td>
-                                        <td>Fizik</td>
-                                        <td>Öğle Arası</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Müzik</td>
-                                        <td>Rehberlik</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Pazartesi")
+                                            {
+
+                                            }
+                                        }
                                     </tr>
 
                                 </tbody>
