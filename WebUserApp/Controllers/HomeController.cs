@@ -59,12 +59,12 @@ namespace WebUserApp.Controllers
 
             #region Calculate Weekly Load of a Student
             lecture = functions.Get<LECTURE>(lecture, "Lecture/Lecture_ListStudent?StudentID=" + UserID);
-            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_SelectRelationalLecture?LectureID=" + lecture.Liste[0].ObjectID);
+            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalLecture?LectureID=" + lecture.Liste[0].ObjectID);
             WeekyLoad = syllabus.Liste.Count;
             #endregion
 
             #region Syllabus
-            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_List");
+            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelational");
 
             #endregion
 

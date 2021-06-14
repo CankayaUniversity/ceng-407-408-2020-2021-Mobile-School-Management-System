@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Hoş Geldin";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> Days = new List<string>() { "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar" };
+    int k = 0;
 }
 @model HomeViewModel 
 <style>
@@ -124,10 +126,19 @@
                                         <td>Pazartesi</td>
                                         @foreach (var item in Model.SyllabusList)
                                         {
-                                            if (item.Days.DayName == "Pazartesi")
+                                            @for (int i = 9; i <= 17; i++)
                                             {
+                                                if (item.Days.DayName == Days[k] && item.Date.ToString("HH") == i.ToString()) 
+                                                { 
+                                                    <td>@item.Lecture.LectureName</td>
 
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
                                             }
+
                                         }
                                     </tr>
 
@@ -138,15 +149,13 @@
                                 <tbody>
                                     <tr>
                                         <td>Salı</td>
-                                        <td>Matematik</td>
-                                        <td>Matematik</td>
-                                        <td>Fizik</td>
-                                        <td>Fizik</td>
-                                        <td>Öğle Arası</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Müzik</td>
-                                        <td>Rehberlik</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Salı")
+                                            {
+                                                <td>@item.Lecture.LectureName</td>
+                                            }
+                                        }
                                     </tr>
 
                                 </tbody>
@@ -156,15 +165,13 @@
                                 <tbody>
                                     <tr>
                                         <td>Çarşamba</td>
-                                        <td>Matematik</td>
-                                        <td>Matematik</td>
-                                        <td>Fizik</td>
-                                        <td>Fizik</td>
-                                        <td>Öğle Arası</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Müzik</td>
-                                        <td>Rehberlik</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Çarşamba")
+                                            {
+                                                <td>@item.Lecture.LectureName</td>
+                                            }
+                                        }
                                     </tr>
 
                                 </tbody>
@@ -174,15 +181,13 @@
                                 <tbody>
                                     <tr>
                                         <td>Perşembe</td>
-                                        <td>Matematik</td>
-                                        <td>Matematik</td>
-                                        <td>Fizik</td>
-                                        <td>Fizik</td>
-                                        <td>Öğle Arası</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Müzik</td>
-                                        <td>Rehberlik</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Perşembe")
+                                            {
+                                                <td>@item.Lecture.LectureName</td>
+                                            }
+                                        }
                                     </tr>
 
                                 </tbody>
@@ -192,15 +197,13 @@
                                 <tbody>
                                     <tr>
                                         <td>Cuma</td>
-                                        <td>Matematik</td>
-                                        <td>Matematik</td>
-                                        <td>Fizik</td>
-                                        <td>Fizik</td>
-                                        <td>Öğle Arası</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Beden Eğitimi</td>
-                                        <td>Müzik</td>
-                                        <td>Rehberlik</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Cuma")
+                                            {
+                                                <td>@item.Lecture.LectureName</td>
+                                            }
+                                        }
                                     </tr>
 
                                 </tbody>
@@ -210,15 +213,13 @@
                                 <tbody>
                                     <tr>
                                         <td style="color:red">Cumartesi</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Robotik Kodlama</td>
-                                        <td>Robotik Kodlama</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Cumartesi")
+                                            {
+                                                <td>@item.Lecture.LectureName</td>
+                                            }
+                                        }
                                     </tr>
 
                                 </tbody>
@@ -228,15 +229,13 @@
                                 <tbody>
                                     <tr>
                                         <td style="color:red">Pazar</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Satranç</td>
-                                        <td>Satranç</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Pazar")
+                                            {
+                                                <td>@item.Lecture.LectureName</td>
+                                            }
+                                        }
                                     </tr>
 
                                 </tbody>
