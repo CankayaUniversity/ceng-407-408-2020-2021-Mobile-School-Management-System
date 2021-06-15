@@ -24,10 +24,11 @@ namespace WebUserApp.Controllers
         {
             _logger = logger;
             needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
+            
         }
 
 
-        public IActionResult Welcome(int UserID)
+        public IActionResult Welcome()
         {
             #region Initializations
             HomeViewModel homeViewModel = new HomeViewModel();
@@ -37,30 +38,31 @@ namespace WebUserApp.Controllers
             Mesajlar<LECTURE> lecture = new Mesajlar<LECTURE>();
             Mesajlar<SYLLABUS> syllabus = new Mesajlar<SYLLABUS>();
             Mesajlar<EXAM> exam = new Mesajlar<EXAM>();
+            Mesajlar<GRADE> grade = new Mesajlar<GRADE>();
+            Mesajlar<MESSAGE> messages = new Mesajlar<MESSAGE>();
+            List<MESSAGE> LastFiveMessagesNotRead = new List<MESSAGE>();
             double TotalAbsence = 0;
             int WeekyLoad = 0;
             string MostRecentExam = "";
             int ExamsLeftCount = 0;
+            int counter = 0;
+            string LatestGrade = "";
             #endregion
 
-
-
-
             #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
-            studentClass = functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + UserID);
+            studentClass = functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + needs.UserID);
             classSection = functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
             #endregion
 
             #region Calculate total absence of a student
-            absence = functions.Get<ABSENCE>(absence, "Absence/Absence_ListStudent?StudentID="+UserID);
+            absence = functions.Get<ABSENCE>(absence, "Absence/Absence_ListStudent?StudentID=" + needs.UserID);
             foreach (var item in absence.Liste)
             {
-                    TotalAbsence += item.TotalAbsence;
+                TotalAbsence += item.TotalAbsence;
             }
             #endregion
 
             #region Calculate Weekly Load of a Student
-            lecture = functions.Get<LECTURE>(lecture, "Lecture/Lecture_ListStudent?StudentID=" + UserID);
             syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + studentClass.Nesne.ClassSectionID);
             foreach (var item in syllabus.Liste)
             {
@@ -71,48 +73,49 @@ namespace WebUserApp.Controllers
                 if (item.Ten != null && item.Ten != "Öğle Tatili")
                 {
                     WeekyLoad += 1;
-                }if (item.Eleven != null && item.Eleven != "Öğle Tatili")
+                } if (item.Eleven != null && item.Eleven != "Öğle Tatili")
                 {
                     WeekyLoad += 1;
-                }if (item.Twelwe != null && item.Twelwe != "Öğle Tatili")
+                } if (item.Twelwe != null && item.Twelwe != "Öğle Tatili")
                 {
                     WeekyLoad += 1;
-                }if (item.Thirtheen != null && item.Thirtheen != "Öğle Tatili")
+                } if (item.Thirtheen != null && item.Thirtheen != "Öğle Tatili")
                 {
                     WeekyLoad += 1;
-                }if (item.Fourteen != null && item.Fourteen != "Öğle Tatili")
+                } if (item.Fourteen != null && item.Fourteen != "Öğle Tatili")
                 {
                     WeekyLoad += 1;
-                }if (item.Fifteen != null && item.Fifteen != "Öğle Tatili")
+                } if (item.Fifteen != null && item.Fifteen != "Öğle Tatili")
                 {
                     WeekyLoad += 1;
-                }if (item.Sixteen != null && item.Sixteen != "Öğle Tatili")
+                } if (item.Sixteen != null && item.Sixteen != "Öğle Tatili")
                 {
                     WeekyLoad += 1;
-                }if (item.Seventeen != null && item.Seventeen != "Öğle Tatili")
+                } if (item.Seventeen != null && item.Seventeen != "Öğle Tatili")
                 {
                     WeekyLoad += 1;
                 }
-                
+
             }
             #endregion
 
             #region Syllabus
             syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelational");
-            
-
             #endregion
 
             #region Exam List
-            exam = functions.Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + lecture.Liste[0].ObjectID);
+            exam = functions.Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + studentClass.Nesne.ClassSectionID);
+            #endregion
+
+            #region MostRecentExam and Total Exam Counts
             EXAM MostRecentDateObject = exam.Liste[0];
             foreach (var item in exam.Liste)
             {
-               
+
                 if (item.ExamDate < MostRecentDateObject.ExamDate && item.ExamDate > DateTime.Now)
                 {
                     MostRecentDateObject = item;
-                       
+
                 }
                 if (item.ExamDate > DateTime.Now)
                 {
@@ -127,10 +130,30 @@ namespace WebUserApp.Controllers
                     ExamsLeftCount++;
                 }
             }
-            
-
-
             #endregion
+
+            #region Latest Grade
+            grade = functions.Get<GRADE>(grade, "Grade/Grade_ListRelationalStudent?StudentID=" + needs.UserID);
+            LatestGrade = grade.Liste[grade.Liste.Count - 1].Lecture.LectureName + " - " + grade.Liste[grade.Liste.Count - 1].Grade;
+            #endregion
+
+            #region MessageCounts
+            messages = functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiverNotRead?ReceiveID=" + needs.UserID);
+            for (int i = messages.Liste.Count-1, j = 0; j < 5; i--,j++)
+            {
+                if (i>=0)
+                {
+                    LastFiveMessagesNotRead.Add(messages.Liste[i]);
+                }
+            }
+            needs.TotalNumberOfMessages = messages.Liste.Count.ToString();
+            messages = functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
+            needs.LastFiveMessagesNotRead = LastFiveMessagesNotRead;
+            #endregion
+
+
+
+
 
 
             #region Fill the ViewModel
@@ -141,7 +164,18 @@ namespace WebUserApp.Controllers
             homeViewModel.ExamList = exam.Liste;
             homeViewModel.MostRecentExam = MostRecentExam;
             homeViewModel.ExamsLeft = ExamsLeftCount.ToString();
+            homeViewModel.LatestGrade = LatestGrade;
+            homeViewModel.TotalMessages = messages.Liste.Count.ToString();
             #endregion
+
+            #region Layout
+            ViewBag.FullName = needs.NameSurname;
+            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.LoginAs = needs.LoginAs;
+            ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
+            #endregion
+
+
 
             return View(homeViewModel);
         }
@@ -159,6 +193,10 @@ namespace WebUserApp.Controllers
             public string NameSurname = "";
             public string JwtToken = "";
             public string RefreshToken = "";
+            public int UserID = 0;
+            public string TotalNumberOfMessages = "0";
+            public string LoginAs = "";
+            public List<MESSAGE> LastFiveMessagesNotRead = new List<MESSAGE>();
         }
 
         public class Functions

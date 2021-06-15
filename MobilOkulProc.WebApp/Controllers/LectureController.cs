@@ -18,14 +18,14 @@ namespace MobilOkulProc.WebApp.Controllers
         public IActionResult List(string Search, int? page, Mesajlar<LECTURE> mb)
         {
             LectureViewModel<LECTURE> m = new LectureViewModel<LECTURE>();
-            Mesajlar<STUDENT> Student = new Mesajlar<STUDENT>();
+            Mesajlar<CLASS_SECTION> Class_Section = new Mesajlar<CLASS_SECTION>();
             Mesajlar<TEACHER> Teacher = new Mesajlar<TEACHER>();
             ViewBag.NameSurname = needs.NameSurname;
             m.Mesajlar = function.Get<LECTURE>(mb, "Lecture/Lecture_List");
             foreach (var item in m.Mesajlar.Liste)
             {
-                Student = function.Get<STUDENT>(Student, "Student/Student_Select?StudentID=" + item.StudentsID);
-                item.Students = Student.Nesne;
+                Class_Section = function.Get<CLASS_SECTION>(Class_Section, "ClassSection/Class_SectionSelect?ClassSectionID=" + item.ClassSectionsID);
+                item.ClassSections = Class_Section.Nesne;
                 Teacher = function.Get<TEACHER>(Teacher, "Teacher/Teacher_Select?TeacherID=" + item.TeacherID);
                 item.Teacher = Teacher.Nesne;
             }
@@ -39,13 +39,13 @@ namespace MobilOkulProc.WebApp.Controllers
         public IActionResult Add()
         {
 
-            Mesajlar<STUDENT> m = new Mesajlar<STUDENT>();
-            m = function.Get<STUDENT>(m, "Student/Student_List");
+            Mesajlar<CLASS_SECTION> m = new Mesajlar<CLASS_SECTION>();
+            m = function.Get<CLASS_SECTION>(m, "ClassSection/ClassSection_List");
             Mesajlar<TEACHER> b = new Mesajlar<TEACHER>();
             b = function.Get<TEACHER>(b, "Teacher/Teacher_List");
             LectureViewModel<LECTURE> viewModel = new LectureViewModel<LECTURE>()
             {
-                StudentList = new SelectList(m.Liste, "ObjectID", "StdName"),
+                StudentList = new SelectList(m.Liste, "ObjectID", "ClassSectionName"),
                 TeacherList = new SelectList(b.Liste, "ObjectID", "FullName"),
                 TeacherId = -1,
                 StudentId = -1,
@@ -58,7 +58,7 @@ namespace MobilOkulProc.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(LectureViewModel<LECTURE> m)
         {
-            m.Mesajlar.Nesne.StudentsID = m.StudentId;
+            m.Mesajlar.Nesne.ClassSectionsID = m.StudentId;
             m.Mesajlar.Nesne.TeacherID = m.TeacherId;
             m.Mesajlar = function.Add_Update<LECTURE>(m.Mesajlar, "Lecture/Lecture_Insert");
             ViewBag.NameSurname = needs.NameSurname;
@@ -92,29 +92,29 @@ namespace MobilOkulProc.WebApp.Controllers
 
             ViewBag.NameSurname = needs.NameSurname;
             TeacherViewModel.Mesajlar = m;
-            Mesajlar<STUDENT> mesajlar = new Mesajlar<STUDENT>();
+            Mesajlar<CLASS_SECTION> mesajlar = new Mesajlar<CLASS_SECTION>();
             Mesajlar<TEACHER> Teacher = new Mesajlar<TEACHER>();
-            mesajlar = function.Get<STUDENT>(mesajlar, "Student/Student_Select?StudentID=" + m.Nesne.StudentsID);
+            mesajlar = function.Get<CLASS_SECTION>(mesajlar, "ClassSection/ClassSection_Select?ClassSectionID=" + m.Nesne.ClassSectionsID);
             Teacher = function.Get<TEACHER>(Teacher, "Teacher/Teacher_Select?TeacherID=" + m.Nesne.TeacherID);
-            TeacherViewModel.Mesajlar.Nesne.Students = mesajlar.Nesne;
+            TeacherViewModel.Mesajlar.Nesne.ClassSections = mesajlar.Nesne;
             TeacherViewModel.Mesajlar.Nesne.Teacher = Teacher.Nesne;
             return View(TeacherViewModel);
         }
         public IActionResult Edit(int id)
         {
-            Mesajlar<STUDENT> m = new Mesajlar<STUDENT>();
+            Mesajlar<CLASS_SECTION> m = new Mesajlar<CLASS_SECTION>();
             Mesajlar<TEACHER> b = new Mesajlar<TEACHER>();
-            m = function.Get<STUDENT>(m, "Student/Student_List");
+            m = function.Get<CLASS_SECTION>(m, "ClassSection/ClassSection_List");
             b = function.Get<TEACHER>(b, "Teacher/Teacher_List");
 
             Mesajlar<LECTURE> Lecture = new Mesajlar<LECTURE>();
             Lecture = function.Get<LECTURE>(Lecture, "Lecture/Lecture_SelectRelational?LectureID=" + id);
             LectureViewModel<LECTURE> TeacherViewModel = new LectureViewModel<LECTURE>()
             {
-                StudentList = new SelectList(m.Liste, "ObjectID", "StdName"),
+                StudentList = new SelectList(m.Liste, "ObjectID", "ClassSectionName"),
                 TeacherList = new SelectList(b.Liste, "ObjectID", "FullName"),
                 TeacherId = Lecture.Nesne.TeacherID,
-                StudentId = Lecture.Nesne.StudentsID,
+                StudentId = Lecture.Nesne.ClassSectionsID,
             };
 
             TeacherViewModel.Mesajlar = Lecture;
@@ -126,7 +126,7 @@ namespace MobilOkulProc.WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(LectureViewModel<LECTURE> m)
         {
-            m.Mesajlar.Nesne.StudentsID = m.StudentId;
+            m.Mesajlar.Nesne.ClassSectionsID = m.StudentId;
             m.Mesajlar.Nesne.TeacherID = m.TeacherId;
             m.Mesajlar = function.Add_Update<LECTURE>(m.Mesajlar, "Lecture/Lecture_Update");
             ViewBag.NameSurname = needs.NameSurname;
@@ -144,7 +144,7 @@ namespace MobilOkulProc.WebApp.Controllers
             c = function.Get<CLASS>(c, "Class/Class_List");
             LectureViewModel<LECTURE> viewModel = new LectureViewModel<LECTURE>()
             {
-                StudentList = new SelectList(c.Liste, "ObjectID", "Class_Name"),
+                StudentList = new SelectList(c.Liste, "ObjectID", "ClassSectionName"),
                 StudentId = -1,
                 TeacherList = new SelectList(l.Liste, "ObjectID", "LectureName"),
                 TeacherId = -1

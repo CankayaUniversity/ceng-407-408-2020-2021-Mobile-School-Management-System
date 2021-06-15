@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MobilOkulProc.WebAPI.Data;
 
 namespace MobilOkulProc.WebAPI.Migrations
 {
     [DbContext(typeof(MobilOkulContext))]
-    partial class MobilOkulContextModelSnapshot : ModelSnapshot
+    [Migration("20210615123732_MgExam")]
+    partial class MgExam
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -533,7 +535,7 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.Property<int>("PriorityID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ReadTime")
+                    b.Property<DateTime>("ReadTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ReceiveID")

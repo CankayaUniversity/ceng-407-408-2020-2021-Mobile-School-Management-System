@@ -59,12 +59,12 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
-        [HttpGet("Lecture_ListStudent")]
-        public IActionResult Lecture_ListStudent(int StudentID)
+        [HttpGet("Lecture_ListClassSections")]
+        public IActionResult Lecture_ListClassSections(int ClassSectionsID)
         {
             clsLecture_Process uProc = new clsLecture_Process();
 
-            Mesajlar<LECTURE> m = uProc.Listele(x => x.Status == true && x.StudentsID == StudentID);
+            Mesajlar<LECTURE> m = uProc.Listele(x => x.Status == true && x.ClassSectionsID == ClassSectionsID);
 
             return Json(m);
         }

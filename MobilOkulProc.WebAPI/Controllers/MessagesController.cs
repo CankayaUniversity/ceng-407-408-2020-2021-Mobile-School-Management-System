@@ -72,5 +72,23 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Message_ListRelationalReceiver")]
+        public IActionResult Message_ListRelationalReceiver(int ReceiveID)
+        {
+            clsMessages_Process uProc = new clsMessages_Process();
+
+            Mesajlar<MESSAGE> m = uProc.Getir_ListeIliskisel(x => x.Status == true && x.ReceiveID == ReceiveID);
+
+            return Json(m);
+        }
+        [HttpGet("Message_ListRelationalReceiverNotRead")]
+        public IActionResult Messages_ListReceiverNotRead(int ReceiveID)
+        {
+            clsMessages_Process uProc = new clsMessages_Process();
+
+            Mesajlar<MESSAGE> m = uProc.Getir_ListeIliskisel(x => x.Status == true && x.ReceiveID == ReceiveID && x.ReadTime == null);
+
+            return Json(m);
+        }
     }
 }

@@ -19,6 +19,13 @@ namespace MobilOkulProc.Entities.Concrete
         [MaxLength(500)]
         public string ExamDetails { get; set; }
 
+
+        [Display(Name = "ClassSections")]
+        [ForeignKey("ClassSections")]
+        [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
+        public int ClassSectionsID { get; set; }
+        public virtual CLASS_SECTION ClassSections { get; set; }
+
         [Display(Name = "Lecture")]
         [ForeignKey("Lecture")]
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]

@@ -82,9 +82,9 @@ namespace MobilOkulProc.Entities.Concrete
         
         public virtual List<STUDENT_PARENT> StudentParent { get; set; }
         public virtual List<SCHOOL_STUDENT> SchoolStudent { get; set; }
-        public virtual List<LECTURE> Lecture { get; set; }
         public virtual List<ABSENCE> Absence { get; set; }
         public virtual List<SYLLABUS> Syllabus { get; set; }
+        public virtual List<GRADE> Grade { get; set; }
     }
 
 

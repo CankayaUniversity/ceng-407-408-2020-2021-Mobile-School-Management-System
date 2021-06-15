@@ -30,7 +30,7 @@ namespace MobilOkulProc.WebAPI.Controllers
         {
             clsGrade_Process uProc = new clsGrade_Process();
 
-            Mesajlar<GRADE> m = uProc.Getir(x => x.ObjectID == GradeID);
+            Mesajlar<GRADE> m = uProc.Getir(x => x.ObjectID == GradeID && x.Status == true);
 
             if (m.Nesne != null)
             {
@@ -45,7 +45,16 @@ namespace MobilOkulProc.WebAPI.Controllers
         {
             clsGrade_Process uProc = new clsGrade_Process();
 
-            Mesajlar<GRADE> m = uProc.Getir(x => x.ObjectID == GradeID);
+            Mesajlar<GRADE> m = uProc.Getir(x => x.ObjectID == GradeID && x.Status == true);
+
+            return Json(m);
+        }
+        [HttpGet("Grade_SelectStudent")]
+        public IActionResult Grade_SelectStudent(int StudentID)
+        {
+            clsGrade_Process uProc = new clsGrade_Process();
+
+            Mesajlar<GRADE> m = uProc.Getir(x => x.StudentID == StudentID && x.Status == true);
 
             return Json(m);
         }
@@ -64,7 +73,16 @@ namespace MobilOkulProc.WebAPI.Controllers
         {
             clsGrade_Process tProc = new clsGrade_Process();
 
-            Mesajlar<GRADE> m = tProc.Getir_Iliskisel(x => x.ObjectID == GradeID);
+            Mesajlar<GRADE> m = tProc.Getir_Iliskisel(x => x.ObjectID == GradeID && x.Status == true);
+
+            return Json(m);
+        }
+        [HttpGet("Grade_ListRelationalStudent")]
+        public IActionResult Grade_ListRelationalStudent(int StudentID)
+        {
+            clsGrade_Process tProc = new clsGrade_Process();
+
+            Mesajlar<GRADE> m = tProc.Getir_ListeIliskisel(x => x.StudentID == StudentID && x.Status == true);
 
             return Json(m);
         }

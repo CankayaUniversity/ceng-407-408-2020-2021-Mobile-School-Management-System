@@ -2,8 +2,6 @@
 @{
     ViewBag.Title = "Hoş Geldin";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<string> Days = new List<string>() { "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar" };
-    int i = 0;
 }
 @model HomeViewModel 
 <style>
@@ -483,7 +481,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">Son Alınan Not</span>
                         <div class="row">
-                            <span class="info-box-number col-md-8">100 - Matematik</span>
+                            <span class="info-box-number col-md-8">@Model.LatestGrade</span>
                             <a href="/Student/Notes" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
                         </div>
 
@@ -499,7 +497,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">Mesajlar</span>
                         <div class="row">
-                            <span class="info-box-number  col-md-8">67</span>
+                            <span class="info-box-number  col-md-8">@Model.TotalMessages</span>
                             <a href="/Message/Mailbox" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
                         </div>
                        

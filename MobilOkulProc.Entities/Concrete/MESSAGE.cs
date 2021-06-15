@@ -26,7 +26,7 @@ namespace MobilOkulProc.Entities.Concrete
         public DateTime SendTime { get; set; }
 
         [Display(Name = "Read Time")]
-        public DateTime ReadTime { get; set; }
+        public DateTime? ReadTime { get; set; }
 
         [Display(Name = "Message Type")]
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]

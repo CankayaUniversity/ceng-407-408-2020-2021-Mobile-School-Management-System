@@ -12,11 +12,11 @@ namespace MobilOkulProc.Entities.Concrete
         [MaxLength(100)]
         public string LectureName { get; set; }
 
-        [Display(Name = "Students")]
-        [ForeignKey("Students")]
+        [Display(Name = "Class Sections")]
+        [ForeignKey("ClassSections")]
         [Required(ErrorMessage = "Doldurulması zorunlu alandır!")]
-        public int StudentsID { get; set; }
-        public virtual STUDENT Students { get; set; }
+        public int ClassSectionsID { get; set; }
+        public virtual CLASS_SECTION ClassSections { get; set; }
 
         [Display(Name = "Teacher")]
         [ForeignKey("Teacher")]

@@ -18,13 +18,13 @@ namespace MobilOkulProc.WebApp.Controllers
         public IActionResult List(string Search, int? page, Mesajlar<EXAM> mb)
         {
             ExamViewModel<EXAM> m = new ExamViewModel<EXAM>();
-            Mesajlar<LECTURE> User = new Mesajlar<LECTURE>();
+            Mesajlar<CLASS_SECTION> User = new Mesajlar<CLASS_SECTION>();
             ViewBag.NameSurname = needs.NameSurname;
             m.Mesajlar = function.Get<EXAM>(mb, "Exam/Exam_List");
             foreach (var item in m.Mesajlar.Liste)
             {
-                User = function.Get<LECTURE>(User, "Lecture/Lecture_Select?LectureID=" + item.LectureID);
-                item.Lecture = User.Nesne;
+                User = function.Get<CLASS_SECTION>(User, "ClassSection/ClassSection_Select?ClassSectionID=" + item.ClassSectionsID);
+                item.ClassSections = User.Nesne;
             }
             if (Search != null)
             {
@@ -36,11 +36,11 @@ namespace MobilOkulProc.WebApp.Controllers
         public IActionResult Add()
         {
 
-            Mesajlar<LECTURE> m = new Mesajlar<LECTURE>();
-            m = function.Get<LECTURE>(m, "Lecture/Lecture_List");
+            Mesajlar<CLASS_SECTION> m = new Mesajlar<CLASS_SECTION>();
+            m = function.Get<CLASS_SECTION>(m, "ClassSection/ClassSection_List");
             ExamViewModel<EXAM> viewModel = new ExamViewModel<EXAM>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "LectureName"),
+                List = new SelectList(m.Liste, "ObjectID", "ClassSectionName"),
                 SelectedId = -1,
             };
 
@@ -51,7 +51,7 @@ namespace MobilOkulProc.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(ExamViewModel<EXAM> m)
         {
-            m.Mesajlar.Nesne.LectureID = m.SelectedId;
+            m.Mesajlar.Nesne.ClassSectionsID = m.SelectedId;
             m.Mesajlar = function.Add_Update<EXAM>(m.Mesajlar, "Exam/Exam_Insert");
             ViewBag.NameSurname = needs.NameSurname;
             return RedirectToAction("List", "Exam", m.Mesajlar);
@@ -84,21 +84,21 @@ namespace MobilOkulProc.WebApp.Controllers
 
             ViewBag.NameSurname = needs.NameSurname;
             ViewModel.Mesajlar = m;
-            Mesajlar<LECTURE> mesajlar = new Mesajlar<LECTURE>();
-            mesajlar = function.Get<LECTURE>(mesajlar, "Lecture/Lecture_Select?LectureID=" + m.Nesne.LectureID);
-            ViewModel.Mesajlar.Nesne.Lecture = mesajlar.Nesne;
+            Mesajlar<CLASS_SECTION> mesajlar = new Mesajlar<CLASS_SECTION>();
+            mesajlar = function.Get<CLASS_SECTION>(mesajlar, "ClassSection/ClassSection_Select?ClassSectionID=" + m.Nesne.ClassSectionsID);
+            ViewModel.Mesajlar.Nesne.ClassSections = mesajlar.Nesne;
             return View(ViewModel);
         }
         public IActionResult Edit(int id)
         {
-            Mesajlar<LECTURE> m = new Mesajlar<LECTURE>();
-            m = function.Get<LECTURE>(m, "Lecture/Lecture_List");
+            Mesajlar<CLASS_SECTION> m = new Mesajlar<CLASS_SECTION>();
+            m = function.Get<CLASS_SECTION>(m, "ClassSection/ClassSection_List");
             Mesajlar<EXAM> mesajlar = new Mesajlar<EXAM>();
             mesajlar = function.Get<EXAM>(mesajlar, "Exam/Exam_SelectRelational?ExamID=" + id);
             ExamViewModel<EXAM> ViewModel = new ExamViewModel<EXAM>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "LectureName"),
-                SelectedId = mesajlar.Nesne.LectureID
+                List = new SelectList(m.Liste, "ObjectID", "ClassSectionName"),
+                SelectedId = mesajlar.Nesne.ClassSectionsID
             };
 
             ViewModel.Mesajlar = mesajlar;
@@ -110,7 +110,7 @@ namespace MobilOkulProc.WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(ExamViewModel<EXAM> m)
         {
-            m.Mesajlar.Nesne.LectureID = m.SelectedId;
+            m.Mesajlar.Nesne.ClassSectionsID = m.SelectedId;
             m.Mesajlar = function.Add_Update<EXAM>(m.Mesajlar, "Exam/Exam_Update");
             ViewBag.NameSurname = needs.NameSurname;
             return RedirectToAction("List", "Exam", m);

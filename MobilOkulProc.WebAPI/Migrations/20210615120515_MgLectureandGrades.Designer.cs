@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MobilOkulProc.WebAPI.Data;
 
 namespace MobilOkulProc.WebAPI.Migrations
 {
     [DbContext(typeof(MobilOkulContext))]
-    partial class MobilOkulContextModelSnapshot : ModelSnapshot
+    [Migration("20210615120515_MgLectureandGrades")]
+    partial class MgLectureandGrades
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,9 +229,6 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CLASS_SECTIONObjectID")
-                        .HasColumnType("int");
-
                     b.Property<int>("ClassID")
                         .HasColumnType("int");
 
@@ -248,8 +247,6 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("ObjectID");
-
-                    b.HasIndex("CLASS_SECTIONObjectID");
 
                     b.HasIndex("ClassID");
 
@@ -372,9 +369,6 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClassSectionsID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ExamDate")
                         .HasColumnType("datetime2");
 
@@ -390,8 +384,6 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("ObjectID");
-
-                    b.HasIndex("ClassSectionsID");
 
                     b.HasIndex("LectureID");
 
@@ -533,7 +525,7 @@ namespace MobilOkulProc.WebAPI.Migrations
                     b.Property<int>("PriorityID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ReadTime")
+                    b.Property<DateTime>("ReadTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ReceiveID")
@@ -1259,10 +1251,6 @@ namespace MobilOkulProc.WebAPI.Migrations
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.CLASS_SECTION", b =>
                 {
-                    b.HasOne("MobilOkulProc.Entities.Concrete.CLASS_SECTION", null)
-                        .WithMany("ClassSections")
-                        .HasForeignKey("CLASS_SECTIONObjectID");
-
                     b.HasOne("MobilOkulProc.Entities.Concrete.CLASS", "Class")
                         .WithMany("ClassSection")
                         .HasForeignKey("ClassID")
@@ -1293,12 +1281,6 @@ namespace MobilOkulProc.WebAPI.Migrations
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.EXAM", b =>
                 {
-                    b.HasOne("MobilOkulProc.Entities.Concrete.CLASS_SECTION", "ClassSections")
-                        .WithMany()
-                        .HasForeignKey("ClassSectionsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MobilOkulProc.Entities.Concrete.LECTURE", "Lecture")
                         .WithMany("Exam")
                         .HasForeignKey("LectureID")

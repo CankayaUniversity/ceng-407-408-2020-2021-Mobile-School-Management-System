@@ -40,7 +40,8 @@ namespace MobilOkulProc.WebUserApp.Controllers
                                 needs.JwtToken = msg.JwtToken;
                                 needs.RefreshToken = msg.RefreshToken;
                                 needs.NameSurname = msg.FirstName + " " + msg.LastName;
-
+                                needs.UserID = msg.Id;
+                                needs.LoginAs = msg.Role;
                                 //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:55600/authorization");
                                 //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
                                 //var request = new HttpRequestMessage();
