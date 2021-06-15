@@ -74,17 +74,9 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
-        [HttpGet("Syllabus_ListLecture")]
-        public IActionResult Syllabus_ListLecture(int LectureID)
-        {
-            clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Listele(x => x.Status == true && x.LectureID == LectureID);
-
-            return Json(m);
-        }
         [HttpGet("Syllabus_ListDays")]
-        public IActionResult Syllabus_ListDays(int DaysID)
+        public IActionResult Syllabus_ListStudent(int DaysID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
@@ -119,14 +111,15 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
-        [HttpGet("Syllabus_ListRelationalLecture")]
-        public IActionResult Syllabus_ListRelationalLecture(int LectureID)
+        [HttpGet("Syllabus_ListRelationalClassSections")]
+        public IActionResult Syllabus_ListRelationalClassSections(int ClassSectionsID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir_ListeIliskisel(x => x.Status == true && x.LectureID == LectureID);
+            Mesajlar<SYLLABUS> m = tProc.Getir_ListeIliskisel(x => x.Status == true && x.ClassSectionsID == ClassSectionsID);
 
             return Json(m);
         }
+
     }
 }

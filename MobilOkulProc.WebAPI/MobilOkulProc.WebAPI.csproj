@@ -51,4 +51,9 @@
     <ProjectReference Include="..\MobilOkulProc.Entities\MobilOkulProc.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

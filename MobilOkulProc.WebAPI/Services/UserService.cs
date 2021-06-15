@@ -8,9 +8,10 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MobilOkulProc.WebAPI.Models;
-using MobilOkulProc.WebAPI.Entities;
 using MobilOkulProc.WebAPI.Helpers;
 using MobilOkulProc.WebAPI.Data;
+using MobilOkulProc.Entities.Concrete;
+using MobilOkulProc.Entities;
 
 namespace MobilOkulProc.WebAPI.Services
 {
@@ -19,8 +20,8 @@ namespace MobilOkulProc.WebAPI.Services
         AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress);
         AuthenticateResponse RefreshToken(string token, string ipAddress);
         bool RevokeToken(string token, string ipAddress);
-        IEnumerable<zUser> GetAll();
-        zUser GetById(int id);
+        IEnumerable<USER> GetAll();
+        USER GetById(int id);
     }
 
     public class UserService : IUserService
@@ -38,7 +39,7 @@ namespace MobilOkulProc.WebAPI.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress)
         {
-            var user = _context.zUsers.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            var user = _context.USERS.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
             // return null if user not found
             if (user == null) return null;
@@ -52,12 +53,12 @@ namespace MobilOkulProc.WebAPI.Services
             _context.Update(user);
             _context.SaveChanges();
 
-            return new AuthenticateResponse(user.Id,user.FirstName,user.LastName,user.Username, jwtToken, refreshToken.Token);
+            return new AuthenticateResponse(user.ObjectID,user.FirstName,user.LastName,user.Username, jwtToken, refreshToken.Token);
         }
 
         public AuthenticateResponse RefreshToken(string token, string ipAddress)
         {
-            var user = _context.zUsers.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
+            var user = _context.USERS.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
 
             // return null if no user found with token
             if (user == null) return null;
@@ -79,12 +80,12 @@ namespace MobilOkulProc.WebAPI.Services
             // generate new jwt
             var jwtToken = generateJwtToken(user);
 
-            return new AuthenticateResponse(user.Id, user.FirstName, user.LastName, user.Username, jwtToken, refreshToken.Token);
+            return new AuthenticateResponse(user.ObjectID, user.FirstName, user.LastName, user.Username, jwtToken, refreshToken.Token);
         }
 
         public bool RevokeToken(string token, string ipAddress)
         {
-            var user = _context.zUsers.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
+            var user = _context.USERS.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
 
             // return false if no user found with token
             if (user == null) return false;
@@ -103,19 +104,19 @@ namespace MobilOkulProc.WebAPI.Services
             return true;
         }
 
-        public IEnumerable<zUser> GetAll()
+        public IEnumerable<USER> GetAll()
         {
-            return _context.zUsers;
+            return _context.USERS;
         }
 
-        public zUser GetById(int id)
+        public USER GetById(int id)
         {
-            return _context.zUsers.Find(id);
+            return _context.USERS.Find(id);
         }
 
         // helper methods
 
-        private string generateJwtToken(zUser user)
+        private string generateJwtToken(USER user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -123,7 +124,7 @@ namespace MobilOkulProc.WebAPI.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.ObjectID.ToString()),
                     new Claim(ClaimTypes.Role,user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(600),

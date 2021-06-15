@@ -45,7 +45,7 @@ namespace MobilOkulProc.WebApp.Controllers
             b = function.Get<BRANCH>(b, "Branch/Branch_List");
             TeacherViewModel<TEACHER> viewModel = new TeacherViewModel<TEACHER>()
             {
-                UserList = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                UserList = new SelectList(m.Liste, "ObjectID", "FullName"),
                 BranchList = new SelectList(b.Liste,"ObjectID","BranchName"),
                 BranchId = -1,
                 UserId = -1,
@@ -111,7 +111,7 @@ namespace MobilOkulProc.WebApp.Controllers
             teacher = function.Get<TEACHER>(teacher, "Teacher/Teacher_SelectRelational?TeacherID=" + id);
             TeacherViewModel<TEACHER> TeacherViewModel = new TeacherViewModel<TEACHER>()
             {
-                UserList = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                UserList = new SelectList(m.Liste, "ObjectID", "FullName"),
                 BranchList = new SelectList(b.Liste,"ObjectID","BranchName"),
                 BranchId = teacher.Nesne.BranchID,
                 UserId = teacher.Nesne.UserID,

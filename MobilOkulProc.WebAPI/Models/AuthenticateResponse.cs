@@ -1,5 +1,4 @@
-﻿using MobilOkulProc.WebAPI.Entities;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 
 

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
-namespace MobilOkulProc.WebAPI.Entities
+namespace MobilOkulProc.Entities
 {
     [Owned]
     public class RefreshToken

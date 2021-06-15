@@ -55,7 +55,7 @@ namespace MobilOkulProc.WebApp.Controllers
             ei = function.Get<EDUCATIONAL_INSTITUTION>(ei, "EducationalInstitution/EducationalInstitution_List");
             SchoolEmployerViewModel<SCHOOL_EMPLOYER> viewModel = new SchoolEmployerViewModel<SCHOOL_EMPLOYER>()
             {
-                UserList = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                UserList = new SelectList(m.Liste, "ObjectID", "FullName"),
                 SchoolList = new SelectList(s.Liste, "ObjectID", "SchoolName"),
                 EmployeeTypeList = new SelectList(e.Liste,"ObjectID","EmployeeType"),
                 EdInstitutionList = new SelectList(ei.Liste, "ObjectID", "EducationalName"),
@@ -137,7 +137,7 @@ namespace MobilOkulProc.WebApp.Controllers
             schoolEmployer = function.Get<SCHOOL_EMPLOYER>(schoolEmployer, "SchoolEmployer/SchoolEmployer_SelectRelational?SchoolEmployerID=" + id);
             SchoolEmployerViewModel<SCHOOL_EMPLOYER> SchoolEmployerViewModel = new SchoolEmployerViewModel<SCHOOL_EMPLOYER>()
             {
-                UserList = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                UserList = new SelectList(m.Liste, "ObjectID", "FullName"),
                 SchoolList = new SelectList(s.Liste, "ObjectID", "SchoolName"),
                 EmployeeTypeList = new SelectList(e.Liste, "ObjectID", "EmployeeType"),
                 EdInstitutionList = new SelectList(ei.Liste, "ObjectID", "EducationalName"),

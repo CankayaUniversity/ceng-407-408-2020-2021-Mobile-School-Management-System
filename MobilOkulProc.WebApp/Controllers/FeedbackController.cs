@@ -41,7 +41,7 @@ namespace MobilOkulProc.WebApp.Controllers
             m = function.Get<USER>(m, "User/User_List");
             FeedbackViewModel<FEEDBACK> viewModel = new FeedbackViewModel<FEEDBACK>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                List = new SelectList(m.Liste, "ObjectID", "FullName"),
                 SelectedId = -1,
             };
 
@@ -98,7 +98,7 @@ namespace MobilOkulProc.WebApp.Controllers
             mesajlar = function.Get<FEEDBACK>(mesajlar, "Feedback/Feedback_SelectRelational?FeedbackID=" + id);
             FeedbackViewModel<FEEDBACK> FeedbackViewModel = new FeedbackViewModel<FEEDBACK>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                List = new SelectList(m.Liste, "ObjectID", "FullName"),
                 SelectedId = mesajlar.Nesne.UserID
             };
 

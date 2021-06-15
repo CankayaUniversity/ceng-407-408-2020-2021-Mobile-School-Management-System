@@ -45,8 +45,8 @@ namespace MobilOkulProc.WebApp.Controllers
             Receiver = function.Get<USER>(Receiver, "User/User_List");
             MessageViewModel<MESSAGE> viewModel = new MessageViewModel<MESSAGE>()
             {
-                SenderList = new SelectList(Sender.Liste, "ObjectID", "NameSurname"),
-                ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "NameSurname"),
+                SenderList = new SelectList(Sender.Liste, "ObjectID", "FullName"),
+                ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "FullName"),
                 SenderId = -1,
                 ReceiverId = -1,
             };
@@ -111,8 +111,8 @@ namespace MobilOkulProc.WebApp.Controllers
             Message = function.Get<MESSAGE>(Message, "Messages/Message_SelectRelational?MessageID=" + id);
             MessageViewModel<MESSAGE> MessageViewModel = new MessageViewModel<MESSAGE>()
             {
-                SenderList = new SelectList(Sender.Liste, "ObjectID", "NameSurname"),
-                ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "NameSurname"),
+                SenderList = new SelectList(Sender.Liste, "ObjectID", "FullName"),
+                ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "FullName"),
                 SenderId = Message.Nesne.SenderID,
                 ReceiverId = Message.Nesne.ReceiveID,
             };

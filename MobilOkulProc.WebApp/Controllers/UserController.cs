@@ -21,7 +21,7 @@ namespace MobilOkulProc.WebApp.Controllers
             m.Mesajlar = function.Get<USER>(mb, "User/User_List");
             if (Search != null)
             {
-                m.Mesajlar.Liste = m.Mesajlar.Liste.Where(m => m.NameSurname.ToLower().Contains(Search)).ToList();
+                m.Mesajlar.Liste = m.Mesajlar.Liste.Where(m => m.FullName.ToLower().Contains(Search)).ToList();
             }
             m.PagedList = m.Mesajlar.Liste.ToPagedList(page ?? 1, 25);
             if (mb.Mesaj != "")

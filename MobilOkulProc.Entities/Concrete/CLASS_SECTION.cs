@@ -34,6 +34,7 @@ namespace MobilOkulProc.Entities.Concrete
         public virtual SECTION Section { get; set; }
 
         public virtual List<STUDENT_CLASS> StudentClass { get; set; }
+        public virtual List<SYLLABUS> Syllabus { get; set; }
 
 
 

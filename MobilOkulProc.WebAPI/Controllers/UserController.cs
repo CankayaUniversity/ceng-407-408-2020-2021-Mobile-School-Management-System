@@ -77,7 +77,7 @@ namespace MobilOkulProc.WebAPI.Controllers
         {
             clsUser_Proccess uProc = new clsUser_Proccess();
 
-            Mesajlar<USER> m = uProc.Getir(x => x.Status == true && x.Email == User.UserName && x.Password == User.Password);
+            Mesajlar<USER> m = uProc.Getir(x => x.Status == true && x.Username == User.UserName && x.Password == User.Password);
 
             return Json(m);
         }

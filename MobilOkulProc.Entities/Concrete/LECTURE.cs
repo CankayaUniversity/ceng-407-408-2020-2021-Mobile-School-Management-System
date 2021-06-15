@@ -24,7 +24,6 @@ namespace MobilOkulProc.Entities.Concrete
         public int TeacherID { get; set; }
         public virtual TEACHER Teacher { get; set; }
         public virtual List<GRADE> Grade { get; set; }
-        public virtual List<SYLLABUS> Syllabus { get; set; }
         public virtual List<EXAM> Exam { get; set; }
     }
 }

@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Syllabus\" />
     <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\js\" />

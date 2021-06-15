@@ -10,8 +10,8 @@ using MobilOkulProc.WebAPI.Data;
 namespace MobilOkulProc.WebAPI.Migrations
 {
     [DbContext(typeof(MobilOkulContext))]
-    [Migration("20210611152221_MgAuth")]
-    partial class MgAuth
+    [Migration("20210615082809_MgUserandSyllabus")]
+    partial class MgUserandSyllabus
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -900,23 +900,52 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ClassSectionsID")
+                        .HasColumnType("int");
 
                     b.Property<int>("DaysID")
                         .HasColumnType("int");
 
-                    b.Property<int>("LectureID")
+                    b.Property<string>("Eleven")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fifteen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fourteen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nine")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("STUDENTObjectID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Seventeen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sixteen")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Thirtheen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Twelwe")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ObjectID");
+
+                    b.HasIndex("ClassSectionsID");
 
                     b.HasIndex("DaysID");
 
-                    b.HasIndex("LectureID");
+                    b.HasIndex("STUDENTObjectID");
 
                     b.ToTable("SYLLABUSES");
                 });
@@ -1007,12 +1036,12 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("NameSurname")
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
@@ -1027,45 +1056,21 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("ObjectID");
 
                     b.ToTable("USERS");
-                });
-
-            modelBuilder.Entity("MobilOkulProc.WebAPI.Entities.zUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("zUsers");
                 });
 
             modelBuilder.Entity("MobilOkulProc.WebAPI.Models.AppRole", b =>
@@ -1463,17 +1468,21 @@ namespace MobilOkulProc.WebAPI.Migrations
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.SYLLABUS", b =>
                 {
+                    b.HasOne("MobilOkulProc.Entities.Concrete.CLASS_SECTION", "ClassSections")
+                        .WithMany("Syllabus")
+                        .HasForeignKey("ClassSectionsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MobilOkulProc.Entities.Concrete.DAYS", "Days")
                         .WithMany("Syllabus")
                         .HasForeignKey("DaysID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MobilOkulProc.Entities.Concrete.LECTURE", "Lecture")
+                    b.HasOne("MobilOkulProc.Entities.Concrete.STUDENT", null)
                         .WithMany("Syllabus")
-                        .HasForeignKey("LectureID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("STUDENTObjectID");
                 });
 
             modelBuilder.Entity("MobilOkulProc.Entities.Concrete.TEACHER", b =>
@@ -1506,9 +1515,9 @@ namespace MobilOkulProc.WebAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MobilOkulProc.WebAPI.Entities.zUser", b =>
+            modelBuilder.Entity("MobilOkulProc.Entities.Concrete.USER", b =>
                 {
-                    b.OwnsMany("MobilOkulProc.WebAPI.Entities.RefreshToken", "RefreshTokens", b1 =>
+                    b.OwnsMany("MobilOkulProc.Entities.RefreshToken", "RefreshTokens", b1 =>
                         {
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
@@ -1536,17 +1545,17 @@ namespace MobilOkulProc.WebAPI.Migrations
                             b1.Property<string>("Token")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<int>("zUserId")
+                            b1.Property<int>("USERObjectID")
                                 .HasColumnType("int");
 
                             b1.HasKey("Id");
 
-                            b1.HasIndex("zUserId");
+                            b1.HasIndex("USERObjectID");
 
                             b1.ToTable("RefreshToken");
 
                             b1.WithOwner()
-                                .HasForeignKey("zUserId");
+                                .HasForeignKey("USERObjectID");
                         });
                 });
 #pragma warning restore 612, 618

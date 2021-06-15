@@ -81,5 +81,23 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Exam_ListRelational")]
+        public IActionResult Exam_ListRelational(int ExamID)
+        {
+            clsExam_Process tProc = new clsExam_Process();
+
+            Mesajlar<EXAM> m = tProc.Getir_ListeIliskisel(x => x.ObjectID == ExamID);
+
+            return Json(m);
+        }
+        [HttpGet("Exam_ListRelationalLecture")]
+        public IActionResult Exam_ListRelationalLecture(int LectureID)
+        {
+            clsExam_Process tProc = new clsExam_Process();
+
+            Mesajlar<EXAM> m = tProc.Getir_ListeIliskisel(x => x.LectureID == LectureID);
+
+            return Json(m);
+        }
     }
 }

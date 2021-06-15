@@ -39,26 +39,8 @@ namespace WebUserApp.Controllers
             Mesajlar<EXAM> exam = new Mesajlar<EXAM>();
             double TotalAbsence = 0;
             int WeekyLoad = 0;
-            #region Syllabus
-            string[,] Syllabus = new string[7, 10];
-            Syllabus[0, 0] = "Gün";
-            Syllabus[0, 1] = "9:00-9:40";
-            Syllabus[0, 2] = "10:00-10:40";
-            Syllabus[0, 3] = "11:00-11:40";
-            Syllabus[0, 4] = "12:00-12:40";
-            Syllabus[0, 5] = "13:00-13:40";
-            Syllabus[0, 6] = "14:00-14:40";
-            Syllabus[0, 7] = "15:00-15:40";
-            Syllabus[0, 8] = "16:00-16:40";
-            Syllabus[0, 9] = "17:00-17:40";
-            Syllabus[1, 0] = "Pazartesi";
-            Syllabus[2, 0] = "Salı";
-            Syllabus[3, 0] = "Çarşamba";
-            Syllabus[4, 0] = "Perşembe";
-            Syllabus[5, 0] = "Cuma";
-            Syllabus[6, 0] = "Cumartesi";
-            Syllabus[7, 0] = "Pazar"; 
-            #endregion
+            string MostRecentExam = "";
+            int ExamsLeftCount = 0;
             #endregion
 
 
@@ -79,26 +61,75 @@ namespace WebUserApp.Controllers
 
             #region Calculate Weekly Load of a Student
             lecture = functions.Get<LECTURE>(lecture, "Lecture/Lecture_ListStudent?StudentID=" + UserID);
-            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalLecture?LectureID=" + lecture.Liste[0].ObjectID);
-            WeekyLoad = syllabus.Liste.Count;
+            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + studentClass.Nesne.ClassSectionID);
+            foreach (var item in syllabus.Liste)
+            {
+                if (item.Nine != null && item.Nine != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }
+                if (item.Ten != null && item.Ten != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }if (item.Eleven != null && item.Eleven != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }if (item.Twelwe != null && item.Twelwe != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }if (item.Thirtheen != null && item.Thirtheen != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }if (item.Fourteen != null && item.Fourteen != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }if (item.Fifteen != null && item.Fifteen != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }if (item.Sixteen != null && item.Sixteen != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }if (item.Seventeen != null && item.Seventeen != "Öğle Tatili")
+                {
+                    WeekyLoad += 1;
+                }
+                
+            }
             #endregion
 
             #region Syllabus
             syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelational");
-            foreach (var item in syllabus.Liste)
-            {
-                for (int i = 1; i <= 7; i++)
-                {
-                    for (int j = 1; j <= 10; j++)
-                    {
-                        Syllabus[i, j] = item.Lecture.LectureName;
-                    }
-                }
-            }
+            
+
             #endregion
 
             #region Exam List
-            exam = functions.Get<EXAM>(exam, "Exam/Exam_ListLecture?LectureID="+ lecture.Liste[0].ObjectID);
+            exam = functions.Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + lecture.Liste[0].ObjectID);
+            EXAM MostRecentDateObject = exam.Liste[0];
+            foreach (var item in exam.Liste)
+            {
+               
+                if (item.ExamDate < MostRecentDateObject.ExamDate && item.ExamDate > DateTime.Now)
+                {
+                    MostRecentDateObject = item;
+                       
+                }
+                if (item.ExamDate > DateTime.Now)
+                {
+                    ExamsLeftCount++;
+                }
+            }
+            if (MostRecentDateObject.ExamDate > DateTime.Now)
+            {
+                MostRecentExam = MostRecentDateObject.ExamDate.ToString("dd.MM.yyyy - HH:mm") + " - " + MostRecentDateObject.Lecture.LectureName;
+                if (ExamsLeftCount == 0)
+                {
+                    ExamsLeftCount++;
+                }
+            }
+            
+
+
             #endregion
 
 
@@ -108,6 +139,8 @@ namespace WebUserApp.Controllers
             homeViewModel.WeeklyLoad = WeekyLoad.ToString() + " Saat";
             homeViewModel.SyllabusList = syllabus.Liste;
             homeViewModel.ExamList = exam.Liste;
+            homeViewModel.MostRecentExam = MostRecentExam;
+            homeViewModel.ExamsLeft = ExamsLeftCount.ToString();
             #endregion
 
             return View(homeViewModel);

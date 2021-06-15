@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
-using MobilOkulProc.WebAPI.Entities;
 using MobilOkulProc.WebAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -60,7 +59,6 @@ namespace MobilOkulProc.WebAPI.Data
         public DbSet<STUDENT_PARENT> STUDENT_PARENTS { get; set; }
         public DbSet<TEACHER> TEACHERS { get; set; }
         public DbSet<USER> USERS { get; set; }
-        public DbSet<zUser> zUsers { get; set; }
         public DbSet<TEACHER_SCHOOL> TEACHER_SCHOOLS { get; set; }
         public DbSet<SCHOOL_STUDENT> SCHOOL_STUDENTS { get; set; }
         public DbSet<LECTURE> LECTURES { get; set; }

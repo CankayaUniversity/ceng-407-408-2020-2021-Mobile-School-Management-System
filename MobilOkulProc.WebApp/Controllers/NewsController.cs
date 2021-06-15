@@ -52,7 +52,7 @@ namespace MobilOkulProc.WebApp.Controllers
             {
                 EducationalInstitutionList = new SelectList(EdIns.Liste, "ObjectID", "EducationalName"),
                 SchoolList = new SelectList(School.Liste, "ObjectID", "SchoolName"),
-                UserList = new SelectList(User.Liste, "ObjectID", "NameSurname"),
+                UserList = new SelectList(User.Liste, "ObjectID", "FullName"),
                 EducationalInstitutionId = -1,
                 SchoolId = -1,
                 UserId = -1,
@@ -126,7 +126,7 @@ namespace MobilOkulProc.WebApp.Controllers
             {
                 EducationalInstitutionList = new SelectList(EdIns.Liste, "ObjectID", "EducationalName"),
                 SchoolList = new SelectList(School.Liste, "ObjectID", "SchoolName"),
-                UserList = new SelectList(User.Liste, "ObjectID", "NameSurname"),
+                UserList = new SelectList(User.Liste, "ObjectID", "FullName"),
                 EducationalInstitutionId = clsNews.Nesne.EducationID,
                 SchoolId = clsNews.Nesne.SchoolID,
                 UserId = clsNews.Nesne.UserID,

@@ -107,10 +107,10 @@ namespace MobilOkulProc.MobileApp.Controllers
                 foreach (var item in m.Mesajlar.Liste)
             {
 
-                Days = function.Get<DAYS>(Days, "Days/Days_Select?DaysID=" + item.DaysID);
-                item.Days = Days.Nesne;
-                Lecture = function.Get<LECTURE>(Lecture, "Lecture/Lecture_Select?LectureID=" + item.LectureID);
-                item.Lecture = Lecture.Nesne;
+                //Days = function.Get<DAYS>(Days, "Days/Days_Select?DaysID=" + item.DaysID);
+                //item.Days = Days.Nesne;
+                //Lecture = function.Get<LECTURE>(Lecture, "Lecture/Lecture_Select?LectureID=" + item.LectureID);
+                //item.Lecture = Lecture.Nesne;
 
 
             }

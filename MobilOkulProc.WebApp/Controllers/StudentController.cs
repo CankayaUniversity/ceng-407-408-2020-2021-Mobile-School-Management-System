@@ -41,7 +41,7 @@ namespace MobilOkulProc.WebApp.Controllers
             m = function.Get<USER>(m, "User/User_List");
             StudentViewModel<STUDENT> viewModel = new StudentViewModel<STUDENT>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                List = new SelectList(m.Liste, "ObjectID", "FullName"),
                 SelectedId = -1,
             };
 
@@ -98,7 +98,7 @@ namespace MobilOkulProc.WebApp.Controllers
             mesajlar = function.Get<STUDENT>(mesajlar, "Student/Student_SelectRelational?StudentID=" + id);
             StudentViewModel<STUDENT> StudentViewModel = new StudentViewModel<STUDENT>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                List = new SelectList(m.Liste, "ObjectID", "FullName"),
                 SelectedId = mesajlar.Nesne.UserID
             };
 

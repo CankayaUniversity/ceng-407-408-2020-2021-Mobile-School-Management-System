@@ -3,7 +3,7 @@
     ViewBag.Title = "Hoş Geldin";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<string> Days = new List<string>() { "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar" };
-    int k = 0;
+    int i = 0;
 }
 @model HomeViewModel 
 <style>
@@ -126,20 +126,21 @@
                                         <td>Pazartesi</td>
                                         @foreach (var item in Model.SyllabusList)
                                         {
-                                            @for (int i = 9; i <= 17; i++)
+                                            if (item.Days.DayName == "Pazartesi")
                                             {
-                                                if (item.Days.DayName == Days[k] && item.Date.ToString("HH") == i.ToString()) 
-                                                { 
-                                                    <td>@item.Lecture.LectureName</td>
-                                                    break;
-                                                }
-                                                else
-                                                {
-                                                    <td></td>
-                                                }
-                                            }
+                                                <td>@item.Nine</td>
+                                                <td>@item.Ten</td>
+                                                <td>@item.Eleven</td>
+                                                <td>@item.Twelwe</td>
+                                                <td>@item.Thirtheen</td>
+                                                <td>@item.Fourteen</td>
+                                                <td>@item.Fifteen</td>
+                                                <td>@item.Sixteen</td>
+                                                <td>@item.Seventeen</td>
 
+                                            }
                                         }
+
                                     </tr>
 
                                 </tbody>
@@ -153,7 +154,16 @@
                                         {
                                             if (item.Days.DayName == "Salı")
                                             {
-                                                <td>@item.Lecture.LectureName</td>
+                                                <td>@item.Nine</td>
+                                                <td>@item.Ten</td>
+                                                <td>@item.Eleven</td>
+                                                <td>@item.Twelwe</td>
+                                                <td>@item.Thirtheen</td>
+                                                <td>@item.Fourteen</td>
+                                                <td>@item.Fifteen</td>
+                                                <td>@item.Sixteen</td>
+                                                <td>@item.Seventeen</td>
+
                                             }
                                         }
                                     </tr>
@@ -169,9 +179,19 @@
                                         {
                                             if (item.Days.DayName == "Çarşamba")
                                             {
-                                                <td>@item.Lecture.LectureName</td>
+                                                <td>@item.Nine</td>
+                                                <td>@item.Ten</td>
+                                                <td>@item.Eleven</td>
+                                                <td>@item.Twelwe</td>
+                                                <td>@item.Thirtheen</td>
+                                                <td>@item.Fourteen</td>
+                                                <td>@item.Fifteen</td>
+                                                <td>@item.Sixteen</td>
+                                                <td>@item.Seventeen</td>
+
                                             }
                                         }
+
                                     </tr>
 
                                 </tbody>
@@ -185,9 +205,19 @@
                                         {
                                             if (item.Days.DayName == "Perşembe")
                                             {
-                                                <td>@item.Lecture.LectureName</td>
+                                                <td>@item.Nine</td>
+                                                <td>@item.Ten</td>
+                                                <td>@item.Eleven</td>
+                                                <td>@item.Twelwe</td>
+                                                <td>@item.Thirtheen</td>
+                                                <td>@item.Fourteen</td>
+                                                <td>@item.Fifteen</td>
+                                                <td>@item.Sixteen</td>
+                                                <td>@item.Seventeen</td>
+
                                             }
                                         }
+
                                     </tr>
 
                                 </tbody>
@@ -201,9 +231,19 @@
                                         {
                                             if (item.Days.DayName == "Cuma")
                                             {
-                                                <td>@item.Lecture.LectureName</td>
+                                                <td>@item.Nine</td>
+                                                <td>@item.Ten</td>
+                                                <td>@item.Eleven</td>
+                                                <td>@item.Twelwe</td>
+                                                <td>@item.Thirtheen</td>
+                                                <td>@item.Fourteen</td>
+                                                <td>@item.Fifteen</td>
+                                                <td>@item.Sixteen</td>
+                                                <td>@item.Seventeen</td>
+
                                             }
                                         }
+
                                     </tr>
 
                                 </tbody>
@@ -217,9 +257,20 @@
                                         {
                                             if (item.Days.DayName == "Cumartesi")
                                             {
-                                                <td>@item.Lecture.LectureName</td>
+                                                <td>@item.Nine</td>
+                                                <td>@item.Ten</td>
+                                                <td>@item.Eleven</td>
+                                                <td>@item.Twelwe</td>
+                                                <td>@item.Thirtheen</td>
+                                                <td>@item.Fourteen</td>
+                                                <td>@item.Fifteen</td>
+                                                <td>@item.Sixteen</td>
+                                                <td>@item.Seventeen</td>
+
                                             }
                                         }
+
+
                                     </tr>
 
                                 </tbody>
@@ -233,9 +284,19 @@
                                         {
                                             if (item.Days.DayName == "Pazar")
                                             {
-                                                <td>@item.Lecture.LectureName</td>
+                                                <td>@item.Nine</td>
+                                                <td>@item.Ten</td>
+                                                <td>@item.Eleven</td>
+                                                <td>@item.Twelwe</td>
+                                                <td>@item.Thirtheen</td>
+                                                <td>@item.Fourteen</td>
+                                                <td>@item.Fifteen</td>
+                                                <td>@item.Sixteen</td>
+                                                <td>@item.Seventeen</td>
+
                                             }
                                         }
+
                                     </tr>
 
                                 </tbody>
@@ -283,16 +344,21 @@
                         <thead>
                             <tr>
                                 <th>Ders</th>
-                                <th>Tür</th>
+                                <th>Sınav Detayları</th>
                                 <th>Tarih</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Matematik</td>
-                                <td>1. Yazılı</td>
-                                <td>29.9.2021</td>
-
+                            
+                                @foreach (var item in Model.ExamList)
+                                {
+                                    <tr>
+                                        <td>@item.Lecture.LectureName</td>
+                                        <td>@item.ExamDetails</td>
+                                        <td>@item.ExamDate.ToString("d.M.yyyy - HH:mm")</td>
+                                    </tr>
+                                }
+                            
                         </tbody>
                     </table>
                 </div>
@@ -387,7 +453,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">En Yakın Sınav</span>
                         <div class="row">
-                            <span class="info-box-number  col-md-8">20.08.2021 - Matematik</span>
+                            <span class="info-box-number  col-md-8">@Model.MostRecentExam</span>
                             <a href="/Student/Exams" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
                         </div>
 
@@ -402,7 +468,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">Kalan Sınav Adeti</span>
                         <div class="row">
-                            <span class="info-box-number col-md-8">36</span>
+                            <span class="info-box-number col-md-8">@Model.ExamsLeft</span>
                             <a href="/Student/Exams" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
                         </div>
 

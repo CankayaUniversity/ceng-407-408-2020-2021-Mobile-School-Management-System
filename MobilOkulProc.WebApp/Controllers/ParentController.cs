@@ -40,7 +40,7 @@ namespace MobilOkulProc.WebApp.Controllers
             m = function.Get<USER>(m, "User/User_List");
             ParentViewModel<PARENT> viewModel = new ParentViewModel<PARENT>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                List = new SelectList(m.Liste, "ObjectID", "FullName"),
                 SelectedId = -1,
             };
 
@@ -97,7 +97,7 @@ namespace MobilOkulProc.WebApp.Controllers
             mesajlar = function.Get<PARENT>(mesajlar, "Parent/Parent_SelectRelational?ParentID=" + id);
             ParentViewModel<PARENT> ParentViewModel = new ParentViewModel<PARENT>()
             {
-                List = new SelectList(m.Liste, "ObjectID", "NameSurname"),
+                List = new SelectList(m.Liste, "ObjectID", "FullName"),
                 SelectedId = mesajlar.Nesne.UserID
             };
 

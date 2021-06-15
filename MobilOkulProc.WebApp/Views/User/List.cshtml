@@ -25,19 +25,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NameSurname)
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.LastName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Password)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Email)
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Username)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Phone)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.UserType)
+                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Role)
             </th>
             <th></th>
         </tr>
@@ -47,19 +50,22 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NameSurname)
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Username)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserType)
+                @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
                 @Html.ActionLink("Düzenle", "Edit", new { id = item.ObjectID }) |
