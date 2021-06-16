@@ -60,13 +60,13 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                                 if (msg.Nesne != null)
                                 {
-                                    HttpContext.Session.SetObject("user", msg.Nesne.NameSurname);
+                                    HttpContext.Session.SetObject("user", msg.Nesne.FullName);
                                     HttpContext.Session.SetObject("no", msg.Nesne.ObjectID);
-                                    HttpContext.Session.SetObject("userid", msg.Nesne.UserType);
-                                    HttpContext.Session.SetObject("email", msg.Nesne.Email);
+                                    HttpContext.Session.SetObject("userid", msg.Nesne.Role);
+                                
                                     HttpContext.Session.SetObject("phone", msg.Nesne.Phone);
 
-                                    return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.NameSurname, Email= msg.Nesne.Email, Mesajlar = msg.Nesne });
+                                    return RedirectToAction("HomePage", "HomePage", new { NameSurname = msg.Nesne.FullName, Mesajlar = msg.Nesne });
                                 }
                                 else
                                 {

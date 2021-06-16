@@ -4,18 +4,19 @@
 @model GradePageModel<GRADE>
 
 @{
-    if (ViewBag.Usertype == 1)
+    if (ViewBag.Usertype == "\"Student\"")
     {
         Layout = "~/Views/Shared/_Layout_Student.cshtml";
     }
-    else if (ViewBag.Usertype == 3)
+    else if (ViewBag.Usertype == "\"Parent\"")
     {
         Layout = "~/Views/Shared/_Layout_Parent.cshtml";
     }
-    else if (ViewBag.Usertype == 2)
+    else if (ViewBag.Usertype == "\"Teacher\"")
     {
         Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
     }
+
 }
 
 <table class="table table-secondary table-hover table-sm">
@@ -32,8 +33,8 @@
     <tbody>
         @foreach (var item in Model.PagedList)
         {
-            @if (item.Lecture.StudentsID==ViewBag.Student)
-            {
+           // @if (item.Lecture.StudentsID==ViewBag.Student)
+          //  {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Grade)
@@ -42,7 +43,7 @@
                     @Html.DisplayFor(modelItem => item.Lecture.LectureName)
                 </td>
             </tr>
-            }
+           // }
         }
     </tbody>
 </table>

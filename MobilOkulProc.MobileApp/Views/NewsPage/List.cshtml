@@ -10,19 +10,19 @@
 
 @{
     ViewData["Title"] = "List News";
-    if (ViewBag.Usertype == 1)
+    if (ViewBag.Usertype == "\"Student\"")
     {
         Layout = "~/Views/Shared/_Layout_Student.cshtml";
     }
-
-    else if (ViewBag.Usertype == 3)
+    else if (ViewBag.Usertype == "\"Parent\"")
     {
         Layout = "~/Views/Shared/_Layout_Parent.cshtml";
     }
-    else if (ViewBag.Usertype == 2)
+    else if (ViewBag.Usertype == "\"Teacher\"")
     {
         Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
     }
+
 }
 
 <body>
@@ -50,7 +50,7 @@
                     @Html.DisplayNameFor(model => model.Mesajlar.Nesne.School.SchoolName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.NameSurname)
+                    @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.FullName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
@@ -82,7 +82,7 @@
                         @Html.DisplayFor(modelItem => item.School.SchoolName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.User.NameSurname)
+                        @Html.DisplayFor(modelItem => item.User.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)

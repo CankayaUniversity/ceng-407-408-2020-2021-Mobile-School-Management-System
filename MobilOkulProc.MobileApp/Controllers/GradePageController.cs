@@ -18,8 +18,8 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
-            ViewBag.Email = HttpContext.Session.GetString("email");
+           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            //
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
             Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
@@ -52,7 +52,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                 }
             }
 
-            if (ViewBag.Usertype == 3)
+            if (ViewBag.Usertype == "\"Parent\"")
             {
                 ParentPageModel<PARENT> p = new ParentPageModel<PARENT>();
                 Mesajlar<PARENT> par = new Mesajlar<PARENT>();

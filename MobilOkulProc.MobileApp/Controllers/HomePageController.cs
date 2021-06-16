@@ -30,16 +30,16 @@ namespace MobilOkulProc.MobileApp.Controllers
         public IActionResult HomePage(USER user)
         {
             //var Session = HttpContext.Session.GetObject<USER>("user");
-            if (user.NameSurname != null)
+            if (user.FullName != null)
             {
-                needs.NameSurname = user.NameSurname;
-                needs.Email = user.Email;
+                needs.NameSurname = HttpContext.Session.GetString("user");
+                
 
             }
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
-            ViewBag.Email = HttpContext.Session.GetString("email");
+            ViewBag.Usertype = HttpContext.Session.GetString("userid");
+           
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
 

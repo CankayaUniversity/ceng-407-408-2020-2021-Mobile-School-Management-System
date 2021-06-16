@@ -17,8 +17,8 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
-            ViewBag.Email = HttpContext.Session.GetString("email");
+           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            //
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
             Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
@@ -44,7 +44,7 @@ namespace MobilOkulProc.MobileApp.Controllers
             Mesajlar<SYLLABUS> mb = new Mesajlar<SYLLABUS>();
             m.Mesajlar = function.Get<SYLLABUS>(mb, "Syllabus/Syllabus_List");
 
-            if (ViewBag.Usertype == 1 )
+            if (ViewBag.Usertype == "\"Student\"" )
             {
                 StudentPageModel<STUDENT> st = new StudentPageModel<STUDENT>();
                 Mesajlar<STUDENT> stu = new Mesajlar<STUDENT>();
@@ -59,7 +59,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                     }
                 }
             }
-            else if ( ViewBag.Usertype == 3)
+            else if ( ViewBag.Usertype == "\"Parent\"")
             {
                 StudentPageModel<STUDENT> st = new StudentPageModel<STUDENT>();
                 Mesajlar<STUDENT> stu = new Mesajlar<STUDENT>();
@@ -81,7 +81,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                     }
                 }
             }
-            else if (ViewBag.Usertype == 2)
+            else if (ViewBag.Usertype == "\"Teacher\"")
             {
                 TeacherPageModel<TEACHER> t = new TeacherPageModel<TEACHER>();
                 Mesajlar<TEACHER> te = new Mesajlar<TEACHER>();

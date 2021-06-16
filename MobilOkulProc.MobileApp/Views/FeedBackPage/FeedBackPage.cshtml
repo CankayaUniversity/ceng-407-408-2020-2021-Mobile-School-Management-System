@@ -1,17 +1,17 @@
 ﻿@{
-    if (ViewBag.Usertype == 1)
+    if (ViewBag.Usertype == "\"Student\"")
     {
         Layout = "~/Views/Shared/_Layout_Student.cshtml";
     }
-
-    else if (ViewBag.Usertype == 3)
+    else if (ViewBag.Usertype == "\"Parent\"")
     {
         Layout = "~/Views/Shared/_Layout_Parent.cshtml";
     }
-    else if (ViewBag.Usertype == 2)
+    else if (ViewBag.Usertype == "\"Teacher\"")
     {
         Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
     }
+
 }
 <body>
 
@@ -58,7 +58,7 @@
 
     <div class="services">
         <div class="container">
-            @if (ViewBag.Usertype == 1)
+            @if (ViewBag.Usertype == "\"Student\"")
             {
 
                 <div class="col-md-4">
@@ -74,7 +74,7 @@
                 </div>
             }
 
-            @if (ViewBag.Usertype == 2)
+            @if (ViewBag.Usertype == "\"Teacher\"")
             {
 
 

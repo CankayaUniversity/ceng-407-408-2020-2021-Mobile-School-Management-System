@@ -1,0 +1,18 @@
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.MobileApp.Models
+@model SyllabusPageModel<SYLLABUS>
+
+@{ if (ViewBag.Usertype == "\"Student\"")
+    {
+        Layout = "~/Views/Shared/_Layout_Student.cshtml";
+    }
+    else if (ViewBag.Usertype == "\"Parent\"")
+    {
+        Layout = "~/Views/Shared/_Layout_Parent.cshtml";
+    }
+    else if (ViewBag.Usertype == "\"Teacher\"")
+    {
+        Layout = "~/Views/Shared/_Layout_Teacher.cshtml";
+    } }
+
+

@@ -14,8 +14,8 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-            ViewBag.Usertype = int.Parse(HttpContext.Session.GetString("userid"));
-            ViewBag.Email = HttpContext.Session.GetString("email");
+           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            //
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
             Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
@@ -35,7 +35,7 @@ namespace MobilOkulProc.MobileApp.Controllers
             ViewBag.Notification = count;
 
 
-            if (ViewBag.Usertype == 1)
+            if (ViewBag.Usertype == "\"Student\"")
             {
                 StudentPageModel<STUDENT> st = new StudentPageModel<STUDENT>();
                 Mesajlar<STUDENT> stu = new Mesajlar<STUDENT>();
@@ -60,7 +60,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                     }
                 }
             }
-            else if (ViewBag.Usertype == 2)
+            else if (ViewBag.Usertype == "\"Teacher\"")
             {
 
 
@@ -78,7 +78,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                     }
                 }
             }
-            else if (ViewBag.Usertype == 3)
+            else if (ViewBag.Usertype == "\"Parent\"")
             {
                 ParentPageModel<PARENT> p = new ParentPageModel<PARENT>();
                 Mesajlar<PARENT> pr = new Mesajlar<PARENT>();
@@ -86,7 +86,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                 foreach (var item in p.Mesajlar.Liste)
                 {
-                    if (item.Email == needs.Email)
+                    if (item.UserID == ViewBag.ObjectID)
                     {
                         ViewBag.ParentPhone = item.Phone;
                         ViewBag.ParentAdress = item.Adress;
