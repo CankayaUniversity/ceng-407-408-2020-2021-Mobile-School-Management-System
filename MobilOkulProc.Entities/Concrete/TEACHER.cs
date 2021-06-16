@@ -60,7 +60,7 @@ namespace MobilOkulProc.Entities.Concrete
         {
             get
             {
-                return Name + Surname;
+                return Name +" "+ Surname;
             }
         }
 

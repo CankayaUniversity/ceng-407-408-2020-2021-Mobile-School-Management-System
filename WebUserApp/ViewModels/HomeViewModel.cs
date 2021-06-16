@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobilOkulProc.WebUserApp.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel : BaseViewModel
     {
         public string ClassName { get; set; }
         public string StudentsTeacherName { get; set; }

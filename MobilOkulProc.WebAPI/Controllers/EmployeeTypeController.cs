@@ -14,52 +14,52 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class EmployeeTypeController : Controller
     {
         [HttpPost("EmployeeType_Insert")]
-        public IActionResult EmployeeType_Insert([FromBody] EMPLOYEE_TYPE EmployeeType)
+        public async Task<IActionResult> EmployeeType_Insert([FromBody] EMPLOYEE_TYPE EmployeeType)
         {
-            Mesajlar<EMPLOYEE_TYPE> m = new clsEmployeeType_Process().Ekle(EmployeeType);
+            Mesajlar<EMPLOYEE_TYPE> m = await new clsEmployeeType_Process().Ekle(EmployeeType);
 
             return Json(m);
         }
 
         [HttpPost("EmployeeType_Update")]
-        public IActionResult EmployeeType_Update([FromBody] EMPLOYEE_TYPE EmployeeType)
+        public async Task<IActionResult> EmployeeType_Update([FromBody] EMPLOYEE_TYPE EmployeeType)
         {
-            Mesajlar<EMPLOYEE_TYPE> m = new clsEmployeeType_Process().Duzelt(EmployeeType);
+            Mesajlar<EMPLOYEE_TYPE> m = await new clsEmployeeType_Process().Duzelt(EmployeeType);
 
             return Json(m);
         }
 
         [HttpGet("EmployeeType_Delete")]
-        public IActionResult EmployeeType_Delete(int EmployeeTypeID)
+        public async Task<IActionResult> EmployeeType_Delete(int EmployeeTypeID)
         {
             clsEmployeeType_Process uProc = new clsEmployeeType_Process();
 
-            Mesajlar<EMPLOYEE_TYPE> m = uProc.Getir(x => x.ObjectID == EmployeeTypeID);
+            Mesajlar<EMPLOYEE_TYPE> m = await uProc.Getir(x => x.ObjectID == EmployeeTypeID);
 
             if (m.Nesne != null)
             {
-                m = uProc.Sil(m.Nesne);
+                m = await uProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("EmployeeType_Select")]
-        public IActionResult EmployeeType_Select(int EmployeeTypeID)
+        public async Task<IActionResult> EmployeeType_Select(int EmployeeTypeID)
         {
             clsEmployeeType_Process uProc = new clsEmployeeType_Process();
 
-            Mesajlar<EMPLOYEE_TYPE> m = uProc.Getir(x => x.ObjectID == EmployeeTypeID);
+            Mesajlar<EMPLOYEE_TYPE> m = await uProc.Getir(x => x.ObjectID == EmployeeTypeID);
 
             return Json(m);
         }
 
         [HttpGet("EmployeeType_List")]
-        public IActionResult EmployeeType_List()
+        public async Task<IActionResult> EmployeeType_List()
         {
             clsEmployeeType_Process uProc = new clsEmployeeType_Process();
 
-            Mesajlar<EMPLOYEE_TYPE> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<EMPLOYEE_TYPE> m = await uProc.Listele(x => x.Status == true);
 
             return Json(m);
         }

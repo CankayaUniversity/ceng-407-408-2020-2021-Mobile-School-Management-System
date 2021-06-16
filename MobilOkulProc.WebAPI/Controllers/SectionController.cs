@@ -15,61 +15,61 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class SectionController : Controller
     {
         [HttpPost("Section_Insert")]
-        public IActionResult Section_Insert([FromBody] SECTION Section)
+        public async Task<IActionResult> Section_Insert([FromBody] SECTION Section)
         {
-            Mesajlar<SECTION> m = new clsSection_Process().Ekle(Section);
+            Mesajlar<SECTION> m = await new clsSection_Process().Ekle(Section);
 
             return Json(m);
         }
 
         [HttpPost("Section_Update")]
-        public IActionResult Section_Update([FromBody] SECTION Section)
+        public async Task<IActionResult> Section_Update([FromBody] SECTION Section)
         {
-            Mesajlar<SECTION> m = new clsSection_Process().Duzelt(Section);
+            Mesajlar<SECTION> m = await new clsSection_Process().Duzelt(Section);
 
             return Json(m);
         }
 
         [HttpGet("Section_Delete")]
-        public IActionResult Section_Delete(int SectionID)
+        public async Task<IActionResult> Section_Delete(int SectionID)
         {
             clsSection_Process sProc = new clsSection_Process();
 
-            Mesajlar<SECTION> m = sProc.Getir(x => x.ObjectID == SectionID);
+            Mesajlar<SECTION> m = await sProc.Getir(x => x.ObjectID == SectionID);
 
             if (m.Nesne != null)
             {
-                m = sProc.Sil(m.Nesne);
+                m = await sProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("Section_Select")]
-        public IActionResult Section_Select(int SectionID)
+        public async Task<IActionResult> Section_Select(int SectionID)
         {
             clsSection_Process sProc = new clsSection_Process();
 
-            Mesajlar<SECTION> m = sProc.Getir(x => x.ObjectID == SectionID);
+            Mesajlar<SECTION> m = await sProc.Getir(x => x.ObjectID == SectionID);
 
             return Json(m);
         }
 
         [HttpGet("Section_List")]
-        public IActionResult Section_List()
+        public async Task<IActionResult> Section_List()
         {
             clsSection_Process tProc = new clsSection_Process();
 
-            Mesajlar<SECTION> m = tProc.Listele(x => x.Status == true);
+            Mesajlar<SECTION> m = await tProc.Listele(x => x.Status == true);
 
             return Json(m);
         }
         [HttpGet("Section_SelectRelational")]
-        public IActionResult Section_SelectRelational(int SectionID)
+        public async Task<IActionResult> Section_SelectRelational(int SectionID)
         {
             clsSection_Process sProc = new clsSection_Process();
 
-            Mesajlar<SECTION> m = sProc.Getir_Iliskisel(x => x.ObjectID == SectionID);
+            Mesajlar<SECTION> m = await sProc.Getir_Iliskisel(x => x.ObjectID == SectionID);
 
             return Json(m);
         }

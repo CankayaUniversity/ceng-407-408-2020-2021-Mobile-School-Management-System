@@ -14,63 +14,72 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class TeacherController : Controller
     {
         [HttpPost("Teacher_Insert")]
-        public IActionResult Teacher_Insert([FromBody] TEACHER Teacher)
+        public async Task<IActionResult> Teacher_Insert([FromBody] TEACHER Teacher)
         {
-            Mesajlar<TEACHER> m = new clsTeacher_Process().Ekle(Teacher);
+             Mesajlar < TEACHER> m = await new clsTeacher_Process().Ekle(Teacher);
 
             return Json(m);
         }
 
 
         [HttpPost("Teacher_Update")]
-        public IActionResult User_Update([FromBody] TEACHER Teacher)
+        public async Task<IActionResult> User_Update([FromBody] TEACHER Teacher)
         {
-            Mesajlar<TEACHER> m = new clsTeacher_Process().Duzelt(Teacher);
+             Mesajlar < TEACHER> m = await new clsTeacher_Process().Duzelt(Teacher);
 
             return Json(m);
         }
 
         [HttpGet("Teacher_Delete")]
-        public IActionResult Teacher_Delete(int TeacherID)
+        public async Task<IActionResult> Teacher_Delete(int TeacherID)
         {
             clsTeacher_Process tProc = new clsTeacher_Process();
 
-            Mesajlar<TEACHER> m = tProc.Getir(x => x.ObjectID == TeacherID);
+             Mesajlar < TEACHER> m = await tProc.Getir(x => x.ObjectID == TeacherID);
 
             if (m.Nesne != null)
             {
-                m = tProc.Sil(m.Nesne);
+                m = await tProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("Teacher_Select")]
-        public IActionResult Teacher_Select(int TeacherID)
+        public async Task<IActionResult> Teacher_Select(int TeacherID)
         {
             clsTeacher_Process tProc = new clsTeacher_Process();
 
-            Mesajlar<TEACHER> m = tProc.Getir(x => x.ObjectID == TeacherID);
+             Mesajlar < TEACHER> m = await tProc.Getir(x => x.ObjectID == TeacherID);
 
             return Json(m);
         }
 
 
         [HttpGet("Teacher_List")]
-        public IActionResult Teacher_List()
+        public async Task<IActionResult> Teacher_List()
         {
             clsTeacher_Process tProc = new clsTeacher_Process();
 
-            Mesajlar<TEACHER> m = tProc.Listele(x => x.Status == true);
+             Mesajlar < TEACHER> m = await tProc.Listele(x => x.Status == true);
 
             return Json(m);
         }
         [HttpGet("Teacher_SelectRelational")]
-        public IActionResult Teacher_SelectRelational(int TeacherID)
+        public async Task<IActionResult> Teacher_SelectRelational(int TeacherID)
         {
             clsTeacher_Process tProc = new clsTeacher_Process();
 
-            Mesajlar<TEACHER> m = tProc.Getir_Iliskisel(x => x.ObjectID == TeacherID);
+             Mesajlar<TEACHER> m = await tProc.Getir_Iliskisel(x => x.ObjectID == TeacherID && x.Status == true);
+
+            return Json(m);
+        }
+        [HttpGet("Teacher_ListRelational")]
+        public async Task<IActionResult> Teacher_ListRelational()
+        {
+            clsTeacher_Process tProc = new clsTeacher_Process();
+
+            Mesajlar<TEACHER> m = await tProc.Getir_ListeIliskisel(x => x.Status == true);
 
             return Json(m);
         }

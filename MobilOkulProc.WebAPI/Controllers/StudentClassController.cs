@@ -14,71 +14,67 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class StudentClassController : Controller
     {
         [HttpPost("StudentClass_Insert")]
-        public IActionResult StudentClass_Insert([FromBody] STUDENT_CLASS StudentClass)
+        public async Task<IActionResult> StudentClass_Insert([FromBody] STUDENT_CLASS StudentClass)
         {
-            Mesajlar<STUDENT_CLASS> m = new clsStudentClass_Process().Ekle(StudentClass);
+            Mesajlar<STUDENT_CLASS> m = await new clsStudentClass_Process().Ekle(StudentClass);
 
             return Json(m);
         }
 
         [HttpPost("StudentClass_Update")]
-        public IActionResult StudentClass_Update([FromBody] STUDENT_CLASS StudentClass)
+        public async Task<IActionResult> StudentClass_Update([FromBody] STUDENT_CLASS StudentClass)
         {
-            Mesajlar<STUDENT_CLASS> m = new clsStudentClass_Process().Duzelt(StudentClass);
+            Mesajlar<STUDENT_CLASS> m = await new clsStudentClass_Process().Duzelt(StudentClass);
 
             return Json(m);
         }
 
         [HttpGet("StudentClass_Delete")]
-        public IActionResult StudentClass_Delete(int StudentClassID)
+        public async Task<IActionResult> StudentClass_Delete(int StudentClassID)
         {
             clsStudentClass_Process sProc = new clsStudentClass_Process();
-
-            Mesajlar<STUDENT_CLASS> m = sProc.Getir(x => x.ObjectID == StudentClassID);
-
+            Mesajlar<STUDENT_CLASS> m = await sProc.Getir(x => x.ObjectID == StudentClassID);
             if (m.Nesne != null)
             {
-                m = sProc.Sil(m.Nesne);
+                m = await sProc.Sil(m.Nesne);
             }
-
-            return Json(m);
+             return Json(m);
         }
         [HttpGet("StudentClass_Select")]
-        public IActionResult StudentClass_Select(int ObjectID)
+        public async Task<IActionResult> StudentClass_Select(int ObjectID)
         {
             clsStudentClass_Process sProc = new clsStudentClass_Process();
 
-            Mesajlar<STUDENT_CLASS> m = sProc.Getir(x => x.ObjectID == ObjectID);
+            Mesajlar<STUDENT_CLASS> m = await sProc.Getir(x => x.ObjectID == ObjectID);
 
             return Json(m);
         }
-
         [HttpGet("StudentClass_SelectStudent")]
-        public IActionResult StudentClass_SelectStudent(int StudentID)
+        public async Task<IActionResult> StudentClass_SelectStudent(int StudentID)
         {
             clsStudentClass_Process sProc = new clsStudentClass_Process();
 
-            Mesajlar<STUDENT_CLASS> m = sProc.Getir(x => x.StudentID == StudentID);
+            Mesajlar<STUDENT_CLASS> m = await sProc.Getir(x => x.StudentID == StudentID);
 
             return Json(m);
         }
         [HttpGet("StudentClass_SelectClassSection")]
-        public IActionResult StudentClass_SelectClassSection(int ClassSectionID)
+        public async Task<IActionResult> StudentClass_SelectClassSection(int ClassSectionID)
         {
             clsStudentClass_Process sProc = new clsStudentClass_Process();
 
-            Mesajlar<STUDENT_CLASS> m = sProc.Getir(x => x.ClassSectionID == ClassSectionID);
+            Mesajlar<STUDENT_CLASS> m = await sProc.Getir(x => x.ClassSectionID == ClassSectionID);
 
             return Json(m);
         }
 
 
         [HttpGet("StudentClass_List")]
-        public IActionResult StudentClass_List()
+        public async Task<IActionResult> StudentClass_List()
         {
             clsStudentClass_Process tProc = new clsStudentClass_Process();
 
-            Mesajlar<STUDENT_CLASS> m = tProc.Listele(x => x.Status == true);
+            Mesajlar<STUDENT_CLASS> m = await tProc.Listele(x => x.Status == true);
 
             return Json(m);
         }

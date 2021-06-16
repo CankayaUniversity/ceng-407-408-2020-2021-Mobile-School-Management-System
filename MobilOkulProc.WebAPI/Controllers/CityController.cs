@@ -14,52 +14,52 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class CityController : Controller
     {
         [HttpPost("City_Insert")]
-        public IActionResult City_Insert([FromBody] CITY City)
+        public async Task<IActionResult> City_Insert([FromBody] CITY City)
         {
-            Mesajlar<CITY> m = new clsCity_Process().Ekle(City);
+            Mesajlar<CITY> m = await new clsCity_Process().Ekle(City);
 
             return Json(m);
         }
 
         [HttpPost("City_Update")]
-        public IActionResult City_Update([FromBody] CITY City)
+        public async Task<IActionResult> City_Update([FromBody] CITY City)
         {
-            Mesajlar<CITY> m = new clsCity_Process().Duzelt(City);
+            Mesajlar<CITY> m = await new clsCity_Process().Duzelt(City);
 
             return Json(m);
         }
 
         [HttpGet("City_Delete")]
-        public IActionResult City_Delete(int CityID)
+        public async Task<IActionResult> City_Delete(int CityID)
         {
             clsCity_Process uProc = new clsCity_Process();
 
-            Mesajlar<CITY> m = uProc.Getir(x => x.ObjectID == CityID);
+            Mesajlar<CITY> m = await uProc.Getir(x => x.ObjectID == CityID);
 
             if (m.Nesne != null)
             {
-                m = uProc.Sil(m.Nesne);
+                m = await uProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("City_Select")]
-        public IActionResult City_Select(int CityID)
+        public async Task<IActionResult> City_Select(int CityID)
         {
             clsCity_Process uProc = new clsCity_Process();
 
-            Mesajlar<CITY> m = uProc.Getir(x => x.ObjectID == CityID);
+            Mesajlar<CITY> m = await uProc.Getir(x => x.ObjectID == CityID);
 
             return Json(m);
         }
 
         [HttpGet("City_List")]
-        public IActionResult City_List()
+        public async Task<IActionResult> City_List()
         {
             clsCity_Process uProc = new clsCity_Process();
 
-            Mesajlar<CITY> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<CITY> m = await uProc.Listele(x => x.Status == true);
 
             return Json(m);
         }

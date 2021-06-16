@@ -16,52 +16,52 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class BranchController : Controller
     {
         [HttpPost("Branch_Insert")]
-        public IActionResult Branch_Insert([FromBody] BRANCH Branch)
+        public async Task<IActionResult> Branch_Insert([FromBody] BRANCH Branch)
         {
-            Mesajlar<BRANCH> m = new clsBranch_Process().Ekle(Branch);
+            Mesajlar<BRANCH> m = await new clsBranch_Process().Ekle(Branch);
 
             return Json(m);
         }
 
         [HttpPost("Branch_Update")]
-        public IActionResult Branch_Update([FromBody] BRANCH Branch)
+        public async Task<IActionResult> Branch_Update([FromBody] BRANCH Branch)
         {
-            Mesajlar<BRANCH> m = new clsBranch_Process().Duzelt(Branch);
+            Mesajlar<BRANCH> m = await new clsBranch_Process().Duzelt(Branch);
 
             return Json(m);
         }
 
         [HttpGet("Branch_Delete")]
-        public IActionResult Branch_Delete(int BranchID)
+        public async Task<IActionResult> Branch_Delete(int BranchID)
         {
             clsBranch_Process uProc = new clsBranch_Process();
 
-            Mesajlar<BRANCH> m = uProc.Getir(x => x.ObjectID == BranchID);
+            Mesajlar<BRANCH> m = await uProc.Getir(x => x.ObjectID == BranchID);
 
             if (m.Nesne != null)
             {
-                m = uProc.Sil(m.Nesne);
+                m = await uProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("Branch_Select")]
-        public IActionResult Branch_Select(int BranchID)
+        public async Task<IActionResult> Branch_Select(int BranchID)
         {
             clsBranch_Process uProc = new clsBranch_Process();
 
-            Mesajlar<BRANCH> m = uProc.Getir(x => x.ObjectID == BranchID);
+            Mesajlar<BRANCH> m = await uProc.Getir(x => x.ObjectID == BranchID);
 
             return Json(m);
         }
 
         [HttpGet("Branch_List")]
-        public IActionResult Branch_List()
+        public async Task<IActionResult> Branch_List()
         {
             clsBranch_Process uProc = new clsBranch_Process();
 
-            Mesajlar<BRANCH> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<BRANCH> m = await uProc.Listele(x => x.Status == true);
 
             return Json(m);
         }

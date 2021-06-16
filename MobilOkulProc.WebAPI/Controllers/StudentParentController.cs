@@ -15,52 +15,52 @@ namespace MobilOkulProc.WebAPI.Controllers
     {
 
         [HttpPost("StudentParent_Insert")]
-        public IActionResult StudentParent_Insert([FromBody] STUDENT_PARENT StudentParent)
+        public async Task<IActionResult> StudentParent_Insert([FromBody] STUDENT_PARENT StudentParent)
         {
-            Mesajlar<STUDENT_PARENT> m = new clsStudentParent_Process().Ekle(StudentParent);
+            Mesajlar<STUDENT_PARENT> m = await new clsStudentParent_Process().Ekle(StudentParent);
 
             return Json(m);
         }
 
         [HttpPost("StudentParent_Update")]
-        public IActionResult StudentParent_Update([FromBody] STUDENT_PARENT StudentParent)
+        public async Task<IActionResult> StudentParent_Update([FromBody] STUDENT_PARENT StudentParent)
         {
-            Mesajlar<STUDENT_PARENT> m = new clsStudentParent_Process().Duzelt(StudentParent);
+            Mesajlar<STUDENT_PARENT> m = await new clsStudentParent_Process().Duzelt(StudentParent);
 
             return Json(m);
         }
 
         [HttpGet("StudentParent_Delete")]
-        public IActionResult StudentParent_Delete(int StudentParentID)
+        public async Task<IActionResult> StudentParent_Delete(int StudentParentID)
         {
             clsStudentParent_Process sProc = new clsStudentParent_Process();
 
-            Mesajlar<STUDENT_PARENT> m = sProc.Getir(x => x.ObjectID == StudentParentID);
+            Mesajlar<STUDENT_PARENT> m = await sProc.Getir(x => x.ObjectID == StudentParentID);
 
             if (m.Nesne != null)
             {
-                m = sProc.Sil(m.Nesne);
+                m = await sProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("StudentParent_Select")]
-        public IActionResult StudentParent_Select(int StudentParentID)
+        public async Task<IActionResult> StudentParent_Select(int StudentParentID)
         {
             clsStudentParent_Process sProc = new clsStudentParent_Process();
 
-            Mesajlar<STUDENT_PARENT> m = sProc.Getir(x => x.ObjectID == StudentParentID);
+            Mesajlar<STUDENT_PARENT> m = await sProc.Getir(x => x.ObjectID == StudentParentID);
 
             return Json(m);
         }
 
         [HttpGet("StudentParent_List")]
-        public IActionResult StudentParent_List()
+        public async Task<IActionResult> StudentParent_List()
         {
             clsStudentParent_Process tProc = new clsStudentParent_Process();
 
-            Mesajlar<STUDENT_PARENT> m = tProc.Listele(x => x.Status == true);
+            Mesajlar<STUDENT_PARENT> m = await tProc.Listele(x => x.Status == true);
 
             return Json(m);
         }

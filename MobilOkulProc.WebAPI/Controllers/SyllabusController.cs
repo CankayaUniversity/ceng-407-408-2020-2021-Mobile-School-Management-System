@@ -14,109 +14,109 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class SyllabusController : Controller
     {
         [HttpPost("Syllabus_Insert")]
-        public IActionResult Syllabus_Insert([FromBody] SYLLABUS Syllabus)
+        public async Task<IActionResult> Syllabus_Insert([FromBody] SYLLABUS Syllabus)
         {
-            Mesajlar<SYLLABUS> m = new clsSyllabus_Process().Ekle(Syllabus);
+            Mesajlar<SYLLABUS> m = await new clsSyllabus_Process().Ekle(Syllabus);
 
             return Json(m);
         }
 
 
         [HttpPost("Syllabus_Update")]
-        public IActionResult User_Update([FromBody] SYLLABUS Syllabus)
+        public async Task<IActionResult> User_Update([FromBody] SYLLABUS Syllabus)
         {
-            Mesajlar<SYLLABUS> m = new clsSyllabus_Process().Duzelt(Syllabus);
+            Mesajlar<SYLLABUS> m = await new clsSyllabus_Process().Duzelt(Syllabus);
 
             return Json(m);
         }
 
         [HttpGet("Syllabus_Delete")]
-        public IActionResult Syllabus_Delete(int SyllabusID)
+        public async Task<IActionResult> Syllabus_Delete(int SyllabusID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir(x => x.Status == true && x.ObjectID == SyllabusID);
+            Mesajlar<SYLLABUS> m = await tProc.Getir(x => x.Status == true && x.ObjectID == SyllabusID);
 
             if (m.Nesne != null)
             {
-                m = tProc.Sil(m.Nesne);
+                m = await tProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("Syllabus_Select")]
-        public IActionResult Syllabus_Select(int SyllabusID)
+        public async Task<IActionResult> Syllabus_Select(int SyllabusID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir(x => x.Status == true && x.ObjectID == SyllabusID);
+            Mesajlar<SYLLABUS> m = await tProc.Getir(x => x.Status == true && x.ObjectID == SyllabusID);
 
             return Json(m);
         }
 
 
         [HttpGet("Syllabus_List")]
-        public IActionResult Syllabus_List()
+        public async Task<IActionResult> Syllabus_List()
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Listele(x => x.Status == true);
+            Mesajlar<SYLLABUS> m = await tProc.Listele(x => x.Status == true);
 
             return Json(m);
         }
         [HttpGet("Syllabus_ListObject")]
-        public IActionResult Syllabus_ListObject(int ObjectID)
+        public async Task<IActionResult> Syllabus_ListObject(int ObjectID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Listele(x => x.Status == true && x.ObjectID == ObjectID);
+            Mesajlar<SYLLABUS> m = await tProc.Listele(x => x.Status == true && x.ObjectID == ObjectID);
 
             return Json(m);
         }
 
         [HttpGet("Syllabus_ListDays")]
-        public IActionResult Syllabus_ListStudent(int DaysID)
+        public async Task<IActionResult> Syllabus_ListStudent(int DaysID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Listele(x => x.Status == true && x.DaysID == DaysID);
+            Mesajlar<SYLLABUS> m = await tProc.Listele(x => x.Status == true && x.DaysID == DaysID);
 
             return Json(m);
         }
         [HttpGet("Syllabus_SelectRelational")]
-        public IActionResult Syllabus_SelectRelational(int SyllabusID)
+        public async Task<IActionResult> Syllabus_SelectRelational(int SyllabusID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir_Iliskisel(x => x.Status == true && x.ObjectID == SyllabusID);
+            Mesajlar<SYLLABUS> m = await tProc.Getir_Iliskisel(x => x.Status == true && x.ObjectID == SyllabusID);
 
             return Json(m);
         }
         [HttpGet("Syllabus_ListRelational")]
-        public IActionResult Syllabus_ListRelational()
+        public async Task<IActionResult> Syllabus_ListRelational()
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir_ListeIliskisel(x => x.Status == true);
+            Mesajlar<SYLLABUS> m = await tProc.Getir_ListeIliskisel(x => x.Status == true);
 
             return Json(m);
         }
         [HttpGet("Syllabus_ListRelationalDays")]
-        public IActionResult Syllabus_ListRelationalDays(int DaysID)
+        public async Task<IActionResult> Syllabus_ListRelationalDays(int DaysID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir_ListeIliskisel(x => x.Status == true && x.DaysID == DaysID);
+            Mesajlar<SYLLABUS> m = await tProc.Getir_ListeIliskisel(x => x.Status == true && x.DaysID == DaysID);
 
             return Json(m);
         }
         [HttpGet("Syllabus_ListRelationalClassSections")]
-        public IActionResult Syllabus_ListRelationalClassSections(int ClassSectionsID)
+        public async Task<IActionResult> Syllabus_ListRelationalClassSections(int ClassSectionsID)
         {
             clsSyllabus_Process tProc = new clsSyllabus_Process();
 
-            Mesajlar<SYLLABUS> m = tProc.Getir_ListeIliskisel(x => x.Status == true && x.ClassSectionsID == ClassSectionsID);
+            Mesajlar<SYLLABUS> m = await tProc.Getir_ListeIliskisel(x => x.Status == true && x.ClassSectionsID == ClassSectionsID);
 
             return Json(m);
         }

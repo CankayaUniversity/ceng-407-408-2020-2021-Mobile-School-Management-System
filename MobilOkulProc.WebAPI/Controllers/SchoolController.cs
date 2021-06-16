@@ -15,64 +15,64 @@ namespace MobilOkulProc.WebAPI.Controllers
     {
 
         [HttpPost("School_Insert")]
-        public IActionResult School_Insert([FromBody] SCHOOL School)
+        public async Task<IActionResult> School_Insert([FromBody] SCHOOL School)
         {
-            Mesajlar<SCHOOL> m = new clsSchooll_Proccess().Ekle(School);
+            Mesajlar<SCHOOL> m = await new clsSchooll_Proccess().Ekle(School);
 
             return Json(m);
         }
 
 
         [HttpPost("School_Update")]
-        public IActionResult School_Update([FromBody] SCHOOL School)
+        public async Task<IActionResult> School_Update([FromBody] SCHOOL School)
         {
-            Mesajlar<SCHOOL> m = new clsSchooll_Proccess().Duzelt(School);
+            Mesajlar<SCHOOL> m = await new clsSchooll_Proccess().Duzelt(School);
 
             return Json(m);
         }
 
 
         [HttpGet("School_Delete")]
-        public IActionResult School_Delete(int SchoolID)
+        public async Task<IActionResult> School_Delete(int SchoolID)
         {
             clsSchooll_Proccess sProc = new clsSchooll_Proccess();
 
-            Mesajlar<SCHOOL> m = sProc.Getir(x => x.ObjectID == SchoolID);
+            Mesajlar<SCHOOL> m = await sProc.Getir(x => x.ObjectID == SchoolID);
 
             if (m.Nesne != null)
             {
-                m = sProc.Sil(m.Nesne);
+                m = await sProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("School_Select")]
-        public IActionResult School_Select(int SchoolID)
+        public async Task<IActionResult> School_Select(int SchoolID)
         {
             clsSchooll_Proccess sProc = new clsSchooll_Proccess();
 
-            Mesajlar<SCHOOL> m = sProc.Getir(x => x.ObjectID == SchoolID);
+            Mesajlar<SCHOOL> m = await sProc.Getir(x => x.ObjectID == SchoolID);
 
             return Json(m);
         }
 
 
         [HttpGet("School_List")]
-        public IActionResult School_List()
+        public async Task<IActionResult> School_List()
         {
             clsSchooll_Proccess tProc = new clsSchooll_Proccess();
 
-            Mesajlar<SCHOOL> m = tProc.Listele(x => x.Status == true);
+            Mesajlar<SCHOOL> m = await tProc.Listele(x => x.Status == true);
 
             return Json(m);
         }
         [HttpGet("School_SelectRelational")]
-        public IActionResult School_SelectRelational(int SchoolID)
+        public async Task<IActionResult> School_SelectRelational(int SchoolID)
         {
             clsSchooll_Proccess tProc = new clsSchooll_Proccess();
 
-            Mesajlar<SCHOOL> m = tProc.Getir_Iliskisel(x => x.ObjectID == SchoolID);
+            Mesajlar<SCHOOL> m = await tProc.Getir_Iliskisel(x => x.ObjectID == SchoolID);
 
             return Json(m);
         }

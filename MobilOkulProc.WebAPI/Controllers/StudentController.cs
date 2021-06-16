@@ -15,61 +15,61 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class StudentController : Controller
     {
         [HttpPost("Student_Insert")]
-        public IActionResult Student_Insert([FromBody] STUDENT Student)
+        public async Task<IActionResult> Student_Insert([FromBody] STUDENT Student)
         {
-            Mesajlar<STUDENT> m = new clsStudent_Process().Ekle(Student);
+            Mesajlar<STUDENT> m = await new clsStudent_Process().Ekle(Student);
 
             return Json(m);
         }
 
         [HttpPost("Student_Update")]
-        public IActionResult Student_Update([FromBody] STUDENT Student)
+        public async Task<IActionResult> Student_Update([FromBody] STUDENT Student)
         {
-            Mesajlar<STUDENT> m = new clsStudent_Process().Duzelt(Student);
+            Mesajlar<STUDENT> m = await new clsStudent_Process().Duzelt(Student);
 
             return Json(m);
         }
 
         [HttpGet("Student_Delete")]
-        public IActionResult Student_Delete(int StudentID)
+        public async Task<IActionResult> Student_Delete(int StudentID)
         {
             clsStudent_Process sProc = new clsStudent_Process();
 
-            Mesajlar<STUDENT> m = sProc.Getir(x => x.ObjectID == StudentID);
+            Mesajlar<STUDENT> m = await sProc.Getir(x => x.ObjectID == StudentID);
 
             if (m.Nesne != null)
             {
-                m = sProc.Sil(m.Nesne);
+                m = await sProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("Student_Select")]
-        public IActionResult Student_Select(int StudentID)
+        public async Task<IActionResult> Student_Select(int StudentID)
         {
             clsStudent_Process sProc = new clsStudent_Process();
 
-            Mesajlar<STUDENT> m = sProc.Getir(x => x.ObjectID == StudentID);
+            Mesajlar<STUDENT> m = await sProc.Getir(x => x.ObjectID == StudentID);
 
             return Json(m);
         }
 
         [HttpGet("Student_List")]
-        public IActionResult Student_List()
+        public async Task<IActionResult> Student_List()
         {
             clsStudent_Process uProc = new clsStudent_Process();
 
-            Mesajlar<STUDENT> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<STUDENT> m = await uProc.Listele(x => x.Status == true);
 
             return Json(m);
         }
         [HttpGet("Student_SelectRelational")]
-        public IActionResult Student_SelectRelational(int StudentID)
+        public async Task<IActionResult> Student_SelectRelational(int StudentID)
         {
             clsStudent_Process sProc = new clsStudent_Process();
 
-            Mesajlar<STUDENT> m = sProc.Getir_Iliskisel(x => x.ObjectID == StudentID);
+            Mesajlar<STUDENT> m = await sProc.Getir_Iliskisel(x => x.ObjectID == StudentID);
 
             return Json(m);
         }

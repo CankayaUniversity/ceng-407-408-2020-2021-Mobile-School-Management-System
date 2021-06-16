@@ -2,7 +2,7 @@
 using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using MobilOkulProc.WebAPI.Data;
-
+using System.Threading.Tasks;
 
 namespace MobilOkulProc.WebAPI.Controllers
 {
@@ -11,91 +11,91 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class ExamController : Controller
     {
         [HttpPost("Exam_Insert")]
-        public IActionResult Exam_Insert([FromBody] EXAM Exam)
+        public async Task<IActionResult> Exam_Insert([FromBody] EXAM Exam)
         {
-            Mesajlar<EXAM> m = new clsExam_Process().Ekle(Exam);
+            Mesajlar<EXAM> m = await new clsExam_Process().Ekle(Exam);
 
             return Json(m);
         }
 
 
         [HttpPost("Exam_Update")]
-        public IActionResult Exam_Update([FromBody] EXAM Exam)
+        public async Task<IActionResult> Exam_Update([FromBody] EXAM Exam)
         {
-            Mesajlar<EXAM> m = new clsExam_Process().Duzelt(Exam);
+            Mesajlar<EXAM> m = await new clsExam_Process().Duzelt(Exam);
 
             return Json(m);
         }
 
 
         [HttpGet("Exam_Delete")]
-        public IActionResult Exam_Delete(int ExamID)
+        public async Task<IActionResult> Exam_Delete(int ExamID)
         {
             clsExam_Process sProc = new clsExam_Process();
 
-            Mesajlar<EXAM> m = sProc.Getir(x => x.ObjectID == ExamID);
+            Mesajlar<EXAM> m = await sProc.Getir(x => x.ObjectID == ExamID);
 
             if (m.Nesne != null)
             {
-                m = sProc.Sil(m.Nesne);
+                m = await sProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("Exam_Select")]
-        public IActionResult Exam_Select(int ExamID)
+        public async Task<IActionResult> Exam_Select(int ExamID)
         {
             clsExam_Process sProc = new clsExam_Process();
 
-            Mesajlar<EXAM> m = sProc.Getir(x => x.ObjectID == ExamID);
+            Mesajlar<EXAM> m = await sProc.Getir(x => x.ObjectID == ExamID);
 
             return Json(m);
         }
 
 
         [HttpGet("Exam_List")]
-        public IActionResult Exam_List()
+        public async Task<IActionResult> Exam_List()
         {
             clsExam_Process tProc = new clsExam_Process();
 
-            Mesajlar<EXAM> m = tProc.Listele(x => x.Status == true);
+            Mesajlar<EXAM> m = await tProc.Listele(x => x.Status == true);
 
             return Json(m);
         }
         [HttpGet("Exam_ListLecture")]
-        public IActionResult Exam_ListLecture(int LectureID)
+        public async Task<IActionResult> Exam_ListLecture(int LectureID)
         {
             clsExam_Process tProc = new clsExam_Process();
 
-            Mesajlar<EXAM> m = tProc.Listele(x => x.Status == true && x.LectureID == LectureID);
+            Mesajlar<EXAM> m = await tProc.Listele(x => x.Status == true && x.LectureID == LectureID);
 
             return Json(m);
         }
         [HttpGet("Exam_SelectRelational")]
-        public IActionResult Exam_SelectRelational(int ExamID)
+        public async Task<IActionResult> Exam_SelectRelational(int ExamID)
         {
             clsExam_Process tProc = new clsExam_Process();
 
-            Mesajlar<EXAM> m = tProc.Getir_Iliskisel(x => x.ObjectID == ExamID);
+            Mesajlar<EXAM> m = await tProc.Getir_Iliskisel(x => x.ObjectID == ExamID);
 
             return Json(m);
         }
         [HttpGet("Exam_ListRelational")]
-        public IActionResult Exam_ListRelational(int ExamID)
+        public async Task<IActionResult> Exam_ListRelational(int ExamID)
         {
             clsExam_Process tProc = new clsExam_Process();
 
-            Mesajlar<EXAM> m = tProc.Getir_ListeIliskisel(x => x.ObjectID == ExamID);
+            Mesajlar<EXAM> m = await tProc.Getir_ListeIliskisel(x => x.ObjectID == ExamID);
 
             return Json(m);
         }
         [HttpGet("Exam_ListRelationalLecture")]
-        public IActionResult Exam_ListRelationalLecture(int LectureID)
+        public async Task<IActionResult> Exam_ListRelationalLecture(int LectureID)
         {
             clsExam_Process tProc = new clsExam_Process();
 
-            Mesajlar<EXAM> m = tProc.Getir_ListeIliskisel(x => x.LectureID == LectureID);
+            Mesajlar<EXAM> m = await tProc.Getir_ListeIliskisel(x => x.LectureID == LectureID);
 
             return Json(m);
         }

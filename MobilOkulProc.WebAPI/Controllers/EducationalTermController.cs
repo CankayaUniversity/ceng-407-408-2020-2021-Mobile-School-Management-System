@@ -14,52 +14,52 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class EducationalTermController : Controller
     {
         [HttpPost("EducationalTerm_Insert")]
-        public IActionResult User_Insert([FromBody] EDUCATIONAL_TERM EducationalTerm)
+        public async Task<IActionResult> User_Insert([FromBody] EDUCATIONAL_TERM EducationalTerm)
         {
-            Mesajlar<EDUCATIONAL_TERM> m = new clsEducationalTerm_Process().Ekle(EducationalTerm);
+            Mesajlar<EDUCATIONAL_TERM> m = await new clsEducationalTerm_Process().Ekle(EducationalTerm);
 
             return Json(m);
         }
 
         [HttpPost("EducationalTerm_Update")]
-        public IActionResult EducationalTerm_Update([FromBody] EDUCATIONAL_TERM EducationalTerm)
+        public async Task<IActionResult> EducationalTerm_Update([FromBody] EDUCATIONAL_TERM EducationalTerm)
         {
-            Mesajlar<EDUCATIONAL_TERM> m = new clsEducationalTerm_Process().Duzelt(EducationalTerm);
+            Mesajlar<EDUCATIONAL_TERM> m = await new clsEducationalTerm_Process().Duzelt(EducationalTerm);
 
             return Json(m);
         }
 
         [HttpGet("EducationalTerm_Delete")]
-        public IActionResult EducationalTerm_Delete(int EducationalTermID)
+        public async Task<IActionResult> EducationalTerm_Delete(int EducationalTermID)
         {
             clsEducationalTerm_Process uProc = new clsEducationalTerm_Process();
 
-            Mesajlar<EDUCATIONAL_TERM> m = uProc.Getir(x => x.ObjectID == EducationalTermID);
+            Mesajlar<EDUCATIONAL_TERM> m = await uProc.Getir(x => x.ObjectID == EducationalTermID);
 
             if (m.Nesne != null)
             {
-                m = uProc.Sil(m.Nesne);
+                m = await uProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("EducationalTerm_Select")]
-        public IActionResult EducationalTerm_Select(int EducationalTermID)
+        public async Task<IActionResult> EducationalTerm_Select(int EducationalTermID)
         {
             clsEducationalTerm_Process uProc = new clsEducationalTerm_Process();
 
-            Mesajlar<EDUCATIONAL_TERM> m = uProc.Getir(x => x.ObjectID == EducationalTermID);
+            Mesajlar<EDUCATIONAL_TERM> m = await uProc.Getir(x => x.ObjectID == EducationalTermID);
 
             return Json(m);
         }
 
         [HttpGet("EducationalTerm_List")]
-        public IActionResult EducationalTerm_List()
+        public async Task<IActionResult> EducationalTerm_List()
         {
             clsEducationalTerm_Process uProc = new clsEducationalTerm_Process();
 
-            Mesajlar<EDUCATIONAL_TERM> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<EDUCATIONAL_TERM> m = await uProc.Listele(x => x.Status == true);
 
             return Json(m);
         }

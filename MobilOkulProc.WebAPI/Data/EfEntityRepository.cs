@@ -15,7 +15,7 @@ namespace MobilOkulProc.WebAPI.Data
         where TEntity : class, new()
         where TContext : DbContext, new()
     {
-        public Mesajlar<TEntity> Duzelt(TEntity ent)
+        public async Task<Mesajlar<TEntity>> Duzelt(TEntity ent)
         {
             Mesajlar<TEntity> mesajlar = new Mesajlar<TEntity>();
 
@@ -44,7 +44,7 @@ namespace MobilOkulProc.WebAPI.Data
 
                     cnt.SaveChanges();
 
-                    mesajlar.KayitID = Get_KayitID(obj, ent);
+                    mesajlar.KayitID =  Get_KayitID(obj, ent);
                 }
                 mesajlar.Durum = true;
                 mesajlar.Mesaj = "Bilgiler güncellendi.";
@@ -61,12 +61,12 @@ namespace MobilOkulProc.WebAPI.Data
             return mesajlar;
         }
 
-        public string Get_Pk_Name(EntityEntry<TEntity> _entry)
+        public  string Get_Pk_Name(EntityEntry<TEntity> _entry)
         {
-            return _entry.Metadata.FindPrimaryKey().Properties.Select(x => x.Name).Single();
+            return  _entry.Metadata.FindPrimaryKey().Properties.Select(x => x.Name).Single();
         }
 
-        public Mesajlar<TEntity> Ekle(TEntity ent)
+        public async Task<Mesajlar<TEntity>> Ekle(TEntity ent)
         {
             Mesajlar<TEntity> mesajlar = new Mesajlar<TEntity>();
 
@@ -84,7 +84,7 @@ namespace MobilOkulProc.WebAPI.Data
                     obj.State = EntityState.Added;
                     cnt.SaveChanges();
 
-                    mesajlar.KayitID = Get_KayitID(obj, ent);
+                    mesajlar.KayitID =  Get_KayitID(obj, ent);
                 }
 
                 mesajlar.Durum = true;
@@ -102,7 +102,7 @@ namespace MobilOkulProc.WebAPI.Data
             return mesajlar;
         }
 
-        public Mesajlar<TEntity> Getir(Expression<Func<TEntity, bool>> filtre = null)
+        public async Task<Mesajlar<TEntity>> Getir(Expression<Func<TEntity, bool>> filtre = null)
         {
             Mesajlar<TEntity> mesajlar = new Mesajlar<TEntity>();
 
@@ -111,7 +111,7 @@ namespace MobilOkulProc.WebAPI.Data
                 using (var cnt = new TContext())
                 {
                     var obj = cnt.Set<TEntity>();
-                    mesajlar.Nesne = obj.SingleOrDefault(filtre);
+                    mesajlar.Nesne = await obj.SingleOrDefaultAsync(filtre);
                 }
 
                 mesajlar.Durum = true;
@@ -129,7 +129,7 @@ namespace MobilOkulProc.WebAPI.Data
             return mesajlar;
         }
 
-        public Mesajlar<TEntity> Getir_Iliskisel(Expression<Func<TEntity, bool>> filtre = null)
+        public async Task<Mesajlar<TEntity>> Getir_Iliskisel(Expression<Func<TEntity, bool>> filtre = null)
         {
             Mesajlar<TEntity> mesajlar = new Mesajlar<TEntity>();
 
@@ -153,7 +153,7 @@ namespace MobilOkulProc.WebAPI.Data
                         }
                     }
 
-                    mesajlar.Nesne = obj.SingleOrDefault(filtre);
+                     mesajlar.Nesne = await obj.SingleOrDefaultAsync(filtre);
                 }
 
                 mesajlar.Durum = true;
@@ -167,9 +167,9 @@ namespace MobilOkulProc.WebAPI.Data
 
             }
 
-            return mesajlar;
+            return  mesajlar;
         }
-        public Mesajlar<TEntity> Getir_ListeIliskisel(Expression<Func<TEntity, bool>> filtre = null)
+        public async Task<Mesajlar<TEntity>> Getir_ListeIliskisel(Expression<Func<TEntity, bool>> filtre = null)
         {
             Mesajlar<TEntity> mesajlar = new Mesajlar<TEntity>();
 
@@ -193,7 +193,7 @@ namespace MobilOkulProc.WebAPI.Data
                         }
                     }
 
-                    mesajlar.Liste = obj.Where(filtre).ToList();
+                    mesajlar.Liste = await obj.Where(filtre).ToListAsync();
                 }
 
                 mesajlar.Durum = true;
@@ -228,7 +228,7 @@ namespace MobilOkulProc.WebAPI.Data
             return ID;
         }
 
-        public Mesajlar<TEntity> Listele(Expression<Func<TEntity, bool>> filtre = null)
+        public async Task<Mesajlar<TEntity>> Listele(Expression<Func<TEntity, bool>> filtre = null)
         {
             Mesajlar<TEntity> m = new Mesajlar<TEntity>();
 
@@ -245,7 +245,7 @@ namespace MobilOkulProc.WebAPI.Data
                     else
                     {
 
-                        m.Liste = entryNesne.Where(filtre).ToList();
+                        m.Liste = await entryNesne.Where(filtre).ToListAsync();
                     }
 
                 }
@@ -263,7 +263,7 @@ namespace MobilOkulProc.WebAPI.Data
             return m;
         }
 
-        public Mesajlar<TEntity> Sil(TEntity ent)
+        public async Task<Mesajlar<TEntity>> Sil(TEntity ent)
         {
             Mesajlar<TEntity> mesajlar = new Mesajlar<TEntity>();
 
@@ -279,7 +279,7 @@ namespace MobilOkulProc.WebAPI.Data
                 {
                     var obj = cnt.Entry(ent);
                     obj.State = EntityState.Modified;
-                    cnt.SaveChanges();
+                    await cnt.SaveChangesAsync();
                 }
 
                 mesajlar.Durum = true;

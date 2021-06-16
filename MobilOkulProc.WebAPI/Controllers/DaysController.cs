@@ -14,52 +14,52 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class DaysController : Controller
     {
         [HttpPost("Days_Insert")]
-        public IActionResult Days_Insert([FromBody] DAYS Days)
+        public async Task<IActionResult> Days_Insert([FromBody] DAYS Days)
         {
-            Mesajlar<DAYS> m = new clsDays_Process().Ekle(Days);
+            Mesajlar<DAYS> m = await new clsDays_Process().Ekle(Days);
 
             return Json(m);
         }
 
         [HttpPost("Days_Update")]
-        public IActionResult Days_Update([FromBody] DAYS Days)
+        public async Task<IActionResult> Days_Update([FromBody] DAYS Days)
         {
-            Mesajlar<DAYS> m = new clsDays_Process().Duzelt(Days);
+            Mesajlar<DAYS> m = await new clsDays_Process().Duzelt(Days);
 
             return Json(m);
         }
 
         [HttpGet("Days_Delete")]
-        public IActionResult Days_Delete(int DaysID)
+        public async Task<IActionResult> Days_Delete(int DaysID)
         {
             clsDays_Process uProc = new clsDays_Process();
 
-            Mesajlar<DAYS> m = uProc.Getir(x => x.ObjectID == DaysID);
+            Mesajlar<DAYS> m = await uProc.Getir(x => x.ObjectID == DaysID);
 
             if (m.Nesne != null)
             {
-                m = uProc.Sil(m.Nesne);
+                m = await uProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("Days_Select")]
-        public IActionResult Days_Select(int DaysID)
+        public async Task<IActionResult> Days_Select(int DaysID)
         {
             clsDays_Process uProc = new clsDays_Process();
 
-            Mesajlar<DAYS> m = uProc.Getir(x => x.ObjectID == DaysID);
+            Mesajlar<DAYS> m = await uProc.Getir(x => x.ObjectID == DaysID);
 
             return Json(m);
         }
 
         [HttpGet("Days_List")]
-        public IActionResult Days_List()
+        public async Task<IActionResult> Days_List()
         {
             clsDays_Process uProc = new clsDays_Process();
 
-            Mesajlar<DAYS> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<DAYS> m = await uProc.Listele(x => x.Status == true);
 
             return Json(m);
         }

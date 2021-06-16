@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using WebUserApp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
-
+using System.Threading.Tasks;
 
 namespace WebUserApp.Controllers
 {
@@ -28,7 +28,7 @@ namespace WebUserApp.Controllers
         }
 
 
-        public IActionResult Welcome()
+        public async Task<IActionResult> Welcome()
         {
             #region Initializations
             HomeViewModel homeViewModel = new HomeViewModel();
@@ -41,21 +41,25 @@ namespace WebUserApp.Controllers
             Mesajlar<GRADE> grade = new Mesajlar<GRADE>();
             Mesajlar<MESSAGE> messages = new Mesajlar<MESSAGE>();
             List<MESSAGE> LastFiveMessagesNotRead = new List<MESSAGE>();
+            Mesajlar<NEWS> news = new Mesajlar<NEWS>();
+            Mesajlar<SCHOOL_STUDENT> schoolStudent = new Mesajlar<SCHOOL_STUDENT>();
+            Mesajlar<TEACHER_SCHOOL> teacherSchool = new Mesajlar<TEACHER_SCHOOL>();
+            Mesajlar<TEACHER> teachers = new Mesajlar<TEACHER>();
+            List<TEACHER> teachersList = new List<TEACHER>();
             double TotalAbsence = 0;
             int WeekyLoad = 0;
             string MostRecentExam = "";
             int ExamsLeftCount = 0;
-            int counter = 0;
             string LatestGrade = "";
             #endregion
 
             #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
-            studentClass = functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + needs.UserID);
-            classSection = functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
+            studentClass = await functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + needs.UserID);
+            classSection = await functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
             #endregion
 
             #region Calculate total absence of a student
-            absence = functions.Get<ABSENCE>(absence, "Absence/Absence_ListStudent?StudentID=" + needs.UserID);
+            absence = await functions.Get<ABSENCE>(absence, "Absence/Absence_ListStudent?StudentID=" + needs.UserID);
             foreach (var item in absence.Liste)
             {
                 TotalAbsence += item.TotalAbsence;
@@ -63,7 +67,7 @@ namespace WebUserApp.Controllers
             #endregion
 
             #region Calculate Weekly Load of a Student
-            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + studentClass.Nesne.ClassSectionID);
+            syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + studentClass.Nesne.ClassSectionID);
             foreach (var item in syllabus.Liste)
             {
                 if (item.Nine != null && item.Nine != "Öğle Tatili")
@@ -100,11 +104,11 @@ namespace WebUserApp.Controllers
             #endregion
 
             #region Syllabus
-            syllabus = functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelational");
+            syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelational");
             #endregion
 
             #region Exam List
-            exam = functions.Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + studentClass.Nesne.ClassSectionID);
+            exam = await functions .Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + studentClass.Nesne.ClassSectionID);
             #endregion
 
             #region MostRecentExam and Total Exam Counts
@@ -133,12 +137,12 @@ namespace WebUserApp.Controllers
             #endregion
 
             #region Latest Grade
-            grade = functions.Get<GRADE>(grade, "Grade/Grade_ListRelationalStudent?StudentID=" + needs.UserID);
+            grade = await functions .Get<GRADE>(grade, "Grade/Grade_ListRelationalStudent?StudentID=" + needs.UserID);
             LatestGrade = grade.Liste[grade.Liste.Count - 1].Lecture.LectureName + " - " + grade.Liste[grade.Liste.Count - 1].Grade;
             #endregion
 
             #region MessageCounts
-            messages = functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiverNotRead?ReceiveID=" + needs.UserID);
+            messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiverNotRead?ReceiveID=" + needs.UserID);
             for (int i = messages.Liste.Count-1, j = 0; j < 5; i--,j++)
             {
                 if (i>=0)
@@ -147,11 +151,24 @@ namespace WebUserApp.Controllers
                 }
             }
             needs.TotalNumberOfMessages = messages.Liste.Count.ToString();
-            messages = functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
+            messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
             needs.LastFiveMessagesNotRead = LastFiveMessagesNotRead;
             #endregion
 
+            #region Announcements
+            schoolStudent = await functions .Get<SCHOOL_STUDENT>(schoolStudent, "SchoolStudent/SchoolStudent_ListRelationalStudent?StudentID=" + needs.UserID);
+            news = await functions .Get<NEWS>(news, "News/News_ListRelationalSchool?SchoolID=" + schoolStudent.Liste[0].SchoolID);
 
+            #endregion
+
+            #region Last 8 Teachers
+            teacherSchool = await functions.Get<TEACHER_SCHOOL>(teacherSchool, "TeacherSchool/TeacherSchool_ListRelationalSchool?SchoolID=" + schoolStudent.Liste[0].SchoolID);
+            foreach (var item in teacherSchool.Liste)
+            {
+                teachers = await functions.Get<TEACHER>(teachers, "Teacher/Teacher_SelectRelational?TeacherID=" + item.TeacherID);
+                teachersList.Add(teachers.Nesne);
+            }
+            #endregion
 
 
 
@@ -166,13 +183,19 @@ namespace WebUserApp.Controllers
             homeViewModel.ExamsLeft = ExamsLeftCount.ToString();
             homeViewModel.LatestGrade = LatestGrade;
             homeViewModel.TotalMessages = messages.Liste.Count.ToString();
+            homeViewModel.NewsList = news.Liste;
+            homeViewModel.TeacherList = teachersList;
             #endregion
 
-            #region Layout
-            ViewBag.FullName = needs.NameSurname;
-            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
-            ViewBag.LoginAs = needs.LoginAs;
+
+            #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
+            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            #endregion
+
+            #region Sidebar FullName and Role
+            ViewBag.Role = needs.LoginAs;
+            ViewBag.FullName = needs.NameSurname;
             #endregion
 
 
@@ -180,7 +203,19 @@ namespace WebUserApp.Controllers
             return View(homeViewModel);
         }
 
-        
+
+        public IActionResult RenderNotifications()
+        {
+            
+            return PartialView("_Notifications");
+        }
+        public IActionResult RenderSidebar()
+        {
+            
+            return PartialView("_Sidebar");
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -212,7 +247,7 @@ namespace WebUserApp.Controllers
                     return true;
                 }
             }
-            public Mesajlar<T> Add_Update<T>(Mesajlar<T> m, string ApiURL) where T : class, new()
+            public async Task<Mesajlar<T>> Add_Update<T>(Mesajlar<T> m, string ApiURL) where T : class, new()
             {
                 try
                 {
@@ -229,10 +264,10 @@ namespace WebUserApp.Controllers
                             {
                                 if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
                                 {
-                                    var sonuc = response.Result.Content.ReadAsStringAsync();
-                                    sonuc.Wait();
+                                    var sonuc =  await response.Result.Content.ReadAsStringAsync();
+                                    
 
-                                    var msg = JsonConvert.DeserializeObject<Mesajlar<T>>(sonuc.Result);
+                                    var msg = JsonConvert.DeserializeObject<Mesajlar<T>>(sonuc);
 
                                     m = msg;
 
@@ -250,7 +285,7 @@ namespace WebUserApp.Controllers
 
                 return m;
             }
-            public Mesajlar<T> Get<T>(Mesajlar<T> m, string ApiURL) where T : class, new()
+            public async Task<Mesajlar<T>> Get<T>(Mesajlar<T> m, string ApiURL) where T : class, new()
             {
                 try
                 {
@@ -267,10 +302,10 @@ namespace WebUserApp.Controllers
                             {
                                 if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
                                 {
-                                    var sonuc = response.Result.Content.ReadAsStringAsync();
-                                    sonuc.Wait();
+                                    var sonuc = await response.Result.Content.ReadAsStringAsync();
+                                    
 
-                                    var msg = JsonConvert.DeserializeObject<Mesajlar<T>>(sonuc.Result);
+                                    var msg = JsonConvert.DeserializeObject<Mesajlar<T>>(sonuc);
 
                                     m = msg;
                                 }

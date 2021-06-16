@@ -14,61 +14,61 @@ namespace MobilOkulProc.WebAPI.Controllers
     public class FeedbackController : Controller
     {
         [HttpPost("Feedback_Insert")]
-        public IActionResult User_Insert([FromBody] FEEDBACK Feedback)
+        public async Task<IActionResult> User_Insert([FromBody] FEEDBACK Feedback)
         {
-            Mesajlar<FEEDBACK> m = new clsFeedback_Process().Ekle(Feedback);
+            Mesajlar<FEEDBACK> m = await new clsFeedback_Process().Ekle(Feedback);
 
             return Json(m);
         }
 
         [HttpPost("Feedback_Update")]
-        public IActionResult Feedback_Update([FromBody] FEEDBACK Feedback)
+        public async Task<IActionResult> Feedback_Update([FromBody] FEEDBACK Feedback)
         {
-            Mesajlar<FEEDBACK> m = new clsFeedback_Process().Duzelt(Feedback);
+            Mesajlar<FEEDBACK> m = await new clsFeedback_Process().Duzelt(Feedback);
 
             return Json(m);
         }
 
         [HttpGet("Feedback_Delete")]
-        public IActionResult Feedback_Delete(int FeedbackID)
+        public async Task<IActionResult> Feedback_Delete(int FeedbackID)
         {
             clsFeedback_Process uProc = new clsFeedback_Process();
 
-            Mesajlar<FEEDBACK> m = uProc.Getir(x => x.ObjectID == FeedbackID);
+            Mesajlar<FEEDBACK> m = await uProc.Getir(x => x.ObjectID == FeedbackID);
 
             if (m.Nesne != null)
             {
-                m = uProc.Sil(m.Nesne);
+                m = await uProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("Feedback_Select")]
-        public IActionResult Feedback_Select(int FeedbackID)
+        public async Task<IActionResult> Feedback_Select(int FeedbackID)
         {
             clsFeedback_Process uProc = new clsFeedback_Process();
 
-            Mesajlar<FEEDBACK> m = uProc.Getir(x => x.ObjectID == FeedbackID);
+            Mesajlar<FEEDBACK> m = await uProc.Getir(x => x.ObjectID == FeedbackID);
 
             return Json(m);
         }
 
         [HttpGet("Feedback_List")]
-        public IActionResult Feedback_List()
+        public async Task<IActionResult> Feedback_List()
         {
             clsFeedback_Process uProc = new clsFeedback_Process();
 
-            Mesajlar<FEEDBACK> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<FEEDBACK> m = await uProc.Listele(x => x.Status == true);
 
             return Json(m);
         }
         [HttpGet("Feedback_SelectRelational")]
-        public IActionResult Feedback_SelectRelational(int FeedbackID)
+        public async Task<IActionResult> Feedback_SelectRelational(int FeedbackID)
         {
             clsFeedback_Process uProc = new clsFeedback_Process();
 
-            Mesajlar<FEEDBACK> m = uProc.Getir_Iliskisel(x => x.ObjectID == FeedbackID);
+            Mesajlar<FEEDBACK> m = await uProc.Getir_Iliskisel(x => x.ObjectID == FeedbackID);
 
             return Json(m);
         }

@@ -22,62 +22,62 @@ namespace MobilOkulProc.WebAPI.Controllers
 
 
         [HttpPost("User_Insert")]
-        public IActionResult User_Insert([FromBody] USER User)
+        public async Task<IActionResult> User_Insert([FromBody] USER User)
         {
-            Mesajlar<USER> m = new clsUser_Proccess().Ekle(User);
+            Mesajlar<USER> m = await new clsUser_Proccess().Ekle(User);
 
             return Json(m);
         }
 
         [HttpPost("User_Update")]
-        public IActionResult User_Update([FromBody] USER User)
+        public async Task<IActionResult> User_Update([FromBody] USER User)
         {
-            Mesajlar<USER> m = new clsUser_Proccess().Duzelt(User);
+            Mesajlar<USER> m = await new clsUser_Proccess().Duzelt(User);
 
             return Json(m);
         }
 
         [HttpGet("User_Delete")]
-        public IActionResult User_Delete(int UserID)
+        public async Task<IActionResult> User_Delete(int UserID)
         {
             clsUser_Proccess uProc = new clsUser_Proccess();
 
-            Mesajlar<USER> m = uProc.Getir(x => x.ObjectID == UserID);
+            Mesajlar<USER> m = await uProc.Getir(x => x.ObjectID == UserID);
 
             if (m.Nesne != null)
             {
-                m = uProc.Sil(m.Nesne);
+                m = await uProc.Sil(m.Nesne);
             }
 
             return Json(m);
         }
 
         [HttpGet("User_Select")]
-        public IActionResult User_Select(int UserID)
+        public async Task<IActionResult> User_Select(int UserID)
         {
             clsUser_Proccess uProc = new clsUser_Proccess();
 
-            Mesajlar<USER> m = uProc.Getir(x => x.ObjectID == UserID);
+            Mesajlar<USER> m = await uProc.Getir(x => x.ObjectID == UserID);
 
             return Json(m);
         }
 
         [HttpGet("User_List")]
-        public IActionResult User_List()
+        public async Task<IActionResult> User_List()
         {
             clsUser_Proccess uProc = new clsUser_Proccess();
 
-            Mesajlar<USER> m = uProc.Listele(x => x.Status == true);
+            Mesajlar<USER> m = await uProc.Listele(x => x.Status == true);
 
             return Json(m);
         }
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
         [HttpPost("User_Login")]
-        public IActionResult User_Login(USER_LOGIN User)
+        public async Task<IActionResult> User_Login(USER_LOGIN User)
         {
             clsUser_Proccess uProc = new clsUser_Proccess();
 
-            Mesajlar<USER> m = uProc.Getir(x => x.Status == true && x.Username == User.UserName && x.Password == User.Password);
+            Mesajlar<USER> m = await uProc.Getir(x => x.Status == true && x.Username == User.UserName && x.Password == User.Password);
 
             return Json(m);
         }

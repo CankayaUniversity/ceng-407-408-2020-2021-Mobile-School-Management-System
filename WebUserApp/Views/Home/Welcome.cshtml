@@ -379,7 +379,7 @@
                         <h3 class="card-title">Öğretmenler</h3>
 
                         <div class="card-tools">
-                            <span class="badge badge-danger">8 Yeni Öğretmen</span>
+                            <span class="badge badge-danger">@Model.TeacherList.Count Adet Öğretmen </span>
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -389,52 +389,22 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body p-0">
-                        <ul class="users-list clearfix">
-                            <li>
-                                <img src="~/dist/img/user1-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Ahmet Hamdi</a>
-                                <span class="users-list-date">Matematik</span>
-                            </li>
-                            <li>
-                                <img src="~/dist/img/user8-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Mehmet Faik</a>
-                                <span class="users-list-date">Fizik</span>
-                            </li>
-                            <li>
-                                <img src="~/dist/img/user7-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Serçin Kati</a>
-                                <span class="users-list-date">Müzik</span>
-                            </li>
-                            <li>
-                                <img src="~/dist/img/user6-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Cahit Pamuk</a>
-                                <span class="users-list-date">Rehber</span>
-                            </li>
-                            <li>
-                                <img src="~/dist/img/user8-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Ali İskender Koç</a>
-                                <span class="users-list-date">Müdür</span>
-                            </li>
-                            <li>
-                                <img src="~/dist/img/user5-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Sibel Tok</a>
-                                <span class="users-list-date">Tarih</span>
-                            </li>
-                            <li>
-                                <img src="~/dist/img/user4-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Meltem Tık</a>
-                                <span class="users-list-date">Resim</span>
-                            </li>
-                            <li>
-                                <img src="~/dist/img/user3-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Nimet Hal</a>
-                                <span class="users-list-date">Beden Eğitimi</span>
-                            </li>
-                        </ul>
-                        <!-- /.users-list -->
-                    </div>
-                    <!-- /.card-body -->
+                    @foreach (var item in Model.TeacherList)
+                    {
+                        <div class="card-body p-0">
+                            <ul class="users-list clearfix">
+                                <li>
+                                    <img src="~/dist/img/user1-128x128.jpg" alt="User Image">
+                                    <a class="users-list-name" href="#">@item.FullName</a>
+                                    <span class="users-list-date">@item.Branch.BranchName</span>
+                                </li>
+                                
+                            </ul>
+                            <!-- /.users-list -->
+                        </div>
+                        <!-- /.card-body -->
+                    }
+
                     <div class="card-footer text-center">
                         <a href="/Student/Teachers">Tüm Öğretmenleri Gör</a>
                     </div>
@@ -528,18 +498,23 @@
             <!-- /.card-header -->
             <div class="card-body p-0">
                 <ul class="products-list product-list-in-card pl-2 pr-2">
-                    <li class="item">
+                   
+                        @foreach (var item in Model.NewsList)
+                        {
+                         <li class="item">
+                             <div class="product-info">
+                                 <a class="product-title">
+                                        @item.Title
+                                     <span class="badge badge-warning float-right">@item.NewsDate</span>
+                                 </a>
+                                   <span class="product-description">
+                                     @item.NewsContent
+                                  </span>
+                             </div>
 
-                        <div class="product-info">
-                            <a class="product-title">
-                                Başlık
-                                <span class="badge badge-warning float-right">19.09.2021</span>
-                            </a>
-                            <span class="product-description">
-                                23 Nisan Ulusal Egemenlik ve Çocuk Bayramınız kutlu olsun.
-                            </span>
-                        </div>
-                    </li>
+                         </li>
+                        }
+                        
                     <!-- /.item -->
                 </ul>
             </div>
