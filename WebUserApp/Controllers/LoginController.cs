@@ -12,6 +12,7 @@ namespace MobilOkulProc.WebUserApp.Controllers
 {
     public class LoginController : Controller
     {
+        
         public IActionResult Login()
         {
             return View();
@@ -50,7 +51,7 @@ namespace MobilOkulProc.WebUserApp.Controllers
                                 {
                                     //HttpContext.Session.SetObject("Authorization", msg);
                                     //HttpContext.Request.Headers.Add("Bearer",msg.Token);
-                                    return RedirectToAction("Welcome", "Home", new { UserID = msg.Id });
+                                    return RedirectToAction("WelcomeStudent", "Home");
                                 }
                                 else
                                 {

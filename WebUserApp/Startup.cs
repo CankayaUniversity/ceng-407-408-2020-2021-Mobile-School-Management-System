@@ -15,10 +15,9 @@ namespace WebUserApp
         {
             Configuration = configuration;
         }
-        private readonly string key = "Bu benim uzun string deðerim";
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddMemoryCache();
             services.AddMvc(x => x.EnableEndpointRouting = false)
                 .AddViewOptions(opt => opt.HtmlHelperOptions.ClientValidationEnabled = true)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
@@ -49,7 +48,6 @@ namespace WebUserApp
             {
                 configureRoutes.MapRoute(name: "default", template: "{controller=Login}/{action=Login}/{id?}");
             });
-
         }
     }
 }

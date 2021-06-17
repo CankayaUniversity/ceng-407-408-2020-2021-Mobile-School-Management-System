@@ -12,23 +12,24 @@ using WebUserApp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace WebUserApp.Controllers
 {
     public class HomeController : Controller
     {
+        private IMemoryCache _cache;
         private readonly ILogger<HomeController> _logger;
         public static Needs needs = new Needs();
         public static Functions functions = new Functions();
-        public HomeController(ILogger<HomeController> logger, IConfiguration cfg)
+        public HomeController(ILogger<HomeController> logger, IConfiguration cfg, IMemoryCache memoryCache)
         {
             _logger = logger;
             needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
+            _cache = memoryCache;
             
         }
-
-
-        public async Task<IActionResult> Welcome()
+        public async Task<IActionResult> WelcomeStudent()
         {
             #region Initializations
             HomeViewModel homeViewModel = new HomeViewModel();
@@ -47,144 +48,170 @@ namespace WebUserApp.Controllers
             Mesajlar<TEACHER> teachers = new Mesajlar<TEACHER>();
             List<TEACHER> teachersList = new List<TEACHER>();
             double TotalAbsence = 0;
-            int WeekyLoad = 0;
+            int WeeklyLoad = 0;
             string MostRecentExam = "";
             int ExamsLeftCount = 0;
             string LatestGrade = "";
+
             #endregion
 
-            #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
-            studentClass = await functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + needs.UserID);
-            classSection = await functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
-            #endregion
 
-            #region Calculate total absence of a student
-            absence = await functions.Get<ABSENCE>(absence, "Absence/Absence_ListStudent?StudentID=" + needs.UserID);
-            foreach (var item in absence.Liste)
-            {
-                TotalAbsence += item.TotalAbsence;
-            }
-            #endregion
-
-            #region Calculate Weekly Load of a Student
-            syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + studentClass.Nesne.ClassSectionID);
-            foreach (var item in syllabus.Liste)
-            {
-                if (item.Nine != null && item.Nine != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                }
-                if (item.Ten != null && item.Ten != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                } if (item.Eleven != null && item.Eleven != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                } if (item.Twelwe != null && item.Twelwe != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                } if (item.Thirtheen != null && item.Thirtheen != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                } if (item.Fourteen != null && item.Fourteen != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                } if (item.Fifteen != null && item.Fifteen != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                } if (item.Sixteen != null && item.Sixteen != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                } if (item.Seventeen != null && item.Seventeen != "Öğle Tatili")
-                {
-                    WeekyLoad += 1;
-                }
-
-            }
-            #endregion
-
-            #region Syllabus
-            syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelational");
-            #endregion
-
-            #region Exam List
-            exam = await functions .Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + studentClass.Nesne.ClassSectionID);
-            #endregion
-
-            #region MostRecentExam and Total Exam Counts
-            EXAM MostRecentDateObject = exam.Liste[0];
-            foreach (var item in exam.Liste)
+            if (!_cache.TryGetValue("TotalAbsence", out TotalAbsence))
             {
 
-                if (item.ExamDate < MostRecentDateObject.ExamDate && item.ExamDate > DateTime.Now)
+
+                #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
+                studentClass = await functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + needs.UserID);
+                classSection = await functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
+                _cache.Set("ClassSectionName", classSection.Nesne.ClassSectionName);
+                #endregion
+
+                #region Calculate total absence of a student
+                absence = await functions.Get<ABSENCE>(absence, "Absence/Absence_ListStudent?StudentID=" + needs.UserID);
+                foreach (var item in absence.Liste)
                 {
-                    MostRecentDateObject = item;
+                    TotalAbsence += item.TotalAbsence;
+                }
+                _cache.Set("TotalAbsence", TotalAbsence);
+                #endregion
+
+                #region Calculate Weekly Load of a Student
+                syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + studentClass.Nesne.ClassSectionID);
+
+                foreach (var item in syllabus.Liste)
+                {
+                    if (item.Nine != null && item.Nine != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Ten != null && item.Ten != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Eleven != null && item.Eleven != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Twelwe != null && item.Twelwe != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Thirtheen != null && item.Thirtheen != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Fourteen != null && item.Fourteen != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Fifteen != null && item.Fifteen != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Sixteen != null && item.Sixteen != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Seventeen != null && item.Seventeen != "Öğle Tatili")
+                    {
+                        WeeklyLoad += 1;
+                    }
 
                 }
-                if (item.ExamDate > DateTime.Now)
+                _cache.Set("WeeklyLoad", WeeklyLoad);
+                #endregion
+
+                #region Syllabus
+                syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelational");
+                _cache.Set("Syllabus", syllabus.Liste);
+                #endregion
+
+                #region Exam List
+                exam = await functions.Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + studentClass.Nesne.ClassSectionID);
+                _cache.Set("Exam", exam.Liste);
+                #endregion
+
+                #region MostRecentExam and Total Exam Counts
+                EXAM MostRecentDateObject = exam.Liste[0];
+                foreach (var item in exam.Liste)
                 {
-                    ExamsLeftCount++;
+
+                    if (item.ExamDate < MostRecentDateObject.ExamDate && item.ExamDate > DateTime.Now)
+                    {
+                        MostRecentDateObject = item;
+
+                    }
+                    if (item.ExamDate > DateTime.Now)
+                    {
+                        ExamsLeftCount++;
+                    }
                 }
-            }
-            if (MostRecentDateObject.ExamDate > DateTime.Now)
-            {
-                MostRecentExam = MostRecentDateObject.ExamDate.ToString("dd.MM.yyyy - HH:mm") + " - " + MostRecentDateObject.Lecture.LectureName;
-                if (ExamsLeftCount == 0)
+                if (MostRecentDateObject.ExamDate > DateTime.Now)
                 {
-                    ExamsLeftCount++;
+                    MostRecentExam = MostRecentDateObject.ExamDate.ToString("dd.MM.yyyy - HH:mm") + " - " + MostRecentDateObject.Lecture.LectureName;
+                    if (ExamsLeftCount == 0)
+                    {
+                        ExamsLeftCount++;
+                    }
                 }
-            }
-            #endregion
+                _cache.Set("ExamsLeftCount", ExamsLeftCount);
+                _cache.Set("MostRecentExam", MostRecentExam);
+                #endregion
 
-            #region Latest Grade
-            grade = await functions .Get<GRADE>(grade, "Grade/Grade_ListRelationalStudent?StudentID=" + needs.UserID);
-            LatestGrade = grade.Liste[grade.Liste.Count - 1].Lecture.LectureName + " - " + grade.Liste[grade.Liste.Count - 1].Grade;
-            #endregion
+                #region Latest Grade
+                grade = await functions.Get<GRADE>(grade, "Grade/Grade_ListRelationalStudent?StudentID=" + needs.UserID);
+                LatestGrade = grade.Liste[grade.Liste.Count - 1].Lecture.LectureName + " - " + grade.Liste[grade.Liste.Count - 1].Grade;
+                _cache.Set("LatestGrade", LatestGrade);
+                #endregion
 
-            #region MessageCounts
-            messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiverNotRead?ReceiveID=" + needs.UserID);
-            for (int i = messages.Liste.Count-1, j = 0; j < 5; i--,j++)
-            {
-                if (i>=0)
+                #region MessageCounts
+                messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiverNotRead?ReceiveID=" + needs.UserID);
+                for (int i = messages.Liste.Count - 1, j = 0; j < 5; i--, j++)
                 {
-                    LastFiveMessagesNotRead.Add(messages.Liste[i]);
+                    if (i >= 0)
+                    {
+                        LastFiveMessagesNotRead.Add(messages.Liste[i]);
+                    }
                 }
+                needs.TotalNumberOfMessages = messages.Liste.Count.ToString();
+                messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
+                needs.LastFiveMessagesNotRead = LastFiveMessagesNotRead;
+                _cache.Set("TotalMessages", messages.Liste.Count);
+                #endregion
+
+                #region Announcements
+                schoolStudent = await functions.Get<SCHOOL_STUDENT>(schoolStudent, "SchoolStudent/SchoolStudent_ListRelationalStudent?StudentID=" + needs.UserID);
+                news = await functions.Get<NEWS>(news, "News/News_ListRelationalSchool?SchoolID=" + schoolStudent.Liste[0].SchoolID);
+                _cache.Set("News", news.Liste);
+                #endregion
+
+                #region Last 8 Teachers
+                teacherSchool = await functions.Get<TEACHER_SCHOOL>(teacherSchool, "TeacherSchool/TeacherSchool_ListRelationalSchool?SchoolID=" + schoolStudent.Liste[0].SchoolID);
+                foreach (var item in teacherSchool.Liste)
+                {
+                    teachers = await functions.Get<TEACHER>(teachers, "Teacher/Teacher_SelectRelational?TeacherID=" + item.TeacherID);
+                    teachersList.Add(teachers.Nesne);
+                }
+                _cache.Set("Teachers", teachersList);
+                #endregion
             }
-            needs.TotalNumberOfMessages = messages.Liste.Count.ToString();
-            messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
-            needs.LastFiveMessagesNotRead = LastFiveMessagesNotRead;
-            #endregion
 
-            #region Announcements
-            schoolStudent = await functions .Get<SCHOOL_STUDENT>(schoolStudent, "SchoolStudent/SchoolStudent_ListRelationalStudent?StudentID=" + needs.UserID);
-            news = await functions .Get<NEWS>(news, "News/News_ListRelationalSchool?SchoolID=" + schoolStudent.Liste[0].SchoolID);
-
-            #endregion
-
-            #region Last 8 Teachers
-            teacherSchool = await functions.Get<TEACHER_SCHOOL>(teacherSchool, "TeacherSchool/TeacherSchool_ListRelationalSchool?SchoolID=" + schoolStudent.Liste[0].SchoolID);
-            foreach (var item in teacherSchool.Liste)
-            {
-                teachers = await functions.Get<TEACHER>(teachers, "Teacher/Teacher_SelectRelational?TeacherID=" + item.TeacherID);
-                teachersList.Add(teachers.Nesne);
-            }
-            #endregion
 
 
 
 
             #region Fill the ViewModel
-            homeViewModel.ClassName = classSection.Nesne.ClassSectionName;
-            homeViewModel.TotalAbsence = TotalAbsence.ToString() + " Gün";
-            homeViewModel.WeeklyLoad = WeekyLoad.ToString() + " Saat";
-            homeViewModel.SyllabusList = syllabus.Liste;
-            homeViewModel.ExamList = exam.Liste;
-            homeViewModel.MostRecentExam = MostRecentExam;
-            homeViewModel.ExamsLeft = ExamsLeftCount.ToString();
-            homeViewModel.LatestGrade = LatestGrade;
-            homeViewModel.TotalMessages = messages.Liste.Count.ToString();
-            homeViewModel.NewsList = news.Liste;
-            homeViewModel.TeacherList = teachersList;
+            homeViewModel.ClassName = _cache.Get("ClassSectionName") as string;
+            homeViewModel.TotalAbsence = _cache.Get("TotalAbsence") + " Gün" as string;
+            homeViewModel.WeeklyLoad = _cache.Get("WeeklyLoad") + " Saat" as string;
+            homeViewModel.SyllabusList = _cache.Get("Syllabus") as List<SYLLABUS>;
+            homeViewModel.ExamList = _cache.Get("Exam") as List<EXAM>;
+            homeViewModel.MostRecentExam = _cache.Get("MostRecentExam") as string;
+            homeViewModel.ExamsLeft = _cache.Get("ExamsLeftCount") as string;
+            homeViewModel.LatestGrade = _cache.Get("LatestGrade") as string;
+            homeViewModel.TotalMessages = _cache.Get("TotalMessages") as string;
+            homeViewModel.NewsList = _cache.Get("News") as List<NEWS>;
+            homeViewModel.TeacherList = _cache.Get("Teachers") as List<TEACHER>;
             #endregion
 
 

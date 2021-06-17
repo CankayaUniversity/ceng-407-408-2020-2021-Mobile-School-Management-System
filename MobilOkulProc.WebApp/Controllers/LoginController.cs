@@ -25,12 +25,13 @@ namespace MobilOkulProc.WebApp.Controllers
         {
             WebApiUrl = cfg.GetValue<string>("WebApiUrl");
         }
+        [HttpGet(Name ="Login for Admin Interface")]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost(Name ="Post Login for Admin Interface")]
         public IActionResult Login(AuthenticateRequest m)
         {
             try

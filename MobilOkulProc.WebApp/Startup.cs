@@ -16,7 +16,6 @@ namespace MobilOkulProc.WebApp
         {
             Configuration = configuration;
         }
-        private readonly string key = "Bu benim uzun string deðerim";
         public void ConfigureServices(IServiceCollection services)
         {
 
