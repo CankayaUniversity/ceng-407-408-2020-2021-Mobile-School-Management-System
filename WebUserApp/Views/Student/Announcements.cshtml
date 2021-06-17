@@ -1,4 +1,6 @@
-﻿@{
+﻿@using MobilOkulProc.Entities.Concrete
+@model List<NEWS>  
+@{
     ViewBag.Title = "Duyurular";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -21,19 +23,23 @@
     <!-- /.card-header -->
     <div class="card-body p-0">
         <ul class="products-list product-list-in-card pl-2 pr-2">
-            <li class="item">
+            @foreach (var item in Model)
+            {
+                <li class="item">
 
-                <div class="product-info">
-                    <a class="product-title">
-                        Başlık
-                        <span class="badge badge-warning float-right">19.09.2021</span>
-                    </a>
-                    <span class="product-description">
-                        23 Nisan Ulusal Egemenlik ve Çocuk Bayramınız kutlu olsun.
-                    </span>
-                </div>
-            </li>
-            <!-- /.item -->
+                    <div class="product-info">
+                        <a class="product-title">
+                            @item.Title
+                            <span class="badge badge-warning float-right">@item.NewsDate</span>
+                        </a>
+                        <span class="product-description">
+                           @item.NewsContent
+                        </span>
+                    </div>
+                </li>
+                <!-- /.item -->
+            }
+
         </ul>
     </div>
     <!-- /.card -->

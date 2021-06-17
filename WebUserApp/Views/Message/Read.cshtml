@@ -1,4 +1,6 @@
-﻿@{
+﻿@using MobilOkulProc.Entities.Concrete
+@model MESSAGE 
+@{
     ViewBag.Title = "Posta Oku";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -25,7 +27,7 @@
                             <li class="nav-item active">
                                 <a href="#" class="nav-link">
                                     <i class="fas fa-inbox"></i> Gelen Kutusu
-                                    <span class="badge bg-primary float-right">12</span>
+                                    <span class="badge bg-primary float-right">@ViewBag.NotReadMessages</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -36,7 +38,7 @@
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="fas fa-filter"></i> Gereksiz
-                                    <span class="badge bg-warning float-right">65</span>
+                                    <span class="badge bg-warning float-right"></span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -65,39 +67,24 @@
                     <!-- /.card-header -->
                     <div class="card-body p-0">
                         <div class="mailbox-read-info">
-                            <h5>Sınavı Unutma</h5>
+                            <h5>@Model.MessageTitle</h5>
                             <h6>
-                                From: m.sanlisavas@mobilokul.com
-                                <span class="mailbox-read-time float-right">11.06.2021 - 11:55</span>
+                                Gönderen: @Model.Sender.FullName
+                                <span class="mailbox-read-time float-right">@Model.SendTime.ToString("f")</span>
                             </h6>
                         </div>
                         <!-- /.mailbox-read-info -->
                         <div class="mailbox-controls with-border text-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Sil">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Yanıtla">
-                                    <i class="fas fa-reply"></i>
-                                </button>
-                                <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="İlet">
-                                    <i class="fas fa-share"></i>
-                                </button>
+                            <div class="">
+                                <a href="~/Message/Delete/@Model.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></a>
+                                <a href="~/Message/Compose/@Model.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></a>
                             </div>
                             <!-- /.btn-group -->
                            
                         </div>
                         <!-- /.mailbox-controls -->
                         <div class="mailbox-read-message">
-                            <p>Ahmet merhaba,</p>
-
-                            <p>
-                                Yarın akşam saat 12.00'de sınav var. 1-4 üniteleri dahil. Sakın unutma. Çalışmayı da eksik etme
-                            </p>
-
-                            <p>
-                                Teşekkürler, Murat
-                            </p>
+                            <p>@Model.MessageContent</p>
 
                             
                         </div>
@@ -107,10 +94,11 @@
                     <!-- /.card-footer -->
                     <div class="card-footer">
                         <div class="float-right">
-                            <button type="button" class="btn btn-default"><i class="fas fa-reply"></i> Yanıtla</button>
-                            <button type="button" class="btn btn-default"><i class="fas fa-share"></i> İlet</button>
+                            <a href="~/Message/Compose/@Model.ObjectID" button type="button" class="btn btn-default"><i class="fas fa-reply"></i> Yanıtla</a>
+
                         </div>
-                        <button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> Sil</button>
+                        
+                        <a href="~/Message/Delete/@Model.ObjectID" button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> Sil</a>
                     </div>
                     <!-- /.card-footer -->
                 </div>

@@ -29,7 +29,7 @@ namespace WebUserApp.Controllers
             _cache = memoryCache;
             
         }
-        public async Task<IActionResult> WelcomeStudent()
+        public async Task<IActionResult> Welcome()
         {
             #region Initializations
             HomeViewModel homeViewModel = new HomeViewModel();
@@ -154,7 +154,7 @@ namespace WebUserApp.Controllers
                         ExamsLeftCount++;
                     }
                 }
-                _cache.Set("ExamsLeftCount", ExamsLeftCount);
+                _cache.Set("ExamsLeftCount", ExamsLeftCount.ToString());
                 _cache.Set("MostRecentExam", MostRecentExam);
                 #endregion
 
@@ -166,6 +166,7 @@ namespace WebUserApp.Controllers
 
                 #region MessageCounts
                 messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiverNotRead?ReceiveID=" + needs.UserID);
+                _cache.Set("Messages", messages.Liste);
                 for (int i = messages.Liste.Count - 1, j = 0; j < 5; i--, j++)
                 {
                     if (i >= 0)
@@ -176,7 +177,8 @@ namespace WebUserApp.Controllers
                 needs.TotalNumberOfMessages = messages.Liste.Count.ToString();
                 messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
                 needs.LastFiveMessagesNotRead = LastFiveMessagesNotRead;
-                _cache.Set("TotalMessages", messages.Liste.Count);
+                _cache.Set("TotalMessages", messages.Liste.Count.ToString());
+                _cache.Set("LastFiveMessagesNotRead", LastFiveMessagesNotRead);
                 #endregion
 
                 #region Announcements

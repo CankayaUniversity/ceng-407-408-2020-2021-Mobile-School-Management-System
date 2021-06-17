@@ -1,4 +1,7 @@
-﻿@{
+﻿@using MobilOkulProc.Entities.Concrete
+@model List<TEACHER>
+
+@{
     ViewBag.Title = "Öğretmenler";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,20 +14,22 @@
     <div class="card card-solid">
         <div class="card-body pb-0">
             <div class="row d-flex align-items-stretch">
+                @foreach (var item in Model)
+            	{
                 <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                     <div class="card bg-light">
                         <div class="card-header text-muted border-bottom-0">
-                            Matematik
+                            @item.Branch.BranchName
                         </div>
                         <div class="card-body pt-0">
                             <div class="row">
                                 <div class="col-7">
-                                    <h2 class="lead"><b>Ahmet Hamdi</b></h2>
+                                    <h2 class="lead"><b>@item.FullName</b></h2>
 
                                     <ul class="ml-4 mb-0 fa-ul text-muted">
-                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Tuna mah. Cemal gürsel cad. Anıt apt. 136/4 Karşıyaka/İzmir</li>
-                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telefon: 0232 460 60 60</li>
-                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> a.yaldiz@yaldiz.com</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> @item.Adress</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> @item.Phone</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> @item.Email</li>
 
                                     </ul>
                                 </div>
@@ -38,48 +43,14 @@
                                 <a href="#" class="btn btn-sm bg-teal">
                                     <i class="fas fa-comments"></i>
                                 </a>
-                                <a href="#" class="btn btn-sm btn-primary">
+                                <a href="~/Teacher/Get/@item.ObjectID" class="btn btn-sm btn-primary">
                                     <i class="fas fa-user"></i> Profile Bak
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
-                    <div class="card bg-light">
-                        <div class="card-header text-muted border-bottom-0">
-                            Fizik
-                        </div>
-                        <div class="card-body pt-0">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="lead"><b>Mehmet Faik</b></h2>
-
-                                    <ul class="ml-4 mb-0 fa-ul text-muted">
-                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Sefa mah. Ceda gürsel cad. Hela apt. 36/4 Çankaya/Ankara</li>
-                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telefon: 0212 230 40 60</li>
-                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> m.faik@mobilokul.com</li>
-
-                                    </ul>
-                                </div>
-                                <div class="col-5 text-center">
-                                    <img src="~/dist/img/user8-128x128.jpg" alt="" class="img-circle img-fluid">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="text-right">
-                                <a href="#" class="btn btn-sm bg-teal">
-                                    <i class="fas fa-comments"></i>
-                                </a>
-                                <a href="#" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-user"></i> Profile Bak
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+	            }
             </div>
         </div>
         <!-- /.card-body -->

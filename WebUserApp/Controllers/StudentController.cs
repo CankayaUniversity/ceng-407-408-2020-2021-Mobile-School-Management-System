@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
+using MobilOkulProc.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +12,21 @@ namespace MobilOkulProc.WebUserApp.Controllers
 {
     public class StudentController : Controller
     {
+        private IMemoryCache _cache;
+        public StudentController(IConfiguration cfg, IMemoryCache memoryCache)
+        {
+
+            needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
+            _cache = memoryCache;
+
+        }
         public IActionResult Announcements()
         {
+
+            var news = _cache.Get("News") as List<NEWS>;
+
+
+
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
@@ -20,10 +36,12 @@ namespace MobilOkulProc.WebUserApp.Controllers
             ViewBag.Role = needs.LoginAs;
             ViewBag.FullName = needs.NameSurname;
             #endregion
-            return View();
+            return View(news);
         }
         public IActionResult Teachers()
         {
+            var teachers = _cache.Get("Teachers") as List<TEACHER>;
+
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
@@ -33,7 +51,7 @@ namespace MobilOkulProc.WebUserApp.Controllers
             ViewBag.Role = needs.LoginAs;
             ViewBag.FullName = needs.NameSurname;
             #endregion
-            return View();
+            return View(teachers);
         }
         public IActionResult Notes()
         {

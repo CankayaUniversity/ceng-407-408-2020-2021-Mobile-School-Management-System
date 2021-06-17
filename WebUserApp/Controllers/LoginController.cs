@@ -51,7 +51,7 @@ namespace MobilOkulProc.WebUserApp.Controllers
                                 {
                                     //HttpContext.Session.SetObject("Authorization", msg);
                                     //HttpContext.Request.Headers.Add("Bearer",msg.Token);
-                                    return RedirectToAction("WelcomeStudent", "Home");
+                                    return RedirectToAction("Welcome", "Home");
                                 }
                                 else
                                 {
