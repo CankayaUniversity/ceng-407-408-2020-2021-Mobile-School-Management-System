@@ -68,13 +68,25 @@ namespace MobilOkulProc.MobileApp.Controllers
                 Mesajlar<STUDENT> stu = new Mesajlar<STUDENT>();
                 st.Mesajlar = function.Get<STUDENT>(stu, "Student/Student_List");
 
+                ParentPageModel<PARENT> p = new ParentPageModel<PARENT>();
+                Mesajlar<PARENT> pr = new Mesajlar<PARENT>();
+                p.Mesajlar = function.Get<PARENT>(pr, "Parent/Parent_List");
+
+                StudentParentModel<STUDENT_PARENT> sp = new StudentParentModel<STUDENT_PARENT>();
+                Mesajlar<STUDENT_PARENT> spr = new Mesajlar<STUDENT_PARENT>();
+                sp.Mesajlar = function.Get<STUDENT_PARENT>(spr, "StudentParent/StudentParent_List");
+
+               
+
+
+
                 foreach (var item in st.Mesajlar.Liste)
                 {
                     if (item.UserID == ViewBag.ObjectID)
                     {
-
+                        ViewBag.StudentObjectID = item.ObjectID;
                         ViewBag.StudentNumber = item.StdNumber;
-                        ViewBag.StudentParent = item.StudentParent;
+                      
                         ViewBag.StudentRegisterDate = item.RegisterDate;
                         ViewBag.StudentGraduateDate = item.GraduateDate;
                         ViewBag.StudentBloodType = item.BloodType;
@@ -86,6 +98,24 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                     }
                 }
+                foreach (var item in sp.Mesajlar.Liste)
+                {
+                    if (item.StudentID == ViewBag.StudentObjectID)
+                    {
+                        ViewBag.StudentParentID = item.ParentID;
+                    }
+                }
+
+                foreach (var item in p.Mesajlar.Liste)
+                {
+                    if (ViewBag.StudentParentID== item.ObjectID)
+                    {
+                        ViewBag.StudentParent = item.FullName;
+                    }
+                }
+
+
+                
             }
             else if (ViewBag.Usertype == "\"Teacher\"")
             {

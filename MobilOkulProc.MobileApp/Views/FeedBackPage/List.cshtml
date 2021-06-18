@@ -10,6 +10,7 @@
 
 
 <body>
+
     @{int flag = 0; }
     <br />
     <main id="main">
@@ -20,68 +21,69 @@
                     <h2>List Feedback</h2>
                     <p></p>
                 </div>
-                
-                    <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
-                        <div class="swiper-wrapper">
 
-                            <div class="swiper-slide">
-                                <div class="testimonial-item" data-aos="fade-up">
+                <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
 
-                                    <p>
-                                        @foreach (var item in Model.PagedList)
-                                        {
-                                            @if (item.UserID == @ViewBag.TeacherID)
-                                            {
+                        <div class="swiper-slide">
+                            <div class="testimonial-item" data-aos="fade-up">
 
-                                                <b> @Html.DisplayFor(modelItem => item.FeedbackDate)</b>
-                                                <br />
-                                                flag++;
-                                            }
-
-
-
-                                            @if (item.UserID == @ViewBag.TeacherID)
-                                            {
-
-                                                <b> @Html.DisplayFor(modelItem => item.FeedbackContent)</b>
-                                                <br />
-                                                <b>-----------------------------------------------</b>
-                                                <br />
-                                            }
-
-                                        }
-                                        @if (flag == 0)
+                                <p>
+                                    @foreach (var item in Model.PagedList)
+                                    {
+                                        @if (item.UserID == @ViewBag.TeacherID)
                                         {
 
-                                            <h4>You have no feedbacks.</h4>
-
+                                            <b> @Html.DisplayFor(modelItem => item.FeedbackDate)</b>
+                                            <br />
+                                            flag++;
                                         }
-                                    </p>
 
 
-                                    @if (ViewBag.Usertype == "\"Student\"")
-                                    {
-                                        <img src="~/images/student.png" class="testimonial-img" alt="">
-                                    }
-                                    else if (ViewBag.Usertype == "\"Parent\"")
-                                    {
-                                        <img src="~/images/family.png" class="testimonial-img" alt="">
-                                    }
-                                    else if (ViewBag.Usertype == "\"Teacher\"")
-                                    {
-                                        <img src="~/images/teacher.png" class="testimonial-img" alt="">
-                                    }
-                                    <h3>@ViewBag.NameSurname</h3>
 
-                                </div>
-                            </div><!-- End testimonial item -->
-                        </div>
+                                        @if (item.UserID == @ViewBag.TeacherID)
+                                        {
+
+                                            <b> @Html.DisplayFor(modelItem => item.FeedbackContent)</b>
+                                            <br />
+                                            <b>-----------------------------------------------</b>
+                                            <br />
+                                        }
+
+                                    }
+                                    @if (flag == 0)
+                                    {
+
+                                        <h4>You have no feedbacks.</h4>
+
+                                    }
+                                </p>
+
+
+                                @if (ViewBag.Usertype == "\"Student\"")
+                                {
+                                    <img src="~/images/student.png" class="testimonial-img" alt="">
+                                }
+                                else if (ViewBag.Usertype == "\"Parent\"")
+                                {
+                                    <img src="~/images/family.png" class="testimonial-img" alt="">
+                                }
+                                else if (ViewBag.Usertype == "\"Teacher\"")
+                                {
+                                    <img src="~/images/teacher.png" class="testimonial-img" alt="">
+                                }
+                                <h3>@ViewBag.NameSurname</h3>
+
+                            </div>
+                        </div><!-- End testimonial item -->
                     </div>
-                
+                </div>
+
             </div>
         </section>
 
     </main>
-        
+
+
 
 </body>
