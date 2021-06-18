@@ -4,18 +4,7 @@
 
 @{
     ViewData["Title"] = "List Feedback";
-    if (ViewBag.Usertype == "\"Student\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (ViewBag.Usertype == "\"Parent\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (ViewBag.Usertype == "\"Teacher\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
@@ -23,47 +12,6 @@
 <body>
     @{int flag = 0; }
     <br />
-    @*
-    <div class="accordions">
-        <div class="container-fluid">
-            <div class="col-md-8 col-md-offset-2">
-                <ul class="accordion">
-                    @foreach (var item in Model.PagedList)
-                    {
-                        <li>
-                            @if (item.UserID == @ViewBag.TeacherID)
-                            {
-                                <a>
-
-                                    @Html.DisplayFor(modelItem => item.FeedbackDate)
-
-                                </a>
-                                flag++;
-                            }
-                            <p>
-
-                                @if (item.UserID == @ViewBag.TeacherID)
-                                {
-
-                                    @Html.DisplayFor(modelItem => item.FeedbackContent)
-                                }
-
-                            </p>
-                        </li>
-                    }
-                    <li>
-                        @if (flag == 0)
-                        {
-                            <a>
-                                <h4>You have no feedbacks.</h4>
-                            </a>
-                        }
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    *@
     <main id="main">
         <section id="testimonials" class="testimonials section-bg">
             <div class="container">
@@ -96,6 +44,8 @@
                                             {
 
                                                 <b> @Html.DisplayFor(modelItem => item.FeedbackContent)</b>
+                                                <br />
+                                                <b>-----------------------------------------------</b>
                                                 <br />
                                             }
 

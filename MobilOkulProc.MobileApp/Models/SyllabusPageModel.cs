@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MobilOkulProc.Entities.Concrete;
 using MobilOkulProc.Entities.General;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace MobilOkulProc.MobileApp.Models
         public int LectureId { get; set; }
         public SelectList DaysList { get; set; }
         public int DaysId { get; set; }
+
+        public List<SYLLABUS> SyllabusList { get; set; }
     }
 }

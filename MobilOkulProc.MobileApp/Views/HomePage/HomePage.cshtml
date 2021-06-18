@@ -2,18 +2,7 @@
 @{
 
 
-    @if (ViewBag.Usertype == "\"Student\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (ViewBag.Usertype == "\"Parent\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (ViewBag.Usertype == "\"Teacher\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
@@ -25,17 +14,17 @@
             @if (ViewBag.Usertype == "\"Student\"")
             {
                 <h1>@ViewBag.NameSurname</h1>
-                <p>I'm <span class="typed" data-typed-items="Student"></span></p>
+                <p>User : <span class="typed" data-typed-items="Student"></span></p>
             }
             else @if (ViewBag.Usertype == "\"Parent\"")
             {
                  <h1>@ViewBag.NameSurname</h1>
-                 <p>I'm <span class="typed" data-typed-items="Parent"></span></p>
+                 <p>User : <span class="typed" data-typed-items="Parent"></span></p>
              }
              else if (ViewBag.Usertype == "\"Teacher\"")
              {
                  <h1>@ViewBag.NameSurname</h1>
-                 <p>I'm <span class="typed" data-typed-items="Parent"></span></p>
+                 <p>User : <span class="typed" data-typed-items="Teacher"></span></p>
              }
         </div>
     </section><!-- End Hero -->

@@ -66,8 +66,6 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             ViewBag.Notification = count;
 
-
-
             NewsPageModel<NEWS> m = new NewsPageModel<NEWS>();
             Mesajlar<EDUCATIONAL_INSTITUTION> EdIns = new Mesajlar<EDUCATIONAL_INSTITUTION>();
             Mesajlar<SCHOOL> School = new Mesajlar<SCHOOL>();

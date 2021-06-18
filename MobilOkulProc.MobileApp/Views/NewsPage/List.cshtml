@@ -10,18 +10,7 @@
 
 @{
     ViewData["Title"] = "List News";
-    if (ViewBag.Usertype == "\"Student\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (ViewBag.Usertype == "\"Parent\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (ViewBag.Usertype == "\"Teacher\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
@@ -42,21 +31,21 @@
                         <th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NewsContent)
                         </th>
-                        <th class="hidden-xs hidden-sm">
+                        @*<th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ImageUrl)
-                        </th>
+                        </th>*@
                         <th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Educational_Institution.EducationalName)
                         </th>
-                        <th class="hidden-xs hidden-sm">
+                        @*<th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.School.SchoolName)
-                        </th>
+                        </th>*@
                         <th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.FullName)
                         </th>
-                        <th class="hidden-xs hidden-sm">
+                        @*<th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
-                        </th>
+                        </th>*@
                         
                     </tr>
                 </thead>
@@ -75,21 +64,21 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.NewsContent)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.ImageUrl)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.Educational_Institution.EducationalName)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayNameFor(modelItem => item.School.SchoolName)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.User.FullName)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.Status)
-                        </td>
+                        </td>*@
                     </tr>
                         // }
                     }

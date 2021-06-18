@@ -103,21 +103,23 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            ViewBag.Usertype = HttpContext.Session.GetString("userid");
          
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
-
-
+            string deneme = "Sender : ";
+            deneme = deneme + ViewBag.NameSurname +"Feedback : " + m.Mesajlar.Nesne.FeedbackContent;
+            
 
             m.Mesajlar.Nesne.UserID = m.SelectedId;
             m.Mesajlar.Nesne.FeedbackDate = DateTime.Now;
             m.Mesajlar.Nesne.FeedbackType = 1;
             m.Mesajlar.Nesne.Status = true;
+            m.Mesajlar.Nesne.FeedbackContent = deneme;
 
             m.Mesajlar = function.Add_Update<FEEDBACK>(m.Mesajlar, "Feedback/Feedback_Insert");
             ViewBag.NameSurname = needs.NameSurname;
-            return RedirectToAction("List", "FeedbackPage", m.Mesajlar);
+            return RedirectToAction("Add", "FeedbackPage", m.Mesajlar);
         }
         public IActionResult List(string Search, int? page, Mesajlar<FEEDBACK> mb)
         {
@@ -130,7 +132,6 @@ namespace MobilOkulProc.MobileApp.Controllers
             Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
             MessagePageModel<MESSAGE> notif = new MessagePageModel<MESSAGE>();
             notif.Mesajlar = function.Get<MESSAGE>(notification, "Messages/Message_List");
-
 
             if (ViewBag.Usertype == "\"Teacher\"")
             {

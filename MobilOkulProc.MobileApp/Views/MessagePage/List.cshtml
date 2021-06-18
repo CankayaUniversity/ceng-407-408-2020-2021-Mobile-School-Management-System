@@ -8,84 +8,13 @@
 
 @{
     ViewData["Title"] = "List Message";
-    if (ViewBag.Usertype == "\"Student\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (ViewBag.Usertype == "\"Parent\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-    else if (ViewBag.Usertype == "\"Teacher\"")
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
 <body>
     @{int flag = 0; }
     <br />
-@*
-    <div class="accordions">
-        <div class="container-fluid">
-            <div class="col-md-8 col-md-offset-2">
-                <ul class="accordion">
-                    @foreach (var item in Model.PagedList)
-                    {
-                        <li>
-                            @if (item.SenderID == @ViewBag.ObjectID || item.ReceiveID == @ViewBag.ObjectID)
-                            {
-                                <a>
-
-                                    @Html.DisplayFor(modelItem => item.Sender.FullName) ➤
-                                    @Html.DisplayFor(modelItem => item.Receive.FullName)<h1> </h1>
-                                    @Html.DisplayFor(modelItem => item.SendTime)
-
-                                </a>
-                                flag++;
-                            }
-                            <p>
-
-
-                                @if (item.SenderID == @ViewBag.ObjectID || item.ReceiveID == @ViewBag.ObjectID)
-                                {
-                                    <b>@Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageTitle)</b>
-                                    <br />
-                                    @Html.DisplayFor(modelItem => item.MessageTitle)
-                                    <br />
-
-                                }
-
-                                @if (item.SenderID == @ViewBag.ObjectID || item.ReceiveID == @ViewBag.ObjectID)
-                                {
-                                    <b>@Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageContent)</b>
-                                    <br />
-                                    @Html.DisplayFor(modelItem => item.MessageContent)
-                                    <br />
-                                }
-
-                            </p>
-
-                        </li>
-                    }
-                    <li>
-                        @if (flag == 0)
-                        {
-                            <a>
-                                <h4>You have no messages.</h4>
-                            </a>
-                        }
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-
-*@
-
 
     <main id="main">
         <section id="testimonials" class="testimonials section-bg">
@@ -122,7 +51,7 @@
                                         @if (item.SenderID == @ViewBag.ObjectID || item.ReceiveID == @ViewBag.ObjectID)
                                         {
 
-                                            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageTitle)
+                                            <b> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageTitle)</b>
                                             <br />
                                             @Html.DisplayFor(modelItem => item.MessageTitle)
                                             <br />
@@ -132,12 +61,14 @@
                                         @if (item.SenderID == @ViewBag.ObjectID || item.ReceiveID == @ViewBag.ObjectID)
                                         {
 
-                                            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageContent)
+                                            <b> @Html.DisplayNameFor(model => model.Mesajlar.Nesne.MessageContent)</b>
                                             <br />
                                             @Html.DisplayFor(modelItem => item.MessageContent)
                                             <br />
-
+                                            <b>-----------------------------------------------</b>
+                                            <br />
                                         }
+
 
                                     }
 

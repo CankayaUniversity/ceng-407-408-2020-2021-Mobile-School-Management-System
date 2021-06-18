@@ -4,7 +4,6 @@
 @{
 }
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -87,14 +86,12 @@
             {
 
                 <nav id="navbar" class="nav-menu navbar">
-                    
+                  
                     <ul>
-                       
                         <li><a href="@Url.Action("HomePage", "HomePage")" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-                        <li><a href="@Url.Action("HomePage", "HomePage")" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Info</span></a></li>
                         <li><a href="@Url.Action("GradePage", "GradePage")" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Grade</span></a></li>
-                        <li><a href="@Url.Action("SyllabusPage", "SyllabusPage")" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Syllabus</span></a></li>
-                        <li><a href= "@Url.Action("FeedbackPage", "FeedbackPage")" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Feedback</span></a></li>
+                        @*<li><a href="@Url.Action("SyllabusPage", "SyllabusPage")" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Syllabus</span></a></li>*@
+                        <li><a href="@Url.Action("Add", "FeedbackPage")" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Feedback</span></a></li>
                         <li><a href="@Url.Action("MessagePage", "MessagePage")" class="nav-link scrollto"><i class="bx bx-message"></i> <span>Message</span></a></li>
                         <li><a href="@Url.Action("List", "NewsPage") "><i class="bx bx-news"></i> <span>News</span></a></li>
                         <li><a href="@Url.Action("Logout", "LoginPage")" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>Logout</span></a></li>
@@ -106,10 +103,8 @@
                 <nav id="navbar" class="nav-menu navbar">
                     <ul>
                         <li><a href="@Url.Action("HomePage", "HomePage")" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-                        <li><a href="@Url.Action("HomePage", "HomePage")" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Info</span></a></li>
                         <li><a href="@Url.Action("GradePage", "GradePage")" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Grade</span></a></li>
-                        <li><a href="@Url.Action("SyllabusPage", "SyllabusPage")" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Syllabus</span></a></li>
-                        <li><a href="@Url.Action("FeedbackPage", "FeedbackPage")" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Feedback</span></a></li>
+                        @*<li><a href="@Url.Action("SyllabusPage", "SyllabusPage")" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Syllabus</span></a></li>*@
                         <li><a href="@Url.Action("MessagePage", "MessagePage")" class="nav-link scrollto"><i class="bx bx-message"></i> <span>Message</span></a></li>
                         <li><a href="@Url.Action("List", "NewsPage") " class="nav-link scrollto"><i class="bx bx-news"></i> <span>News</span></a></li>
                         <li><a href="@Url.Action("Logout", "LoginPage")" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>Logout</span></a></li>
@@ -121,11 +116,10 @@
                 <nav id="navbar" class="nav-menu navbar">
                     <ul>
                         <li><a href="@Url.Action("HomePage", "HomePage")" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-                        <li><a href="@Url.Action("HomePage", "HomePage")" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Info</span></a></li>
                         <li><a href="@Url.Action("GradePage", "GradePage")" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Grade</span></a></li>
-                        <li><a href="@Url.Action("SyllabusPage", "SyllabusPage")"  class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Syllabus</span></a></li>
-                        <li><a href="@Url.Action("FeedbackPage", "FeedbackPage")" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Feedback</span></a></li>
-                        <li><a href="@Url.Action("MessagePage", "MessagePage")"  class="nav-link scrollto"><i class="bx bx-message"></i> <span>Message</span></a></li>
+                        @*<li><a href="@Url.Action("SyllabusPage", "SyllabusPage")" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Syllabus</span></a></li>*@
+                        <li><a href="@Url.Action("List", "FeedbackPage")" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Feedback</span></a></li>
+                        <li><a href="@Url.Action("MessagePage", "MessagePage")" class="nav-link scrollto"><i class="bx bx-message"></i> <span>Message</span></a></li>
                         <li><a href="@Url.Action("List", "NewsPage") " class="nav-link scrollto"><i class="bx bx-news"></i> <span>News</span></a></li>
                         <li><a href="@Url.Action("Logout", "LoginPage")" class="nav-link scrollto"><i class="bx bx-log-out"></i> <span>Logout</span></a></li>
                     </ul>
