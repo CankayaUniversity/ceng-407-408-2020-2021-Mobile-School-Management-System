@@ -33,25 +33,7 @@
 
 
     <body>
-        <section id="student" class="d-flex flex-column justify-content-center align-items-center">
-            <div class="student-container" data-aos="fade-in">
-                @if (ViewBag.Usertype == "\"Student\"")
-                {
-                    <h1>@ViewBag.NameSurname</h1>
-                    <p>User : <span class="typed" data-typed-items="Student"></span></p>
-                }
-                else @if (ViewBag.Usertype == "\"Parent\"")
-           {
-            <h1>@ViewBag.NameSurname</h1>
-            <p>User : <span class="typed" data-typed-items="Parent"></span></p>
-        }
-        else if (ViewBag.Usertype == "\"Teacher\"")
-        {
-            <h1>@ViewBag.NameSurname</h1>
-            <p>User : <span class="typed" data-typed-items="Teacher"></span></p>
-        }
-            </div>
-        </section><!-- End Hero -->
+        
         <main id="main">
 
 
@@ -138,19 +120,6 @@
         <!--===============================================================================================-->
         <script src="~/message/js/main.js"></script>
 
-        <!-- Vendor JS Files -->
-        <script src="~/assets/vendor/aos/aos.js"></script>
-        <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="~/assets/vendor/glightbox/js/glightbox.min.js"></script>
-        <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-        <script src="~/assets/vendor/php-email-form/validate.js"></script>
-        <script src="~/assets/vendor/purecounter/purecounter.js"></script>
-        <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
-        <script src="~/assets/vendor/typed.js/typed.min.js"></script>
-        <script src="~/assets/vendor/waypoints/noframework.waypoints.js"></script>
-
-
-        <!-- Template Main JS File -->
-        <script src="~/assets/js/main.js"></script>
+ 
 
     </body>
