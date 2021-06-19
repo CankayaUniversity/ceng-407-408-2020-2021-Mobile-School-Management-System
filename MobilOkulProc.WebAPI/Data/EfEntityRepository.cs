@@ -111,7 +111,7 @@ namespace MobilOkulProc.WebAPI.Data
                 using (var cnt = new TContext())
                 {
                     var obj = cnt.Set<TEntity>();
-                    mesajlar.Nesne = await obj.SingleOrDefaultAsync(filtre);
+                    mesajlar.Nesne = await obj.AsNoTracking().SingleOrDefaultAsync(filtre);
                 }
 
                 mesajlar.Durum = true;
@@ -153,7 +153,7 @@ namespace MobilOkulProc.WebAPI.Data
                         }
                     }
 
-                     mesajlar.Nesne = await obj.SingleOrDefaultAsync(filtre);
+                     mesajlar.Nesne = await obj.AsNoTracking().SingleOrDefaultAsync(filtre);
                 }
 
                 mesajlar.Durum = true;
@@ -193,7 +193,7 @@ namespace MobilOkulProc.WebAPI.Data
                         }
                     }
 
-                    mesajlar.Liste = await obj.Where(filtre).ToListAsync();
+                    mesajlar.Liste = await obj.Where(filtre).AsNoTracking().ToListAsync();
                 }
 
                 mesajlar.Durum = true;
@@ -245,7 +245,7 @@ namespace MobilOkulProc.WebAPI.Data
                     else
                     {
 
-                        m.Liste = await entryNesne.Where(filtre).ToListAsync();
+                        m.Liste = await entryNesne.AsNoTracking().Where(filtre).ToListAsync();
                     }
 
                 }

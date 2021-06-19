@@ -26,7 +26,7 @@ namespace MobilOkulProc.WebUserApp.Controllers
         {
             Mesajlar<MESSAGE> messageList = new Mesajlar<MESSAGE>();
             messageList = await functions.Get<MESSAGE>(messageList, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
-
+            _cache.Set("MessageCount", messageList.Liste.Count.ToString());
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
@@ -36,9 +36,71 @@ namespace MobilOkulProc.WebUserApp.Controllers
             ViewBag.Role = needs.LoginAs;
             ViewBag.FullName = needs.NameSurname;
             #endregion
+
             return View(messageList.Liste);
         }
-        public IActionResult Compose()
+        public async Task<IActionResult> Compose()
+        {
+            #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
+            ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
+            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.MessageCount = _cache.Get("MessageCount") as string;
+            #endregion
+
+            #region Sidebar FullName and Role
+            ViewBag.Role = needs.LoginAs;
+            ViewBag.FullName = needs.NameSurname;
+            #endregion
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Compose(Mesajlar<MESSAGE> msg)
+        {
+            Mesajlar<USER> usr = new Mesajlar<USER>();
+            usr = await functions.Get<USER>(usr, "User/User_SelectUsername?Username=" + msg.Nesne.Receive.Username);
+            if (usr.Nesne != null)
+            {
+                if (!string.IsNullOrEmpty(usr.Nesne.Username))
+                {
+                    msg.Nesne.Receive = usr.Nesne;
+                }
+                else
+                {
+                    ViewBag.Result = "Böyle bir kullanıcı bulunmamaktadır";
+                    ViewBag.Status = "danger";
+                    return View();
+                }
+            }
+           
+            msg.Nesne.Status = true;
+            msg.Nesne.PriorityID = 1;
+            msg.Nesne.SendTime = DateTime.Now;
+            msg.Nesne.MessageType = true;
+            usr = await functions.Get<USER>(usr, "User/User_Select?UserID=" + needs.UserID);
+            msg.Nesne.Sender = usr.Nesne;
+            
+            msg = await functions.Add_Update<MESSAGE>(msg, "Messages/Message_Insert");
+
+
+
+
+
+            #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
+            ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
+            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.MessageCount = _cache.Get("MessageCount") as string;
+            #endregion
+
+            #region Sidebar FullName and Role
+            ViewBag.Role = needs.LoginAs;
+            ViewBag.FullName = needs.NameSurname;
+            #endregion
+            ViewBag.Result = "Mesaj başarıyla gönderildi.";
+            ViewBag.Status = "succes";
+            return View(msg);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ComposeBy(int Id)
         {
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
@@ -50,6 +112,7 @@ namespace MobilOkulProc.WebUserApp.Controllers
             ViewBag.FullName = needs.NameSurname;
             #endregion
             return View();
+
         }
         public async Task<IActionResult> Read(int Id)
         {
@@ -78,6 +141,7 @@ namespace MobilOkulProc.WebUserApp.Controllers
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.MessageCount = _cache.Get("MessageCount") as string;
             #endregion
 
             #region Sidebar FullName and Role

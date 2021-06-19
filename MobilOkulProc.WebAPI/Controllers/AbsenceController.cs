@@ -20,7 +20,6 @@ namespace MobilOkulProc.WebAPI.Controllers
             return Json(m);
         }
 
-
         [HttpPost("Absence_Update")]
         public async Task<IActionResult> Absence_Update([FromBody] ABSENCE Absence)
         {

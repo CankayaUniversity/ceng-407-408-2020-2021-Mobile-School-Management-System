@@ -61,6 +61,15 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("User_SelectUsername")]
+        public async Task<IActionResult> User_SelectUsername(string Username)
+        {
+            clsUser_Proccess uProc = new clsUser_Proccess();
+
+            Mesajlar<USER> m = await uProc.Getir(x => x.Status == true && x.Username == Username);
+
+            return Json(m);
+        }
 
         [HttpGet("User_List")]
         public async Task<IActionResult> User_List()
