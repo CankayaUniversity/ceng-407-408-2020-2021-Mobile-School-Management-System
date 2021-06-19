@@ -39,16 +39,13 @@ namespace MobilOkulProc.MobileApp.Controllers
             ViewBag.Notification = count;
 
 
-
-
-
             return View();
         }
         public IActionResult List(string Search, int? page, Mesajlar<MESSAGE> mb)
         {
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            ViewBag.Usertype = HttpContext.Session.GetString("userid");
             //
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
@@ -127,21 +124,22 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                 Mesajlar<STUDENT> Receiver = new Mesajlar<STUDENT>();
                 Receiver = function.Get<STUDENT>(Receiver, "Student/Student_List");
+              
 
                 MessagePageModel<MESSAGE> viewModel = new MessagePageModel<MESSAGE>()
                 {
                     SenderList = new SelectList(Sender.Liste, "ObjectID", "FullName"),
-                    ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "StdName"),
+                    ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "FullName"),
                     SenderId = -1,
                     ReceiverId = -1,
                 };
+
 
                 return View(viewModel);
             }
 
             else if (ViewBag.Usertype == "\"Teacher\"")
             {
-
 
                 Mesajlar<USER> Sender = new Mesajlar<USER>();
                 Sender = function.Get<USER>(Sender, "User/User_List");
@@ -171,7 +169,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                 MessagePageModel<MESSAGE> viewModel = new MessagePageModel<MESSAGE>()
                 {
                     SenderList = new SelectList(Sender.Liste, "ObjectID", "FullName"),
-                    ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "Name"),
+                    ReceiverList = new SelectList(Receiver.Liste, "ObjectID", "FullName"),
                     SenderId = -1,
                     ReceiverId = -1,
                 };

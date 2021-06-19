@@ -52,20 +52,20 @@
                             Send A Message
                         </span>
 
-                        <div class="wrap-input1 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <div class="wrap-input1 validate-input" >
                             @*<input class="input1" type="text" name="email" placeholder="Email">*@
                             @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Choose a receiver", new { @class = "input1" })
                             <span class="shadow-input1"></span>
                         </div>
 
-                        <div class="wrap-input1 validate-input" data-validate="Subject is required">
+                        <div class="wrap-input1 validate-input" >
                             @*<input class="input1" type="text" name="subject" placeholder="Subject">*@
                             @Html.EditorFor(model => model.Mesajlar.Nesne.MessageTitle, new { htmlAttributes = new { @class = "input1", @placeholder = "Message Title Here...", name = "subject" } })
                             @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageTitle, "", new { @class = "text-danger" })
                             <span class="shadow-input1"></span>
                         </div>
 
-                        <div class="wrap-input1 validate-input" data-validate="Message is required">
+                        <div class="wrap-input1 validate-input">
                             @*<textarea class="input1" name="message" placeholder="Message"></textarea>*@
                             @Html.EditorFor(model => model.Mesajlar.Nesne.MessageContent, new { htmlAttributes = new { @class = "input1", @placeholder = "Message Content Here...", name = "message" } })
                             @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageContent, "", new { @class = "text-danger" })
