@@ -1,16 +1,15 @@
-﻿@using MobilOkulProc.Entities.Concrete
-@model MESSAGE 
-@{
-    ViewBag.Title = "Posta Oku";
+﻿@{
+    ViewBag.Title = "Posta Yaz";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <a href="~/Message/Mailbox" class="btn btn-primary btn-block mb-3">Mail Kutusuna Dön</a>
+                <a href="mailbox.html" class="btn btn-primary btn-block mb-3">Mail Kutusuna Dön</a>
 
                 <div class="card">
                     <div class="card-header">
@@ -27,18 +26,20 @@
                             <li class="nav-item active">
                                 <a href="#" class="nav-link">
                                     <i class="fas fa-inbox"></i> Gelen Kutusu
-                                    <span class="badge bg-primary float-right">@ViewBag.MessageCount</span>
+                                    <span class="badge bg-primary float-right">2</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-envelope"></i> Giden Kutusu
+                                    <span class="badge bg-primary float-right">1</span>
                                 </a>
+
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="fas fa-filter"></i> Gereksiz
-                                    <span class="badge bg-warning float-right"></span>
+                                    <span class="badge bg-warning float-right">0</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -50,55 +51,35 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
-                
+
             </div>
             <!-- /.col -->
             <div class="col-md-9">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">Mail Oku</h3>
-
-                        <div class="card-tools">
-                            <a href="#" class="btn btn-tool" data-toggle="tooltip" title="Previous"><i class="fas fa-chevron-left"></i></a>
-                            <a href="#" class="btn btn-tool" data-toggle="tooltip" title="Next"><i class="fas fa-chevron-right"></i></a>
-                        </div>
+                        <h3 class="card-title">Yeni Mesaj</h3>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body p-0">
-                        <div class="mailbox-read-info">
-                            <h5>@Model.MessageTitle</h5>
-                            <h6>
-                                Gönderen: @Model.Sender.FullName
-                                <span class="mailbox-read-time float-right">@Model.SendTime.ToString("f")</span>
-                            </h6>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Kime:">
                         </div>
-                        <!-- /.mailbox-read-info -->
-                        <div class="mailbox-controls with-border text-center">
-                            <div class="">
-                                <a href="~/Message/Delete/@Model.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></a>
-                                <a href="~/Message/Compose/@Model.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></a>
-                            </div>
-                            <!-- /.btn-group -->
-                           
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Konu:">
                         </div>
-                        <!-- /.mailbox-controls -->
-                        <div class="mailbox-read-message">
-                            <p>@Model.MessageContent</p>
-
+                        <div class="form-group">
+                            <textarea id="compose-textarea" class="form-control" style="height: 300px">
                             
+                            </textarea>
                         </div>
-                        <!-- /.mailbox-read-message -->
+
                     </div>
-                   
-                    <!-- /.card-footer -->
+                    <!-- /.card-body -->
                     <div class="card-footer">
                         <div class="float-right">
-                            <a href="~/Message/Compose/@Model.ObjectID" button type="button" class="btn btn-default"><i class="fas fa-reply"></i> Yanıtla</a>
-
+                            <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Gönder</button>
                         </div>
-                        
-                        <a href="~/Message/Delete/@Model.ObjectID" button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> Sil</a>
+
                     </div>
                     <!-- /.card-footer -->
                 </div>
@@ -107,5 +88,6 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
+    </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
