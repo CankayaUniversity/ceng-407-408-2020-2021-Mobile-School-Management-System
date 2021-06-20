@@ -72,5 +72,15 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Parent_SelectUser")]
+        public async Task<IActionResult> Parent_SelectUser(int UserID)
+        {
+            clsParent_Process sProc = new clsParent_Process();
+
+            Mesajlar<PARENT> m = await sProc.Getir(x => x.UserID == UserID);
+
+            return Json(m);
+        }
+
     }
 }

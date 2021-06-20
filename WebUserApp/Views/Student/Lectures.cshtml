@@ -1,4 +1,6 @@
-﻿@{
+﻿@using MobilOkulProc.Entities.Concrete
+@model List<LECTURE> 
+@{
     ViewBag.Title = "Dersler";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -34,67 +36,46 @@
                         <th style="width: 30%">
                             Öğretmenleri
                         </th>
-                        <th style="width: 30%">
-                            Üniteler
-                        </th>
                         <th>
-                            Kalan Ders
+                            Alan sınıflar
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            #
-                        </td>
-                        <td>
-                            <a>
-                                Matematik
-                            </a>
-                            <br />
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a href="/Student/Teachers"><img alt="Avatar" class="table-avatar" src="~/dist/img/avatar.png"></a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="/Student/Teachers"><img alt="Avatar" class="table-avatar" src="~/dist/img/avatar2.png"></a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="/Student/Teachers"><img alt="Avatar" class="table-avatar" src="~/dist/img/avatar3.png"></a>
-                                </li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    Doğal Sayılar,
-                                </li>
-                                <li class="list-inline-item">
-                                    Üslü Sayılar,
-                                </li>
-                                <li class="list-inline-item">
-                                    Karmaşık Sayılar
-                                </li>
-                            </ul>
-                        </td>
-                        <td class="project_progress">
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
-                                </div>
-                            </div>
-                            <small>
-                                57% Tamamlandı
-                            </small>
-                        </td>
-   
-                        
-                    </tr>
+                @foreach (var item in Model)
+                {
 
-                </tbody>
+                    <tbody>
+                        <tr>
+                            <td>
+                                #
+                            </td>
+                            <td>
+                                <a>
+                                    @item.LectureName
+                                </a>
+                                <br />
+                            </td>
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="/Student/Teachers/@item.TeacherID"><img alt="Avatar" class="table-avatar" src="~/dist/img/avatar.png"></a>
+                                    </li>
+                                    
+                                </ul>
+                            </td>
+                            <td>
+                               @item.ClassSections.ClassSectionName
+                            </td>
+
+
+                        </tr>
+
+                    </tbody>
+                }
             </table>
-        </div>
+            
+
+            </div>
         <!-- /.card-body -->
     </div>
     <!-- /.card -->

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using MobilOkulProc.WebUserApp.ViewModels
+@model ProfileViewModel
+@{
     ViewBag.Title = "Profil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -19,31 +21,31 @@
                                  alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center">Murat Şanlısavaş</h3>
+                        <h3 class="profile-username text-center">@Model.Student.FullName</h3>
 
                         <p class="text-muted text-center">10 - Fen - A</p>
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>TCNo</b> <a class="float-right">1414*****42</a>
+                                <b>TCNo</b> <a class="float-right">@Model.Student.TcNo[1..5]*****@Model.Student.TcNo[9..11]</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Öğrenci No</b> <a class="float-right">543</a>
+                                <b>Öğrenci No</b> <a class="float-right">@Model.Student.StdNumber</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Kayıt Tarihi</b> <a class="float-right">10.06.2021</a>
+                                <b>Kayıt Tarihi</b> <a class="float-right">@Model.Student.RegisterDate.ToString("dd.MM.yyyy - dddd")</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Mezuniyet Tarihi</b> <a class="float-right">-</a>
+                                <b>Mezuniyet Tarihi</b> <a class="float-right">@Model.Student.GraduateDate.ToString("dd.MM.yyyy - dddd")</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Doğum Yeri</b> <a class="float-right">Ankara</a>
+                                <b>Doğum Yeri</b> <a class="float-right">@Model.Student.BirthPlace</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Kan Grubu</b> <a class="float-right">ARh+</a>
+                                <b>Kan Grubu</b> <a class="float-right">@Model.Student.BloodType</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Doğum Tarihi</b> <a class="float-right">05.03.1991</a>
+                                <b>Doğum Tarihi</b> <a class="float-right">@Model.Student.BirthDate.ToString("dd.MM.yyyy - dddd")</a>
                             </li>
                         </ul>
                     </div>
@@ -67,7 +69,7 @@
 
                         <strong><i class="fas fa-map-marker-alt mr-1"></i> Adres</strong>
 
-                        <p class="text-muted">Ali mah. Göksu cad. Ferhatbey apt. no:5 Karşıyaka/İzmir</p>
+                        <p class="text-muted">@Model.Student.Adress1</p>
 
                     </div>
                     <!-- /.card-body -->
@@ -81,7 +83,6 @@
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Öğrenci</a></li>
                             <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Veli</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Ayarlar</a></li>
                         </ul>
                     </div><!-- /.card-header -->
                     <div class="card-body">
@@ -127,7 +128,9 @@
                             <!-- /.tab-pane -->
                             <div class="tab-pane" id="timeline">
                                 <!-- The Veli -->
-                                <!-- Profile Image -->
+                                @foreach (var item in Model.StudentParentList)
+                                {
+                                    <!-- Profile Image -->
                                 <div class="card card-primary card-outline">
                                     <div class="card-body box-profile">
                                         <div class="text-center">
@@ -136,102 +139,33 @@
                                                  alt="User profile picture">
                                         </div>
 
-                                        <h3 class="profile-username text-center">Hüseyin Yavuz</h3>
+                                        <h3 class="profile-username text-center">@item.Parent.FullName</h3>
 
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
-                                                <b>Adres</b> <a class="float-right">Faik mah. İsmet cad. 120/2 Sincan/Ankara</a>
+                                                <b>Adres</b> <a class="float-right">@item.Parent.Adress</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Telefon</b> <a class="float-right">0212 343 34 43</a>
+                                                <b>Telefon</b> <a class="float-right">@item.Parent.Phone</a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>E-Posta</b> <a class="float-right">h.yavuz@yavuz.com</a>
+                                                <b>E-Posta</b> <a class="float-right">@item.Parent.Email</a>
                                             </li>
 
                                         </ul>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-                                <!-- The Veli -->
-                                <!-- Profile Image -->
-                                <div class="card card-primary card-outline">
-                                    <div class="card-body box-profile">
-                                        <div class="text-center">
-                                            <img class="profile-user-img img-fluid img-circle"
-                                                 src="~/dist/img/user3-128x128.jpg"
-                                                 alt="User profile picture">
-                                        </div>
+                                    </div><!-- /.card-body -->
 
-                                        <h3 class="profile-username text-center">Ceren Yavuz</h3>
+                                </div><!-- /.card -->
+                                }
 
-                                        <ul class="list-group list-group-unbordered mb-3">
-                                            <li class="list-group-item">
-                                                <b>Adres</b> <a class="float-right">Faik mah. İsmet cad. 120/2 Sincan/Ankara</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>Telefon</b> <a class="float-right">0212 343 34 43</a>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <b>E-Posta</b> <a class="float-right">c.yavuz@yavuz.com</a>
-                                            </li>
 
-                                        </ul>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
+
+
 
                             </div>
                             <!-- /.tab-pane -->
 
-                            <div class="tab-pane" id="settings">
-                                <form class="form-horizontal">
-                                    <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Ad</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputName" placeholder="Ad">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">Soyad</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Soyad">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputName2" class="col-sm-2 col-form-label">E-Posta</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputName2" placeholder="E-Posta">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputName2" class="col-sm-2 col-form-label">TC</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputName2" placeholder="TC">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputExperience" class="col-sm-2 col-form-label">Adres</label>
-                                        <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputExperience" placeholder="Adres"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputSkills" class="col-sm-2 col-form-label">Doğum Tarihi</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputSkills" placeholder="Doğum Tarihi">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-danger">Kaydet</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            
                             <!-- /.tab-pane -->
                         </div>
                         <!-- /.tab-content -->
