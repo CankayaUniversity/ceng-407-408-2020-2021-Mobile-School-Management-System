@@ -48,17 +48,38 @@
                 <tbody class="bg-gray">
                     @foreach (var item in Model.PagedList)
                     {
-                        // @if (item.Lecture.StudentsID==ViewBag.Student)
-                        //  {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Grade)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Lecture.LectureName)
-                            </td>
-                        </tr>
-                        // }
+
+                        if (ViewBag.Usertype == "\"Teacher\"")
+                        {
+                            @if (item.LectureID == ViewBag.Student)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Grade)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+
+                        else if (ViewBag.Usertype != "\"Teacher\"")
+                        {
+                            @if (item.StudentID == ViewBag.Student)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Grade)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+                                    </td>
+                                </tr>
+                            }
+                        }
+
                     }
                 </tbody>
             </table>
