@@ -87,5 +87,14 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Grade_ListRelationalLecture")]
+        public async Task<IActionResult> Grade_ListRelationalLecture(int LectureID)
+        {
+            clsGrade_Process tProc = new clsGrade_Process();
+
+            Mesajlar<GRADE> m = await tProc.Getir_ListeIliskisel(x => x.LectureID == LectureID && x.Status == true);
+
+            return Json(m);
+        }
     }
 }

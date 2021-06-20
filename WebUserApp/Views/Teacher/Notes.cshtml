@@ -1,0 +1,78 @@
+﻿@using MobilOkulProc.WebUserApp.ViewModels
+@using MobilOkulProc.Entities.Concrete
+@model GradeViewModel<GRADE>
+@{
+    ViewBag.Title = "Not Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm())
+{
+   
+
+<div class="form-horizontal">
+    <hr />
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Grade, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Grade, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Grade, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <strong class="col-md-2">Ders</strong>
+        <div class="col-md-2">
+            @Html.DropDownListFor(m => m.SelectedId, Model.List, "Lütfen Ders Seçiniz", new { @class = "form-control dropdown" })
+        </div>
+    </div>
+    <div class="form-group">
+        <strong class="col-md-2">Sınav Türü</strong>
+        <div class="col-md-2">
+            @Html.DropDownListFor(m => m.SelectedId2, Model.List2, "Lütfen Sınav Türü Seçiniz", new { @class = "form-control dropdown" })
+        </div>
+    </div>
+    <div class="form-group">
+        <strong class="col-md-2">Öğrenci</strong>
+        <div class="col-md-2">
+            @Html.DropDownListFor(m => m.SelectedId3, Model.List3, "Lütfen Öğrenci Seçiniz", new { @class = "form-control dropdown" })
+        </div>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mesajlar.Nesne.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Mesajlar.Nesne.Status, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.Status, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Ekle" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<br />
+<p>
+    <div class="input-group">
+
+            @if (ViewBag.Result != null)
+            {
+                <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+            }
+
+    </div>
+    <br />
+
+</p>
+<br />
+

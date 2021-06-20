@@ -83,5 +83,14 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Teacher_SelectRelationalUser")]
+        public async Task<IActionResult> Teacher_SelectRelationalUser(int UserID)
+        {
+            clsTeacher_Process tProc = new clsTeacher_Process();
+
+            Mesajlar<TEACHER> m = await tProc.Getir_Iliskisel(x => x.UserID == UserID && x.Status == true);
+
+            return Json(m);
+        }
     }
 }

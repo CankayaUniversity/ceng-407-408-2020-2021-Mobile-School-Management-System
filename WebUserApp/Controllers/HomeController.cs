@@ -32,8 +32,186 @@ namespace WebUserApp.Controllers
         }
         public async Task<IActionResult> WelcomeTeacher()
         {
-            
-            return View();
+
+            #region Initializations
+            HomeViewModel homeViewModel = new HomeViewModel();
+            Mesajlar<SYLLABUS> syllabus = new Mesajlar<SYLLABUS>();
+            Mesajlar<EXAM> exam = new Mesajlar<EXAM>();
+            Mesajlar<MESSAGE> messages = new Mesajlar<MESSAGE>();
+            List<MESSAGE> LastFiveMessagesNotRead = new List<MESSAGE>();
+            Mesajlar<NEWS> news = new Mesajlar<NEWS>();
+            Mesajlar<SCHOOL_STUDENT> schoolStudent = new Mesajlar<SCHOOL_STUDENT>();
+            Mesajlar<TEACHER_SCHOOL> teacherSchool = new Mesajlar<TEACHER_SCHOOL>();
+            Mesajlar<TEACHER> teachers = new Mesajlar<TEACHER>();
+            List<TEACHER> teachersList = new List<TEACHER>();
+            Mesajlar<TEACHER> teacher = new Mesajlar<TEACHER>();
+            Mesajlar<LECTURE> lectureList = new Mesajlar<LECTURE>();
+            List<EXAM> examList = new List<EXAM>();
+            int WeeklyLoad = 0;
+            string MostRecentExam = "";
+            int ExamsLeftCount = 0;
+
+            #endregion
+
+
+            if (!_cache.TryGetValue("WeeklyLoad", out WeeklyLoad))
+            {
+
+                #region Calculate Weekly Load of a Teacher and Syllabus
+                teacher = await functions.Get<TEACHER>(teacher, "Teacher/Teacher_SelectRelationalUser?UserID=" + needs.UserID);
+                syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + 1);
+                _cache.Set("Syllabus", syllabus.Liste);
+                foreach (var item in syllabus.Liste)
+                {
+                    if (item.Nine != null && item.Nine != "Öğle Tatili" && item.Nine == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Ten != null && item.Ten != "Öğle Tatili" && item.Ten == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Eleven != null && item.Eleven != "Öğle Tatili" && item.Eleven == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Twelwe != null && item.Twelwe != "Öğle Tatili" && item.Twelwe == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Thirtheen != null && item.Thirtheen != "Öğle Tatili" && item.Thirtheen == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Fourteen != null && item.Fourteen != "Öğle Tatili" && item.Fourteen == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Fifteen != null && item.Fifteen != "Öğle Tatili" && item.Fifteen == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Sixteen != null && item.Sixteen != "Öğle Tatili" && item.Sixteen == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+                    if (item.Seventeen != null && item.Seventeen != "Öğle Tatili" && item.Seventeen == teacher.Nesne.Branch.BranchName)
+                    {
+                        WeeklyLoad += 1;
+                    }
+
+                }
+                _cache.Set("WeeklyLoad", WeeklyLoad);
+                #endregion
+
+                #region Exam List
+                lectureList = await functions.Get<LECTURE>(lectureList, "Lecture/Lecture_ListTeacher?TeacherID=" + teacher.Nesne.ObjectID);
+                foreach (var item in lectureList.Liste)
+                {
+                    exam = await functions.Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + item.ObjectID);
+                    foreach (var item2 in exam.Liste)
+                    {
+                        examList.Add(item2);
+                    }
+                   
+                }
+                _cache.Set("LectureList", lectureList.Liste);
+                _cache.Set("Exam", examList);
+                #endregion
+
+                #region MostRecentExam and Total Exam Counts
+                EXAM MostRecentDateObject = examList[0];
+                foreach (var item in examList)
+                {
+
+                    if (item.ExamDate < MostRecentDateObject.ExamDate && item.ExamDate > DateTime.Now)
+                    {
+                        MostRecentDateObject = item;
+
+                    }
+                    if (item.ExamDate > DateTime.Now)
+                    {
+                        ExamsLeftCount++;
+                    }
+                }
+                if (MostRecentDateObject.ExamDate > DateTime.Now)
+                {
+                    MostRecentExam = MostRecentDateObject.ExamDate.ToString("dd.MM.yyyy - HH:mm") + " - " + MostRecentDateObject.Lecture.LectureName;
+                    if (ExamsLeftCount == 0)
+                    {
+                        ExamsLeftCount++;
+                    }
+                }
+                _cache.Set("ExamsLeftCount", ExamsLeftCount.ToString());
+                _cache.Set("MostRecentExam", MostRecentExam);
+                #endregion
+
+             
+
+                #region MessageCounts
+                messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiverNotRead?ReceiveID=" + needs.UserID);
+                _cache.Set("Messages", messages.Liste);
+                for (int i = messages.Liste.Count - 1, j = 0; j < 5; i--, j++)
+                {
+                    if (i >= 0)
+                    {
+                        LastFiveMessagesNotRead.Add(messages.Liste[i]);
+                    }
+                }
+                needs.TotalNumberOfMessages = messages.Liste.Count.ToString();
+                messages = await functions.Get<MESSAGE>(messages, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
+                needs.LastFiveMessagesNotRead = LastFiveMessagesNotRead;
+                _cache.Set("TotalMessages", messages.Liste.Count.ToString());
+                _cache.Set("LastFiveMessagesNotRead", LastFiveMessagesNotRead);
+                #endregion
+
+               
+
+                #region Last 8 Teachers
+                teacherSchool = await functions.Get<TEACHER_SCHOOL>(teacherSchool, "TeacherSchool/TeacherSchool_ListRelationalTeacher?TeacherID=" + teacher.Nesne.ObjectID);
+                foreach (var item in teacherSchool.Liste)
+                {
+                    teachers = await functions.Get<TEACHER>(teachers, "Teacher/Teacher_SelectRelational?TeacherID=" + item.TeacherID);
+                    teachersList.Add(teachers.Nesne);
+                }
+                _cache.Set("Teachers", teachersList);
+                #endregion
+                #region Announcements
+                
+                news = await functions.Get<NEWS>(news, "News/News_ListRelationalSchool?SchoolID=" + teacherSchool.Liste[0].SchoolID);
+                _cache.Set("News", news.Liste);
+                #endregion
+            }
+
+
+
+
+
+            #region Fill the ViewModel
+            homeViewModel.WeeklyLoad = _cache.Get("WeeklyLoad") + " Saat" as string;
+            homeViewModel.SyllabusList = _cache.Get("Syllabus") as List<SYLLABUS>;
+            homeViewModel.ExamList = _cache.Get("Exam") as List<EXAM>;
+            homeViewModel.MostRecentExam = _cache.Get("MostRecentExam") as string;
+            homeViewModel.ExamsLeft = _cache.Get("ExamsLeftCount") as string;
+            homeViewModel.TotalMessages = _cache.Get("TotalMessages") as string;
+            homeViewModel.NewsList = _cache.Get("News") as List<NEWS>;
+            homeViewModel.TeacherList = _cache.Get("Teachers") as List<TEACHER>;
+            #endregion
+
+
+            #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
+            ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
+            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            #endregion
+
+            #region Sidebar FullName and Role
+            ViewBag.Role = needs.LoginAs;
+            ViewBag.FullName = needs.NameSurname;
+            #endregion
+
+
+
+            return View(homeViewModel);
         }
         public async Task<IActionResult> ChooseChild()
         {

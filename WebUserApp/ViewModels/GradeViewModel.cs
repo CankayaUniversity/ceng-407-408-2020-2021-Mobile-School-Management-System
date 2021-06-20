@@ -5,14 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using X.PagedList;
 
-namespace MobilOkulProc.WebApp.ViewModels
+namespace MobilOkulProc.WebUserApp.ViewModels
 {
     public class GradeViewModel<T> where T : class, new()
     {
         public Mesajlar<T> Mesajlar { get; set; }
-        public IPagedList<T> PagedList { get; set; }
         public SelectList List { get; set; }
         public int SelectedId { get; set; }
         public SelectList List2 { get; set; }

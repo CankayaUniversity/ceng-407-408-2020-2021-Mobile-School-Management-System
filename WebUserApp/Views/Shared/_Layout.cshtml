@@ -23,10 +23,19 @@
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__wobble" src="~/dist/img/mobilokullogo.jpg" alt="MobilOkulLogo" height="60" width="60">
         </div>
+        @await Html.PartialAsync("_Notifications")
 
-         @await Html.PartialAsync("_Notifications")
+
         <!-- Main Sidebar Container -->
-        @await Html.PartialAsync("_Sidebar")
+        @if (ViewBag.Role == "Student")
+        {
+            @await Html.PartialAsync("_Sidebar")
+        }
+        else if (ViewBag.Role == "Teacher")
+        {
+            @await Html.PartialAsync("_SidebarTeacher")
+        }
+
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -40,13 +49,13 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 @if (@ViewContext.RouteData.Values["controller"].ToString() != "Home" ||
-                             @ViewContext.RouteData.Values["action"].ToString() != "Index")
+                        @ViewContext.RouteData.Values["action"].ToString() != "Index")
                                 {
                                     <li class="breadcrumb-item">
                                         @Html.ActionLink("Home", "Welcome", "Home")
                                     </li>
                                 }
-                                <li class="breadcrumb-item active text-dark" >@ViewBag.Title</li>
+                                <li class="breadcrumb-item active text-dark">@ViewBag.Title</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

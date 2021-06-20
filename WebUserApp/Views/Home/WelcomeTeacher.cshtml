@@ -1,0 +1,967 @@
+﻿@using MobilOkulProc.WebUserApp.ViewModels
+@{
+    ViewBag.Title = "Hoş Geldin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model HomeViewModel 
+<style>
+    .map-responsive {
+        overflow: hidden;
+        padding-bottom: 30%;
+        position: relative;
+        height: 0;
+    }
+
+        .map-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+</style>
+
+<section class="content">
+    <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-graduation-cap"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Sınıf</span>
+                        <span class="info-box-number">
+                            10 - Fen - A
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+
+          
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-book-open"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Haftalık Ders Saati</span>
+                        <span class="info-box-number">@Model.WeeklyLoad</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header border-transparent">
+                        <h3 class="card-title">Ders Programı</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th>Gün</th>
+                                        <th>9:00 - 9:40</th>
+                                        <th>10:00 - 10:40</th>
+                                        <th>11:00 - 11:40</th>
+                                        <th>12:00 - 12:40</th>
+                                        <th>13:00 - 13:40</th>
+                                        <th>14:00 - 14:40</th>
+                                        <th>15:00 - 15:40</th>
+                                        <th>16:00 - 16:40</th>
+                                        <th>17:00 - 17:40</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pazartesi</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Pazartesi")
+                                            {
+                                                if (item.Nine == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Nine (@item.ClassSections.ClassSectionName) </td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Ten == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Ten (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Eleven == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Eleven (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Twelwe == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Twelwe (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Thirtheen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Thirtheen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fourteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fourteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fifteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fifteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Sixteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Sixteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Seventeen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Seventeen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+                                                
+
+                                            }
+                                        }
+
+                                    </tr>
+
+                                </tbody>
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Salı</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Salı")
+                                            {
+                                                if (item.Nine == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Nine (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Ten == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Ten (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Eleven == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Eleven (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Twelwe == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Twelwe (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Thirtheen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Thirtheen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fourteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fourteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fifteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fifteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Sixteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Sixteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Seventeen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Seventeen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+                                            }
+                                        }
+                                    </tr>
+
+                                </tbody>
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Çarşamba</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Çarşamba")
+                                            {
+                                                if (item.Nine == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Nine (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Ten == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Ten (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Eleven == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Eleven (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Twelwe == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Twelwe (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Thirtheen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Thirtheen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fourteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fourteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fifteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fifteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Sixteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Sixteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Seventeen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Seventeen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+                                            }
+                                        }
+
+                                    </tr>
+
+                                </tbody>
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Perşembe</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Perşembe")
+                                            {
+                                                if (item.Nine == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Nine (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Ten == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Ten (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Eleven == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Eleven (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Twelwe == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Twelwe (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Thirtheen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Thirtheen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fourteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fourteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fifteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fifteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Sixteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Sixteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Seventeen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Seventeen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+                                            }
+                                        }
+
+                                    </tr>
+
+                                </tbody>
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cuma</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Cuma")
+                                            {
+                                                if (item.Nine == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Nine (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Ten == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Ten (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Eleven == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Eleven (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Twelwe == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Twelwe (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Thirtheen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Thirtheen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fourteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fourteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fifteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fifteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Sixteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Sixteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Seventeen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Seventeen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+                                            }
+                                        }
+
+                                    </tr>
+
+                                </tbody>
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="color:red">Cumartesi</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Cumartesi")
+                                            {
+                                                if (item.Nine == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Nine (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Ten == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Ten (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Eleven == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Eleven (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Twelwe == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Twelwe (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Thirtheen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Thirtheen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fourteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fourteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fifteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fifteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Sixteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Sixteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Seventeen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Seventeen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+                                            }
+                                        }
+
+
+                                    </tr>
+
+                                </tbody>
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="color:red">Pazar</td>
+                                        @foreach (var item in Model.SyllabusList)
+                                        {
+                                            if (item.Days.DayName == "Pazar")
+                                            {
+                                                if (item.Nine == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Nine (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Ten == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Ten (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Eleven == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Eleven (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Twelwe == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Twelwe (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Thirtheen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Thirtheen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fourteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fourteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Fifteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Fifteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Sixteen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Sixteen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                if (item.Seventeen == Model.TeacherList[0].Branch.BranchName)
+                                                {
+                                                    <td>@item.Seventeen (@item.ClassSections.ClassSectionName)</td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+
+                                            }
+                                        }
+
+                                    </tr>
+
+                                </tbody>
+
+
+
+
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        @*<a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>*@  @*öğretmende kullanılacak*@
+                        @*<a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">Tümünü Gör</a>*@
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+
+
+        </div>
+        <!-- /.col -->
+        <!-- /.row -->
+        <!-- TABLE: LATEST ORDERS -->
+        <div class="card">
+            <div class="card-header border-transparent">
+                <h3 class="card-title">Sınav Listesi</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr>
+                                <th>Ders</th>
+                                <th>Sınav Detayları</th>
+                                <th>Tarih</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                @foreach (var item in Model.ExamList)
+                                {
+                                    <tr>
+                                        <td>@item.Lecture.LectureName</td>
+                                        <td>@item.ExamDetails</td>
+                                        <td>@item.ExamDate.ToString("d.M.yyyy - HH:mm")</td>
+                                    </tr>
+                                }
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+                @*<a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>*@  @*öğretmende kullanılacak*@
+                <a href="/Student/Exams" class="btn btn-sm btn-secondary float-right">Tümünü Gör</a>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.card -->
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-md-8">
+                <!-- USERS LIST -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Öğretmenler</h3>
+
+                        <div class="card-tools">
+                            <span class="badge badge-danger">@Model.TeacherList.Count Adet Öğretmen </span>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    @foreach (var item in Model.TeacherList)
+                    {
+                        <div class="card-body p-0">
+                            <ul class="users-list clearfix">
+                                <li>
+                                    <img src="~/dist/img/user1-128x128.jpg" alt="User Image">
+                                    <a class="users-list-name" href="#">@item.FullName</a>
+                                    <span class="users-list-date">@item.Branch.BranchName</span>
+                                </li>
+                                
+                            </ul>
+                            <!-- /.users-list -->
+                        </div>
+                        <!-- /.card-body -->
+                    }
+
+                    <div class="card-footer text-center">
+                        <a href="/Student/Teachers">Tüm Öğretmenleri Gör</a>
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+                <!--/.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-4">
+                <!-- Info Boxes Style 2 -->
+                <div class="info-box mb-3 bg-warning">
+                    <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">En Yakın Sınav</span>
+                        <div class="row">
+                            <span class="info-box-number  col-md-8">@Model.MostRecentExam</span>
+                            <a href="/Student/Exams" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
+                        </div>
+
+                        
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-success">
+                    <span class="info-box-icon"><i class="far fa-heart"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Kalan Sınav Adeti</span>
+                        <div class="row">
+                            <span class="info-box-number col-md-8">@Model.ExamsLeft</span>
+                            <a href="/Student/Exams" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
+                        </div>
+
+                        
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-info">
+                    <span class="info-box-icon"><i class="far fa-comment"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Mesajlar</span>
+                        <div class="row">
+                            <span class="info-box-number  col-md-8">@Model.TotalMessages</span>
+                            <a href="/Message/Mailbox" class="btn btn-sm btn-secondary float-right col-md-4">Tümünü Gör</a>
+                        </div>
+                       
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- /.info-box -->
+        <!-- PRODUCT LIST -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Duyurular</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                   
+                        @foreach (var item in Model.NewsList)
+                        {
+                         <li class="item">
+                             <div class="product-info">
+                                 <a class="product-title">
+                                        @item.Title
+                                     <span class="badge badge-warning float-right">@item.NewsDate</span>
+                                 </a>
+                                   <span class="product-description">
+                                     @item.NewsContent
+                                  </span>
+                             </div>
+
+                         </li>
+                        }
+                        
+                    <!-- /.item -->
+                </ul>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer text-center">
+                <a href="/Student/Announcements" class="uppercase">Tüm Duyuruları Gör</a>
+            </div>
+            <!-- /.card-footer -->
+            <!-- /.card -->
+        </div>
+        <!-- MAP & BOX PANE -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Okul Konum</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <div class="d-md-flex">
+                    <div class="p-1 flex-fill" style="overflow: hidden">
+                        <!-- Map will be created here -->
+                        <div id="world-map-markers" style="height: 325px; overflow: hidden">
+
+                            <div class="map-responsive"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12497.85463226484!2d27.121750072266206!3d38.45385580772181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bbd9c9f1050713%3A0x829b467f568102f7!2sKarsiyaka%20Evlendirme%20Dairesi!5e0!3m2!1sen!2str!4v1623239804728!5m2!1sen!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+                        </div>
+                    </div>
+                </div><!-- /.d-md-flex -->
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.col -->
+    </div>
+            <!-- /.row -->
+
+</section>
+<!-- /.content -->
