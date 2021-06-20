@@ -33,13 +33,13 @@ namespace MobilOkulProc.MobileApp.Controllers
             if (user.FullName != null)
             {
                 needs.NameSurname = HttpContext.Session.GetString("user");
-                
+
 
             }
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
             ViewBag.Usertype = HttpContext.Session.GetString("userid");
-           
+
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
 
@@ -76,7 +76,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                 Mesajlar<STUDENT_PARENT> spr = new Mesajlar<STUDENT_PARENT>();
                 sp.Mesajlar = function.Get<STUDENT_PARENT>(spr, "StudentParent/StudentParent_List");
 
-               
+
 
 
 
@@ -86,7 +86,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                     {
                         ViewBag.StudentObjectID = item.ObjectID;
                         ViewBag.StudentNumber = item.StdNumber;
-                      
+
                         ViewBag.StudentRegisterDate = item.RegisterDate;
                         ViewBag.StudentGraduateDate = item.GraduateDate;
                         ViewBag.StudentBloodType = item.BloodType;
@@ -108,14 +108,14 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                 foreach (var item in p.Mesajlar.Liste)
                 {
-                    if (ViewBag.StudentParentID== item.ObjectID)
+                    if (ViewBag.StudentParentID == item.ObjectID)
                     {
                         ViewBag.StudentParent = item.FullName;
                     }
                 }
 
 
-                
+
             }
             else if (ViewBag.Usertype == "\"Teacher\"")
             {

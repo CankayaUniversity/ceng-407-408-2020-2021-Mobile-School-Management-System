@@ -49,29 +49,21 @@
                         <th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.NewsContent)
                         </th>
-                        @*<th class="hidden-xs hidden-sm">
-                                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.ImageUrl)
-                            </th>*@
+
                         <th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Educational_Institution.EducationalName)
                         </th>
-                        @*<th class="hidden-xs hidden-sm">
-                                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.School.SchoolName)
-                            </th>*@
+
                         <th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.User.FullName)
                         </th>
-                        @*<th class="hidden-xs hidden-sm">
-                                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Status)
-                            </th>*@
 
                     </tr>
                 </thead>
                 <tbody class="bg-gray">
                     @foreach (var item in Model.PagedList)
                     {
-                        // @if (item.Lecture.StudentsID==ViewBag.Student)
-                        //  {
+
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.NewsDate)
@@ -82,23 +74,16 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.NewsContent)
                             </td>
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.ImageUrl)
-                                </td>*@
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.Educational_Institution.EducationalName)
                             </td>
-                            @*<td>
-                                    @Html.DisplayNameFor(modelItem => item.School.SchoolName)
-                                </td>*@
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.User.FullName)
                             </td>
-                            @*<td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>*@
                         </tr>
-                        // }
+
                     }
                 </tbody>
             </table>

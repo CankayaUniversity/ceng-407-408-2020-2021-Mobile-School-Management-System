@@ -4,122 +4,119 @@
 
 @{
     ViewBag.Title = "Add Message";
-        Layout = "~/Views/Shared/_Layout.cshtml";
- 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 
 }
 
-    <head>
-        
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--===============================================================================================-->
-        <link rel="icon" type="image/png" href="~/message/images/icons/favicon.ico" />
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="~/message/vendor/bootstrap/css/bootstrap.min.css">
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="~/message/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="~/message/vendor/animate/animate.css">
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="~/message/vendor/css-hamburgers/hamburgers.min.css">
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="~/message/vendor/select2/select2.min.css">
-        <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="~/message/css/util.css">
-        <link rel="stylesheet" type="text/css" href="~/message/css/main.css">
-        <!--===============================================================================================-->
-    </head>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/message/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/message/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/message/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/message/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/message/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/message/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/message/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/message/css/main.css">
+    <!--===============================================================================================-->
+</head>
 
 
-    <body>
-        
-        <main id="main">
+<body>
+
+    <main id="main">
 
 
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-                <div class="contact1">
-                    <div class="container-contact1">
-                        <div class="contact1-pic js-tilt" data-tilt>
-                            <img src="~/message/images/img-01.png" alt="IMG">
-                        </div>
-
-
-                        <span class="contact1-form-title">
-                            Send A Message
-                        </span>
-
-                        <div class="wrap-input1 validate-input" >
-                            @*<input class="input1" type="text" name="email" placeholder="Email">*@
-                            @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Choose a receiver", new { @class = "input1" })
-                            <span class="shadow-input1"></span>
-                        </div>
-
-                        <div class="wrap-input1 validate-input" >
-                            @*<input class="input1" type="text" name="subject" placeholder="Subject">*@
-                            @Html.EditorFor(model => model.Mesajlar.Nesne.MessageTitle, new { htmlAttributes = new { @class = "input1", @placeholder = "Message Title Here...", name = "subject" } })
-                            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageTitle, "", new { @class = "text-danger" })
-                            <span class="shadow-input1"></span>
-                        </div>
-
-                        <div class="wrap-input1 validate-input">
-                            @*<textarea class="input1" name="message" placeholder="Message"></textarea>*@
-                            @Html.EditorFor(model => model.Mesajlar.Nesne.MessageContent, new { htmlAttributes = new { @class = "input1", @placeholder = "Message Content Here...", name = "message" } })
-                            @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageContent, "", new { @class = "text-danger" })
-                            <span class="shadow-input1"></span>
-                        </div>
-
-                        <div class="container-contact1-form-btn">
+            <div class="contact1">
+                <div class="container-contact1">
+                    <div class="contact1-pic js-tilt" data-tilt>
+                        <img src="~/message/images/img-01.png" alt="IMG">
+                    </div>
 
 
-                            <input class="contact1-form-btn" aria-hidden="true" type="submit" value="Send your message" />
+                    <span class="contact1-form-title">
+                        Send A Message
+                    </span>
+
+                    <div class="wrap-input1 validate-input">
+                        @Html.DropDownListFor(m => m.ReceiverId, Model.ReceiverList, "Choose a receiver", new { @class = "input1" })
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input">
+                        @Html.EditorFor(model => model.Mesajlar.Nesne.MessageTitle, new { htmlAttributes = new { @class = "input1", @placeholder = "Message Title Here...", name = "subject" } })
+                        @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageTitle, "", new { @class = "text-danger" })
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="wrap-input1 validate-input">
+                        @Html.EditorFor(model => model.Mesajlar.Nesne.MessageContent, new { htmlAttributes = new { @class = "input1", @placeholder = "Message Content Here...", name = "message" } })
+                        @Html.ValidationMessageFor(model => model.Mesajlar.Nesne.MessageContent, "", new { @class = "text-danger" })
+                        <span class="shadow-input1"></span>
+                    </div>
+
+                    <div class="container-contact1-form-btn">
 
 
-                        </div>
+                        <input class="contact1-form-btn" aria-hidden="true" type="submit" value="Send your message" />
+
 
                     </div>
+
                 </div>
+            </div>
 
 
-            }
+        }
 
 
 
 
 
 
-        </main><!-- End #main -->
-        <!--===============================================================================================-->
-        <script src="~/message/vendor/jquery/jquery-3.2.1.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="~/message/vendor/bootstrap/js/popper.js"></script>
-        <script src="~/message/vendor/bootstrap/js/bootstrap.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="~/message/vendor/select2/select2.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="~/message/vendor/tilt/tilt.jquery.min.js"></script>
-        <script>
-            $('.js-tilt').tilt({
-                scale: 1.1
-            })
-        </script>
+    </main><!-- End #main -->
+    <!--===============================================================================================-->
+    <script src="~/message/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/message/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/message/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/message/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/message/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-            gtag('config', 'UA-23581568-13');
-        </script>
+        gtag('config', 'UA-23581568-13');
+    </script>
 
-        <!--===============================================================================================-->
-        <script src="~/message/js/main.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/message/js/main.js"></script>
 
- 
 
-    </body>
+
+</body>

@@ -17,7 +17,7 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            ViewBag.Usertype = HttpContext.Session.GetString("userid");
             //
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
@@ -46,8 +46,8 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-           ViewBag.Usertype = HttpContext.Session.GetString("userid");
-         
+            ViewBag.Usertype = HttpContext.Session.GetString("userid");
+
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
             Mesajlar<MESSAGE> notification = new Mesajlar<MESSAGE>();
@@ -104,12 +104,12 @@ namespace MobilOkulProc.MobileApp.Controllers
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
             ViewBag.Usertype = HttpContext.Session.GetString("userid");
-         
+
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
             string deneme = "Sender : ";
-            deneme = deneme + ViewBag.NameSurname +"Feedback : " + m.Mesajlar.Nesne.FeedbackContent;
-            
+            deneme = deneme + ViewBag.NameSurname + "Feedback : " + m.Mesajlar.Nesne.FeedbackContent;
+
 
             m.Mesajlar.Nesne.UserID = m.SelectedId;
             m.Mesajlar.Nesne.FeedbackDate = DateTime.Now;
@@ -125,7 +125,7 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            ViewBag.Usertype = HttpContext.Session.GetString("userid");
             //
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
