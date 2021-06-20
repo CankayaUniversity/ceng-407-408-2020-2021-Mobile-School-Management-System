@@ -9,7 +9,6 @@
 }
 
 
-
 <body>
     <section id="student" class="d-flex flex-column justify-content-center align-items-center">
         <div class="student-container" data-aos="fade-in">
@@ -38,12 +37,12 @@
                     <tr class="bg-primary text-bold">
 
                         <th class="fixed">
-                           Midterm @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Grade)
+                            Midterm @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Grade)
                         </th>
                         @if (ViewBag.Usertype == "\"Student\"")
                         {
                             <th class="hidden-xs hidden-sm">
-                                Final Grade
+                                Exam
                             </th>
                         }
                         <th class="hidden-xs hidden-sm">
@@ -53,8 +52,12 @@
                         @if (ViewBag.Usertype == "\"Teacher\"" || ViewBag.Usertype == "\"Parent\"")
                         {
                             <th class="hidden-xs hidden-sm">
+                                Exam
+                            </th>
+                            <th class="hidden-xs hidden-sm">
                                 @Html.DisplayNameFor(model => model.Mesajlar.Nesne.StudentID) Number
                             </th>
+
                         }
 
                     </tr>
@@ -75,12 +78,15 @@
                                         @Html.DisplayFor(modelItem => item.Lecture.LectureName)
                                     </td>
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.GradeTypeID) . Exam
+                                    </td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.StudentID)
                                     </td>
                                 </tr>
                             }
                         }
-                       else if (ViewBag.Usertype == "\"Parent\"")
+                        else if (ViewBag.Usertype == "\"Parent\"")
                         {
                             @if (item.StudentID == ViewBag.Student)
                             {
@@ -90,6 +96,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GradeTypeID) . Exam
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.StudentID)
@@ -107,7 +116,8 @@
                                         @Html.DisplayFor(modelItem => item.Grade)
                                     </td>
                                     <td>
-                                       
+
+                                        @Html.DisplayFor(modelItem => item.GradeTypeID) . Exam
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Lecture.LectureName)

@@ -62,27 +62,27 @@
     <br />
 
     <main id="main">
-        
+
         <!-- ======= Portfolio Section ======= -->
         <section id="portfolio" class="portfolio section-bg">
             <div class="container float-left">
 
                 <div class="section-title">
                     <h2>List Feedback</h2>
-                    
+
                 </div>
 
                 <div class="row" data-aos="fade-up">
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
-                            
+
                             <li data-filter=".filter-app">Open</li>
                             <li data-filter=".filter-card">Close</li>
-                            
+
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="row portfolio-container float-left" data-aos="fade-up" data-aos-delay="100">
                     @foreach (var item in Model.PagedList)
                     {
@@ -117,20 +117,20 @@
                     }
 
 
-                        <div class="card float-lg-left">
+                    <div class="card float-lg-left">
 
-                            @if (flag == 0)
-                             {
+                        @if (flag == 0)
+                        {
 
-                                <h4>You have no feedbacks.</h4>
+                            <h4>You have no feedbacks.</h4>
 
-                             }
-                        </div>
+                        }
                     </div>
-</section><!-- End Portfolio Section -->
+                </div>
+        </section><!-- End Portfolio Section -->
 
 
 
 
     </main>
-    </body>
+</body>

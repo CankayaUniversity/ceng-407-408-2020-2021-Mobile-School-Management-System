@@ -14,7 +14,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            ViewBag.Usertype = HttpContext.Session.GetString("userid");
             //
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
@@ -46,7 +46,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                     if (item.UserID == ViewBag.ObjectID)
                     {
 
-                        ViewBag.StudentNumber=item.StdNumber;
+                        ViewBag.StudentNumber = item.StdNumber;
                         ViewBag.StudentParent = item.StudentParent;
                         ViewBag.StudentRegisterDate = item.RegisterDate;
                         ViewBag.StudentGraduateDate = item.GraduateDate;
@@ -55,7 +55,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                         ViewBag.StudentAdress2 = item.Adress2;
                         ViewBag.StudentBirthDate = item.BirthDate;
                         ViewBag.StudentBirthPlace = item.BirthPlace;
-                       
+
 
                     }
                 }

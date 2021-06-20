@@ -17,15 +17,15 @@
                 <p>User : <span class="typed" data-typed-items="Student"></span></p>
             }
             else @if (ViewBag.Usertype == "\"Parent\"")
-            {
-                 <h1>@ViewBag.NameSurname</h1>
-                 <p>User : <span class="typed" data-typed-items="Parent"></span></p>
-             }
-             else if (ViewBag.Usertype == "\"Teacher\"")
-             {
-                 <h1>@ViewBag.NameSurname</h1>
-                 <p>User : <span class="typed" data-typed-items="Teacher"></span></p>
-             }
+       {
+        <h1>@ViewBag.NameSurname</h1>
+        <p>User : <span class="typed" data-typed-items="Parent"></span></p>
+    }
+    else if (ViewBag.Usertype == "\"Teacher\"")
+    {
+        <h1>@ViewBag.NameSurname</h1>
+        <p>User : <span class="typed" data-typed-items="Teacher"></span></p>
+    }
         </div>
     </section><!-- End Hero -->
 

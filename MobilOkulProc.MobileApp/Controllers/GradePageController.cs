@@ -18,7 +18,7 @@ namespace MobilOkulProc.MobileApp.Controllers
         {
             ViewBag.NameSurname = needs.NameSurname;
             ViewBag.ObjectID = int.Parse(HttpContext.Session.GetString("no"));
-           ViewBag.Usertype = HttpContext.Session.GetString("userid");
+            ViewBag.Usertype = HttpContext.Session.GetString("userid");
             //
             ViewBag.Phone = HttpContext.Session.GetString("phone");
 
@@ -58,14 +58,14 @@ namespace MobilOkulProc.MobileApp.Controllers
                 Mesajlar<PARENT> par = new Mesajlar<PARENT>();
                 p.Mesajlar = function.Get<PARENT>(par, "Parent/Parent_List");
 
-                
+
                 foreach (var item in p.Mesajlar.Liste)
                 {
                     if (item.UserID == ViewBag.ObjectID)
                     {
                         ViewBag.ParentObjectID = item.ObjectID;
                     }
-                    
+
                 }
 
                 StudentParentModel<STUDENT_PARENT> sp = new StudentParentModel<STUDENT_PARENT>();
@@ -74,7 +74,7 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                 foreach (var item in sp.Mesajlar.Liste)
                 {
-                    if (item.ParentID==ViewBag.ParentObjectID)
+                    if (item.ParentID == ViewBag.ParentObjectID)
                     {
                         ViewBag.Student = item.StudentID;
                     }
@@ -92,7 +92,7 @@ namespace MobilOkulProc.MobileApp.Controllers
                     if (item.UserID == ViewBag.ObjectID)
                     {
                         ViewBag.TeacherObjectID = item.ObjectID;
-                        
+
                     }
                 }
 
@@ -103,15 +103,15 @@ namespace MobilOkulProc.MobileApp.Controllers
 
                 foreach (var item in l.Mesajlar.Liste)
                 {
-                    if (item.TeacherID==ViewBag.TeacherObjectID)
+                    if (item.TeacherID == ViewBag.TeacherObjectID)
                     {
                         ViewBag.Student = item.TeacherID;
-                       
+
                     }
                 }
 
             }
-            
+
 
             GradePageModel<GRADE> m = new GradePageModel<GRADE>();
             Mesajlar<LECTURE> User = new Mesajlar<LECTURE>();
