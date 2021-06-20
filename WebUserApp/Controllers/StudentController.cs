@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using MobilOkulProc.Entities.Concrete;
+using MobilOkulProc.Entities.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,9 @@ namespace MobilOkulProc.WebUserApp.Controllers
         }
         public IActionResult Notes()
         {
+
+            List<GRADE> grades = _cache.Get("Grades") as List<GRADE>;
+
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
@@ -64,10 +68,11 @@ namespace MobilOkulProc.WebUserApp.Controllers
             ViewBag.Role = needs.LoginAs;
             ViewBag.FullName = needs.NameSurname;
             #endregion
-            return View();
+            return View(grades);
         }
         public IActionResult Exams()
         {
+            List<EXAM> exams = _cache.Get("Exam") as List<EXAM>;
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
@@ -77,10 +82,15 @@ namespace MobilOkulProc.WebUserApp.Controllers
             ViewBag.Role = needs.LoginAs;
             ViewBag.FullName = needs.NameSurname;
             #endregion
-            return View();
+            return View(exams);
         }
-        public IActionResult Lectures()
+        public async Task<IActionResult> Lectures()
         {
+            Mesajlar<LECTURE> Lectures = new Mesajlar<LECTURE>();
+            Lectures = await functions.Get<LECTURE>(Lectures, "Lecture/Lecture_ListRelational");
+
+
+
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
@@ -90,7 +100,7 @@ namespace MobilOkulProc.WebUserApp.Controllers
             ViewBag.Role = needs.LoginAs;
             ViewBag.FullName = needs.NameSurname;
             #endregion
-            return View();
+            return View(Lectures.Liste);
         }
 
     }

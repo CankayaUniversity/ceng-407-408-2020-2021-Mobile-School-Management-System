@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebUserApp.Controllers
 {
@@ -28,6 +29,35 @@ namespace WebUserApp.Controllers
             needs.WebApiUrl = cfg.GetValue<string>("WebApiUrl");
             _cache = memoryCache;
             
+        }
+        public async Task<IActionResult> WelcomeTeacher()
+        {
+            
+            return View();
+        }
+        public async Task<IActionResult> ChooseChild()
+        {
+            Mesajlar<PARENT> parent = new Mesajlar<PARENT>();
+            parent = await functions.Get<PARENT>(parent, "Parent/Parent_SelectUser?UserID=" + needs.UserID);
+            Mesajlar<STUDENT_PARENT> m = new Mesajlar<STUDENT_PARENT>();
+            m = await functions.Get<STUDENT_PARENT>(m, "StudentParent/StudentParent_ListRelationalParent?ParentID=" + parent.Nesne.ObjectID);
+            List<STUDENT> students = new List<STUDENT>();
+            foreach (var item in m.Liste)
+            {
+                students.Add(item.Student);
+            }
+            ParentViewModel viewModel = new ParentViewModel()
+            {
+                StudentList = new SelectList(students, "ObjectID", "FullName"),
+                SelectedId = -1,
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChooseChild(ParentViewModel viewModel)
+        {
+            needs.UserID = viewModel.SelectedId;
+            return RedirectToAction("Welcome","Home");
         }
         public async Task<IActionResult> Welcome()
         {
@@ -162,6 +192,7 @@ namespace WebUserApp.Controllers
                 grade = await functions.Get<GRADE>(grade, "Grade/Grade_ListRelationalStudent?StudentID=" + needs.UserID);
                 LatestGrade = grade.Liste[grade.Liste.Count - 1].Lecture.LectureName + " - " + grade.Liste[grade.Liste.Count - 1].Grade;
                 _cache.Set("LatestGrade", LatestGrade);
+                _cache.Set("Grades", grade.Liste);
                 #endregion
 
                 #region MessageCounts

@@ -38,24 +38,24 @@ namespace MobilOkulProc.WebUserApp.Controllers
                                 sonuc.Wait();
 
                                 var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
+                                
+                                needs.LoginAs = msg.Role;
                                 needs.JwtToken = msg.JwtToken;
                                 needs.RefreshToken = msg.RefreshToken;
                                 needs.NameSurname = msg.FirstName + " " + msg.LastName;
                                 needs.UserID = msg.Id;
-                                needs.LoginAs = msg.Role;
-                                //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:55600/authorization");
-                                //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                                //var request = new HttpRequestMessage();
-                                //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", msg.Token);
-                                if (true)
+                                if (needs.LoginAs == "Student")
                                 {
-                                    //HttpContext.Session.SetObject("Authorization", msg);
-                                    //HttpContext.Request.Headers.Add("Bearer",msg.Token);
+                                   
                                     return RedirectToAction("Welcome", "Home");
                                 }
-                                else
+                                else if(needs.LoginAs == "Parent")
                                 {
-                                    return View(m);
+                                    return RedirectToAction("ChooseChild", "Home");
+                                }
+                                else if (needs.LoginAs == "Teacher")
+                                {
+                                    return RedirectToAction("WelcomeTeacher", "Home");
                                 }
                             }
                         }

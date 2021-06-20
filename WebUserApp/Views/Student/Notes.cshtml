@@ -1,4 +1,6 @@
-﻿@{
+﻿@using MobilOkulProc.Entities.Concrete
+@model List<GRADE> 
+@{
     ViewBag.Title = "Notlar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -9,100 +11,112 @@
         <div class="row">
             <div class="col-12">
 
+                @foreach (var item in Model)
+                {
+                    <!-- Main content -->
+                    <div class="invoice p-3 mb-3">
+                        <!-- title row -->
+                        <div class="row">
 
-                <!-- Main content -->
-                <div class="invoice p-3 mb-3">
-                    <!-- title row -->
-                    <div class="row">
-                        <div class="col-12">
-                            <h4>
-                                Matematik
-                            </h4>
+                            <div class="col-12">
+                                <h4>
+                                    @item.Lecture.LectureName
+                                </h4>
+                            </div>
+                            <!-- /.col -->
                         </div>
-                        <!-- /.col -->
-                    </div>
 
-                    <!-- /.row -->
-                    <!-- Table row -->
-                    <div class="row">
-                        <div class="col-12 table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>1. Sınav</th>
-                                        <th>2. Sınav</th>
-                                        <th>3. Sınav</th>
-                                        <th>1. Performans</th>
-                                        <th>2. Performans</th>
-                                        <th>3. Performans</th>
-                                        <th>Ödev/Proje</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>90<a style="color:red">(83.6 ort)</a></td>
-                                        <td>80<a style="color:red">(73.5 ort)</a></td>
-                                        <td>50<a style="color:red">(77.4 ort)</a></td>
-                                        <td>100<a style="color:red">(88.2 ort)</a></td>
-                                        <td>75<a style="color:red">(93.1 ort)</a></td>
-                                        <td>55<a style="color:red">(88.9 ort)</a></td>
-                                        <td>85<a style="color:red">(98.3 ort)</a></td>
+                        <!-- /.row -->
+                        <!-- Table row -->
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>1. Sınav</th>
+                                            <th>2. Sınav</th>
+                                            <th>3. Sınav</th>
+                                            <th>1. Performans</th>
+                                            <th>2. Performans</th>
+                                            <th>3. Performans</th>
+                                            <th>Ödev/Proje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            @if (item.GradeTypeID == 1)
+                                            {
+                                                <td>@item.Grade</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (item.GradeTypeID == 2)
+                                            {
+                                                <td>@item.Grade</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (item.GradeTypeID == 3)
+                                            {
+                                                <td>@item.Grade</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (item.GradeTypeID == 4)
+                                            {
+                                                <td>@item.Grade</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (item.GradeTypeID == 5)
+                                            {
+                                                <td>@item.Grade</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (item.GradeTypeID == 6)
+                                            {
+                                                <td>@item.Grade</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (item.GradeTypeID == 7)
+                                            {
+                                                <td>@item.Grade</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                        </tr>
 
-                                    </tr>
-                                </tbody>
-                            </table>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.col -->
                         </div>
-                        <!-- /.col -->
+                        <!-- /.row -->
                     </div>
-                    <!-- /.row -->
-                </div>
-                <div class="invoice p-3 mb-3">
-                    <!-- title row -->
-                    <div class="row">
-                        <div class="col-12">
-                            <h4>
-                                Fizik
-                            </h4>
-                        </div>
-                        <!-- /.col -->
-                    </div>
+                   
+                       
 
-                    <!-- /.row -->
-                    <!-- Table row -->
-                    <div class="row">
-                        <div class="col-12 table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>1. Sınav</th>
-                                        <th>2. Sınav</th>
-                                        <th>3. Sınav</th>
-                                        <th>1. Performans</th>
-                                        <th>2. Performans</th>
-                                        <th>3. Performans</th>
-                                        <th>Ödev/Proje</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>60<a style="color:red">(33.6 ort)</a></td>
-                                        <td>67<a style="color:red">(63.5 ort)</a></td>
-                                        <td>77<a style="color:red">(67.4 ort)</a></td>
-                                        <td>76<a style="color:red">(58.2 ort)</a></td>
-                                        <td>23<a style="color:red">(43.1 ort)</a></td>
-                                        <td>54<a style="color:red">(38.9 ort)</a></td>
-                                        <td>43<a style="color:red">(48.3 ort)</a></td>
 
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
+                    <!-- /.invoice -->
+                }
 
-                </div>
-                <!-- /.invoice -->
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->

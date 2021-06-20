@@ -1,5 +1,7 @@
-﻿@{
-    ViewBag.Title = "Öğretmenler";
+﻿@using MobilOkulProc.Entities.Concrete
+@model List<EXAM> 
+@{
+    ViewBag.Title = "Sınavlar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,27 +20,30 @@
             </button>
         </div>
     </div>
-    <!-- /.card-header -->
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table m-0">
                 <thead>
                     <tr>
                         <th>Ders</th>
-                        <th>Tür</th>
+                        <th>Sınav Detayları</th>
                         <th>Tarih</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Matematik</td>
-                        <td>1. Yazılı</td>
-                        <td>29.9.2021</td>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Lecture.LectureName</td>
+                            <td>@item.ExamDetails</td>
+                            <td>@item.ExamDate.ToString("d.M.yyyy - HH:mm")</td>
+                        </tr>
+                    }
 
                 </tbody>
             </table>
         </div>
         <!-- /.table-responsive -->
     </div>
-    <!-- /.card-body -->
 </div>

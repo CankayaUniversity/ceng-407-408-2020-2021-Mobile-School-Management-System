@@ -64,6 +64,24 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("StudentParent_ListRelationalStudent")]
+        public async Task<IActionResult> StudentParent_ListRelationalStudent(int StudentID)
+        {
+            clsStudentParent_Process tProc = new clsStudentParent_Process();
+
+            Mesajlar<STUDENT_PARENT> m = await tProc.Getir_ListeIliskisel(x => x.Status == true && x.StudentID == StudentID);
+
+            return Json(m);
+        }
+        [HttpGet("StudentParent_ListRelationalParent")]
+        public async Task<IActionResult> StudentParent_ListRelationalParent(int ParentID)
+        {
+            clsStudentParent_Process tProc = new clsStudentParent_Process();
+
+            Mesajlar<STUDENT_PARENT> m = await tProc.Getir_ListeIliskisel(x => x.Status == true && x.ParentID == ParentID);
+
+            return Json(m);
+        }
 
 
     }
