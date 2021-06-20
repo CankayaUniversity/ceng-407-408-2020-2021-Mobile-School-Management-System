@@ -11,7 +11,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-3">
-                <a href="/Message/Compose" class="btn btn-primary btn-block mb-3">Mail</a>
+                <a href="~/Message/Mailbox" class="btn btn-primary btn-block mb-3">Mail Kutusuna Dön</a>
 
                 <div class="card">
                     <div class="card-header">
@@ -26,45 +26,44 @@
                     <div class="card-body p-0">
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item active">
-                                <a href="#" class="nav-link">
+                                <a href="~/Message/Mailbox" class="nav-link">
                                     <i class="fas fa-inbox"></i> Gelen Kutusu
-                                    <span class="badge bg-primary float-right">@Model.Count</span>
+                                    <span class="badge bg-primary float-right">@ViewBag.MessageCount</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="~/Message/Sentbox" class="nav-link">
                                     <i class="far fa-envelope"></i> Giden Kutusu
+                                    <span class="badge bg-primary float-right">@ViewBag.SentMessagesCount</span>
                                 </a>
+
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="fas fa-filter"></i> Gereksiz
-                                    <span class="badge bg-warning float-right"></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="~/Message/Deletedbox" class="nav-link">
                                     <i class="far fa-trash-alt"></i> Çöp kutusu
+                                    <span class="badge bg-primary float-right">@ViewBag.DeletedMessagesCount</span>
                                 </a>
+
                             </li>
+                            
                         </ul>
                     </div>
                     <!-- /.card-body -->
                 </div>
-               
+
             </div>
             <!-- /.col -->
             <div class="col-md-9">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <h3 class="card-title">Gelen Kutusu</h3>
-                       
+
                         <div class="card-tools">
                             <div class="input-group input-group-sm">
 
                                 <div class="input-group-append">
 
-                                        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
 
                                 </div>
                             </div>
@@ -73,7 +72,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body p-0">
-                        
+
                         <div class="table-responsive mailbox-messages">
                             <table class="table table-hover table-striped">
 
@@ -90,26 +89,26 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
-                                        
-
-                                        <td class="mailbox-name">@item.Sender.FullName</td>
-                                        <td class="mailbox-name"><b>@item.MessageTitle</b></td>
-                                        <td class="mailbox-subject">
-                                            <a href="~/Message/Read/@item.ObjectID"> @item.MessageContent</a>
-                                        </td>
-                                        <td class="mailbox-date">@item.SendTime.ToString("f")</td>
-                                       
-                                        <td>
-                                            <div class="">
-
-                                                <a href="~/Message/Delete/@item.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></a>
-                                                <a href="~/Message/Compose/@item.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></a>
-                                            </div>
-                                        </td>
+                                        <tr>
 
 
-                                    </tr>
+                                            <td class="mailbox-name">@item.Sender.FullName</td>
+                                            <td class="mailbox-name"><b>@item.MessageTitle</b></td>
+                                            <td class="mailbox-subject">
+                                                <a href="~/Message/Read/@item.ObjectID"> @item.MessageContent</a>
+                                            </td>
+                                            <td class="mailbox-date">@item.SendTime.ToString("f")</td>
+
+                                            <td>
+                                                <div class="">
+
+                                                    <a href="~/Message/Delete/@item.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></a>
+                                                    <a href="~/Message/ComposeBy/@item.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></a>
+                                                </div>
+                                            </td>
+
+
+                                        </tr>
 
                                     }
 
@@ -122,7 +121,7 @@
                         <!-- /.mail-box-messages -->
                     </div>
                     <!-- /.card-body -->
-                    
+
                 </div>
                 <!-- /.card -->
             </div>

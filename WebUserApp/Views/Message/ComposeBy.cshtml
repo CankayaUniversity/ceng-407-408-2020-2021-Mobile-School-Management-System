@@ -1,93 +1,116 @@
-﻿@{
+﻿@using MobilOkulProc.Entities.Concrete
+@using MobilOkulProc.Entities.General
+@model Mesajlar<MESSAGE>
+@{
     ViewBag.Title = "Posta Yaz";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using (Html.BeginForm("Compose", "Message", FormMethod.Post))
+{
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="~/Message/Mailbox" class="btn btn-primary btn-block mb-3">Mail Kutusuna Dön</a>
 
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <a href="mailbox.html" class="btn btn-primary btn-block mb-3">Mail Kutusuna Dön</a>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Klasörler</h3>
 
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Klasörler</h3>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <ul class="nav nav-pills flex-column">
-                            <li class="nav-item active">
-                                <a href="#" class="nav-link">
-                                    <i class="fas fa-inbox"></i> Gelen Kutusu
-                                    <span class="badge bg-primary float-right">2</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-envelope"></i> Giden Kutusu
-                                    <span class="badge bg-primary float-right">1</span>
-                                </a>
+                        <div class="card-body p-0">
+                            <ul class="nav nav-pills flex-column">
+                                <li class="nav-item active">
+                                    <a href="~/Message/Mailbox" class="nav-link">
+                                        <i class="fas fa-inbox"></i> Gelen Kutusu
+                                        <span class="badge bg-primary float-right">@ViewBag.MessageCount</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Message/Sentbox" class="nav-link">
+                                        <i class="far fa-envelope"></i> Giden Kutusu
+                                        <span class="badge bg-primary float-right">@ViewBag.SentMessagesCount</span>
+                                    </a>
 
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="fas fa-filter"></i> Gereksiz
-                                    <span class="badge bg-warning float-right">0</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-trash-alt"></i> Çöp kutusu
-                                </a>
-                            </li>
-                        </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Message/Deletedbox" class="nav-link">
+                                        <i class="far fa-trash-alt"></i> Çöp kutusu
+                                        <span class="badge bg-primary float-right">@ViewBag.DeletedMessagesCount</span>
+                                    </a>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
+
                 </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title">Yeni Mesaj</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
 
-            </div>
-            <!-- /.col -->
-            <div class="col-md-9">
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h3 class="card-title">Yeni Mesaj</h3>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Kime:">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" placeholder="Konu:">
-                        </div>
-                        <div class="form-group">
-                            <textarea id="compose-textarea" class="form-control" style="height: 300px">
-                            
-                            </textarea>
-                        </div>
+                                @Html.TextBoxFor(m => m.Nesne.Receive.Username, new { @placeholder = "Kime: ", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Nesne.Receive.Username, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.Nesne.MessageTitle, new { @placeholder = "Konu: Re:", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Nesne.MessageTitle, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.TextAreaFor(m => m.Nesne.MessageContent, new { @class = "form-control", @style = "height:300px" })
+                                @Html.ValidationMessageFor(model => model.Nesne.MessageContent, "", new { @class = "text-danger" })
+                            </div>
 
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <div class="float-right">
-                            <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Gönder</button>
                         </div>
+                        <p>
+                            <div class="input-group">
+                                @if (ViewBag.Result != null)
+                                {
 
+                                    <div class="alert alert-@ViewBag.Status" role="alert">@ViewBag.Result</div>
+
+                                }
+
+
+
+                            </div>
+                            <br />
+
+                        </p>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <div class="float-right">
+                                <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Gönder</button>
+                            </div>
+
+                        </div>
+                        <!-- /.card-footer -->
                     </div>
-                    <!-- /.card-footer -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
+                <!-- /.col -->
             </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
-</section>
-<!-- /.content -->
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+}
+

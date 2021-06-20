@@ -25,33 +25,31 @@
                     <div class="card-body p-0">
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item active">
-                                <a href="#" class="nav-link">
+                                <a href="~/Message/Mailbox" class="nav-link">
                                     <i class="fas fa-inbox"></i> Gelen Kutusu
                                     <span class="badge bg-primary float-right">@ViewBag.MessageCount</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="~/Message/Sentbox" class="nav-link">
                                     <i class="far fa-envelope"></i> Giden Kutusu
+                                    <span class="badge bg-primary float-right">@ViewBag.SentMessagesCount</span>
                                 </a>
+
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="fas fa-filter"></i> Gereksiz
-                                    <span class="badge bg-warning float-right"></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="~/Message/Deletedbox" class="nav-link">
                                     <i class="far fa-trash-alt"></i> Çöp kutusu
+                                    <span class="badge bg-primary float-right">@ViewBag.DeletedMessagesCount</span>
                                 </a>
+
                             </li>
+
                         </ul>
                     </div>
                     <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
-                
+
             </div>
             <!-- /.col -->
             <div class="col-md-9">
@@ -80,24 +78,24 @@
                                 <a href="~/Message/Compose/@Model.ObjectID" button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></a>
                             </div>
                             <!-- /.btn-group -->
-                           
+
                         </div>
                         <!-- /.mailbox-controls -->
                         <div class="mailbox-read-message">
                             <p>@Model.MessageContent</p>
 
-                            
+
                         </div>
                         <!-- /.mailbox-read-message -->
                     </div>
-                   
+
                     <!-- /.card-footer -->
                     <div class="card-footer">
                         <div class="float-right">
                             <a href="~/Message/Compose/@Model.ObjectID" button type="button" class="btn btn-default"><i class="fas fa-reply"></i> Yanıtla</a>
 
                         </div>
-                        
+
                         <a href="~/Message/Delete/@Model.ObjectID" button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> Sil</a>
                     </div>
                     <!-- /.card-footer -->

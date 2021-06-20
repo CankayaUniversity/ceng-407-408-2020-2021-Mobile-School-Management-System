@@ -81,6 +81,15 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Message_ListRelationalReceiverDeleted")]
+        public async Task<IActionResult> Message_ListRelationalReceiverDeleted(int ReceiveID)
+        {
+            clsMessages_Process uProc = new clsMessages_Process();
+
+            Mesajlar<MESSAGE> m = await uProc.Getir_ListeIliskisel(x => x.Status == false && x.ReceiveID == ReceiveID);
+
+            return Json(m);
+        }
         [HttpGet("Message_ListRelationalReceiverNotRead")]
         public async Task<IActionResult> Messages_ListReceiverNotRead(int ReceiveID)
         {

@@ -22,14 +22,74 @@ namespace MobilOkulProc.WebUserApp.Controllers
             _cache = memoryCache;
 
         }
-        public async Task<IActionResult> Mailbox()
+        public async Task<IActionResult> Sentbox()
         {
-            Mesajlar<MESSAGE> messageList = new Mesajlar<MESSAGE>();
-            messageList = await functions.Get<MESSAGE>(messageList, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
-            _cache.Set("MessageCount", messageList.Liste.Count.ToString());
+            List<MESSAGE> deletedBox = _cache.Get("Deletedbox") as List<MESSAGE>;
+            List<MESSAGE> Sentbox = _cache.Get("Sentbox") as List<MESSAGE>;
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.DeletedMessagesCount = deletedBox.Count.ToString();
+            ViewBag.SentMessagesCount = Sentbox.Count.ToString();
+            ViewBag.MessageCount = _cache.Get("MessageCount") as string;
+            #endregion
+
+            #region Sidebar FullName and Role
+            ViewBag.Role = needs.LoginAs;
+            ViewBag.FullName = needs.NameSurname;
+            #endregion
+            return View(Sentbox);
+        }
+        public async Task<IActionResult> Deletedbox()
+        {
+            List<MESSAGE> deletedBox = _cache.Get("Deletedbox") as List<MESSAGE>;
+            List<MESSAGE> Sentbox = _cache.Get("Sentbox") as List<MESSAGE>;
+            #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
+            ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
+            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.DeletedMessagesCount = deletedBox.Count.ToString();
+            ViewBag.SentMessagesCount = Sentbox.Count.ToString();
+            ViewBag.MessageCount = _cache.Get("MessageCount") as string;
+            #endregion
+
+            #region Sidebar FullName and Role
+            ViewBag.Role = needs.LoginAs;
+            ViewBag.FullName = needs.NameSurname;
+            #endregion
+            return View(deletedBox);
+        }
+        public async Task<IActionResult> Mailbox()
+        {
+            #region Get all the messages that are not deleted to use it in mailbox
+            Mesajlar<MESSAGE> messageList = new Mesajlar<MESSAGE>();
+            messageList = await functions.Get<MESSAGE>(messageList, "Messages/Message_ListRelationalReceiver?ReceiveID=" + needs.UserID);
+            _cache.Set("MessageCount", messageList.Liste.Count.ToString());
+            _cache.Set("Messages", messageList.Liste);
+            #endregion
+
+            #region Get send messages and put it into cache to use it in deletedbox
+            List<MESSAGE> Sentbox = new List<MESSAGE>();
+            foreach (var item in messageList.Liste)
+            {
+                if (item.SenderID == needs.UserID)
+                {
+                    Sentbox.Add(item);
+                }
+            }
+            _cache.Set("Sentbox", Sentbox);
+            #endregion
+
+            #region Get deleted(Status == false) messages and put it into cache to use it in sentbox
+            Mesajlar<MESSAGE> deletedList = new Mesajlar<MESSAGE>();
+            deletedList = await functions.Get<MESSAGE>(deletedList, "Messages/Message_ListRelationalReceiverDeleted?ReceiveID=" + needs.UserID);
+            _cache.Set("Deletedbox", deletedList.Liste); 
+            #endregion
+            #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
+            ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
+            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.DeletedMessagesCount = deletedList.Liste.Count.ToString();
+            ViewBag.SentMessagesCount = Sentbox.Count.ToString();
+            ViewBag.MessageCount = messageList.Liste.Count.ToString();
             #endregion
 
             #region Sidebar FullName and Role
@@ -99,21 +159,32 @@ namespace MobilOkulProc.WebUserApp.Controllers
             ViewBag.Status = "succes";
             return View(msg);
         }
-        [HttpPost]
         public async Task<IActionResult> ComposeBy(int Id)
         {
+            List<MESSAGE> deletedBox = _cache.Get("Deletedbox") as List<MESSAGE>;
+            List<MESSAGE> Sentbox = _cache.Get("Sentbox") as List<MESSAGE>;
+            List<MESSAGE> Messages = _cache.Get("Messages") as List<MESSAGE>;
+
+            Mesajlar<MESSAGE> msg = new Mesajlar<MESSAGE>();
+            msg.Nesne = Messages.Where(m => m.ObjectID == Id).SingleOrDefault();
+            msg.Nesne.MessageTitle = "Re: " + msg.Nesne.MessageTitle;
+            msg.Nesne.MessageContent = "\n" + "Re: \"" + msg.Nesne.MessageContent + "\"";
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.DeletedMessagesCount = deletedBox.Count.ToString();
+            ViewBag.SentMessagesCount = Sentbox.Count.ToString();
+            ViewBag.MessageCount = _cache.Get("MessageCount") as string;
             #endregion
 
             #region Sidebar FullName and Role
             ViewBag.Role = needs.LoginAs;
             ViewBag.FullName = needs.NameSurname;
             #endregion
-            return View();
+            return View(msg);
 
         }
+       
         public async Task<IActionResult> Read(int Id)
         {
             Mesajlar<MESSAGE> message = new Mesajlar<MESSAGE>();
