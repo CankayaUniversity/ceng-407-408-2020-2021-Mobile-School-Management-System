@@ -36,12 +36,26 @@
             <table class="table table-hover table-bordered text-center">
                 <thead>
                     <tr class="bg-primary text-bold">
+
                         <th class="fixed">
-                            @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Grade)
+                           Midterm @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Grade)
                         </th>
+                        @if (ViewBag.Usertype == "\"Student\"")
+                        {
+                            <th class="hidden-xs hidden-sm">
+                                Final Grade
+                            </th>
+                        }
                         <th class="hidden-xs hidden-sm">
                             @Html.DisplayNameFor(model => model.Mesajlar.Nesne.Lecture.LectureName)
                         </th>
+
+                        @if (ViewBag.Usertype == "\"Teacher\"" || ViewBag.Usertype == "\"Parent\"")
+                        {
+                            <th class="hidden-xs hidden-sm">
+                                @Html.DisplayNameFor(model => model.Mesajlar.Nesne.StudentID) Number
+                            </th>
+                        }
 
                     </tr>
                 </thead>
@@ -60,18 +74,40 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Lecture.LectureName)
                                     </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentID)
+                                    </td>
                                 </tr>
                             }
                         }
-
-
-                        else if (ViewBag.Usertype != "\"Teacher\"")
+                       else if (ViewBag.Usertype == "\"Parent\"")
                         {
                             @if (item.StudentID == ViewBag.Student)
                             {
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Grade)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lecture.LectureName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentID)
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        else if (ViewBag.Usertype == "\"Student\"")
+                        {
+                            @if (item.StudentID == ViewBag.Student)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Grade)
+                                    </td>
+                                    <td>
+                                       
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Lecture.LectureName)

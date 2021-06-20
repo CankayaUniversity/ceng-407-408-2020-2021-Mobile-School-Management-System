@@ -106,14 +106,12 @@ namespace MobilOkulProc.MobileApp.Controllers
                     if (item.TeacherID==ViewBag.TeacherObjectID)
                     {
                         ViewBag.Student = item.TeacherID;
+                       
                     }
                 }
 
             }
             
-
-
-
 
             GradePageModel<GRADE> m = new GradePageModel<GRADE>();
             Mesajlar<LECTURE> User = new Mesajlar<LECTURE>();
