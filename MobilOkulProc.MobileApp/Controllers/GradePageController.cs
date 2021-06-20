@@ -58,18 +58,61 @@ namespace MobilOkulProc.MobileApp.Controllers
                 Mesajlar<PARENT> par = new Mesajlar<PARENT>();
                 p.Mesajlar = function.Get<PARENT>(par, "Parent/Parent_List");
 
+                
                 foreach (var item in p.Mesajlar.Liste)
                 {
-                    foreach (var item2 in st.Mesajlar.Liste)
+                    if (item.UserID == ViewBag.ObjectID)
                     {
-                        if (item.UserID == item2.ObjectID)
-                        {
-                            ViewBag.Student = item2.ObjectID;
+                        ViewBag.ParentObjectID = item.ObjectID;
+                    }
+                    
+                }
 
-                        }
+                StudentParentModel<STUDENT_PARENT> sp = new StudentParentModel<STUDENT_PARENT>();
+                Mesajlar<STUDENT_PARENT> spr = new Mesajlar<STUDENT_PARENT>();
+                sp.Mesajlar = function.Get<STUDENT_PARENT>(spr, "StudentParent/StudentParent_List");
+
+                foreach (var item in sp.Mesajlar.Liste)
+                {
+                    if (item.ParentID==ViewBag.ParentObjectID)
+                    {
+                        ViewBag.Student = item.StudentID;
                     }
                 }
             }
+
+            if (ViewBag.Usertype == "\"Teacher\"")
+            {
+                TeacherPageModel<TEACHER> t = new TeacherPageModel<TEACHER>();
+                Mesajlar<TEACHER> te = new Mesajlar<TEACHER>();
+                t.Mesajlar = function.Get<TEACHER>(te, "Teacher/Teacher_List");
+
+                foreach (var item in t.Mesajlar.Liste)
+                {
+                    if (item.UserID == ViewBag.ObjectID)
+                    {
+                        ViewBag.TeacherObjectID = item.ObjectID;
+                        
+                    }
+                }
+
+                LecturePageModel<LECTURE> l = new LecturePageModel<LECTURE>();
+                Mesajlar<LECTURE> lec = new Mesajlar<LECTURE>();
+                l.Mesajlar = function.Get<LECTURE>(lec, "Lecture/Lecture_List");
+
+
+                foreach (var item in l.Mesajlar.Liste)
+                {
+                    if (item.TeacherID==ViewBag.TeacherObjectID)
+                    {
+                        ViewBag.Student = item.TeacherID;
+                    }
+                }
+
+            }
+            
+
+
 
 
             GradePageModel<GRADE> m = new GradePageModel<GRADE>();

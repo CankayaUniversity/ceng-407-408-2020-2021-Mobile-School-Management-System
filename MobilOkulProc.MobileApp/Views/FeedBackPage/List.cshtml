@@ -62,24 +62,38 @@
     <br />
 
     <main id="main">
-        <section id="testimonials" class="testimonials section-bg">
-            <div class="container">
+        
+        <!-- ======= Portfolio Section ======= -->
+        <section id="portfolio" class="portfolio section-bg">
+            <div class="container float-left">
 
                 <div class="section-title">
                     <h2>List Feedback</h2>
-                    <p></p>
+                    
                 </div>
 
-
-
-                <p>
+                <div class="row" data-aos="fade-up">
+                    <div class="col-lg-12 d-flex justify-content-center">
+                        <ul id="portfolio-flters">
+                            
+                            <li data-filter=".filter-app">Open</li>
+                            <li data-filter=".filter-card">Close</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="row portfolio-container float-left" data-aos="fade-up" data-aos-delay="100">
                     @foreach (var item in Model.PagedList)
                     {
-                    <main id="main">
+                        <div class="col-lg-4 col-md- portfolio-item filter-app">
 
-                        <div class="col-lg">
-                            <div class="column">
-                                <div class="card">
+
+                            <div class="portfolio-wrap ">
+                                <br />
+                                <img src="~/images/notifications.png" class="image" alt="">
+
+                                <div class="card float-lg-left">
                                     @if (item.UserID == @ViewBag.TeacherID)
                                     {
 
@@ -89,30 +103,34 @@
                                         flag++;
 
                                     }
-
-
-
-
                                 </div>
+
+
+
                             </div>
+                            <br />
+
+
+
                         </div>
-                    </main>
-                        
-                    }
-
-                    @if (flag == 0)
-                    {
-
-                        <h4>You have no feedbacks.</h4>
 
                     }
-                </p>
 
-                
-            </div>
-            
 
-        </section>
+                        <div class="card float-lg-left">
+
+                            @if (flag == 0)
+                             {
+
+                                <h4>You have no feedbacks.</h4>
+
+                             }
+                        </div>
+                    </div>
+</section><!-- End Portfolio Section -->
+
+
+
 
     </main>
     </body>
