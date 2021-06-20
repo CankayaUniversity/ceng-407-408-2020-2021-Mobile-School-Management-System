@@ -28,29 +28,26 @@
                         <div class="card-body p-0">
                             <ul class="nav nav-pills flex-column">
                                 <li class="nav-item active">
-                                    <a href="#" class="nav-link">
+                                    <a href="~/Message/Mailbox" class="nav-link">
                                         <i class="fas fa-inbox"></i> Gelen Kutusu
                                         <span class="badge bg-primary float-right">@ViewBag.MessageCount</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="~/Message/Sentbox" class="nav-link">
                                         <i class="far fa-envelope"></i> Giden Kutusu
-                                        <span class="badge bg-primary float-right"></span>
+                                        <span class="badge bg-primary float-right">@ViewBag.SentMessagesCount</span>
                                     </a>
 
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="fas fa-filter"></i> Gereksiz
-                                        <span class="badge bg-warning float-right"></span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="~/Message/Deletedbox" class="nav-link">
                                         <i class="far fa-trash-alt"></i> Çöp kutusu
+                                        <span class="badge bg-primary float-right">@ViewBag.DeletedMessagesCount</span>
                                     </a>
+
                                 </li>
+
                             </ul>
                         </div>
                         <!-- /.card-body -->
