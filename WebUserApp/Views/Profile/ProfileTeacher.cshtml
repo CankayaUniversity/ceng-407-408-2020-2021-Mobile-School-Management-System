@@ -1,0 +1,100 @@
+﻿@using MobilOkulProc.Entities.General
+@using MobilOkulProc.Entities.Concrete 
+@model Mesajlar<TEACHER>
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="~/dist/img/user1-128x128.jpg"
+                                 alt="User profile picture">
+                        </div>
+
+                        <h3 class="profile-username text-center">@Model.Nesne.FullName</h3>
+
+                        <p class="text-muted text-center">@Model.Nesne.Branch.BranchName</p>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>TCNo</b> <a class="float-right">@Model.Nesne.TcNo[1..5]*****@Model.Nesne.TcNo[9..11]</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Email</b> <a class="float-right">@Model.Nesne.Email</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Hakkımda</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <strong><i class="fas fa-book mr-1"></i> Okul</strong>
+
+                        <p class="text-muted">
+                            Sınav Okulları Ankara
+                        </p>
+
+                        <hr>
+
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Adres</strong>
+
+                        <p class="text-muted">@Model.Nesne.Adress</p>
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Öğretmen</a></li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+                                <!-- Post -->
+                                <h3>Geri Bildirimlerim</h3>
+                                <hr />
+                                
+                                <!-- /.post -->
+                               
+                                <!-- /.post -->
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

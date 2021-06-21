@@ -43,5 +43,23 @@ namespace MobilOkulProc.WebUserApp.Controllers
             #endregion
             return View(viewModel);
         }
+        public async Task<IActionResult> ProfileTeacher()
+        {
+            Mesajlar<TEACHER> teacher = new Mesajlar<TEACHER>();
+            teacher = await functions.Get<TEACHER>(teacher, "Teacher/Teacher_SelectRelationalUser?UserID=" + needs.UserID);
+            
+
+            #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
+            ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
+            ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            #endregion
+
+            #region Sidebar FullName and Role
+            ViewBag.Role = needs.LoginAs;
+            ViewBag.FullName = needs.NameSurname;
+            #endregion
+            return View(teacher);
+        }
+
     }
 }

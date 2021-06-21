@@ -101,9 +101,13 @@ namespace MobilOkulProc.WebUserApp.Controllers
         }
         public async Task<IActionResult> Compose()
         {
+            List<MESSAGE> deletedBox = _cache.Get("Deletedbox") as List<MESSAGE>;
+            List<MESSAGE> Sentbox = _cache.Get("Sentbox") as List<MESSAGE>;
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.DeletedMessagesCount = deletedBox.Count.ToString();
+            ViewBag.SentMessagesCount = Sentbox.Count.ToString();
             ViewBag.MessageCount = _cache.Get("MessageCount") as string;
             #endregion
 
@@ -116,6 +120,8 @@ namespace MobilOkulProc.WebUserApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Compose(Mesajlar<MESSAGE> msg)
         {
+            List<MESSAGE> deletedBox = _cache.Get("Deletedbox") as List<MESSAGE>;
+            List<MESSAGE> Sentbox = _cache.Get("Sentbox") as List<MESSAGE>;
             Mesajlar<USER> usr = new Mesajlar<USER>();
             usr = await functions.Get<USER>(usr, "User/User_SelectUsername?Username=" + msg.Nesne.Receive.Username);
             if (usr.Nesne != null)
@@ -148,6 +154,8 @@ namespace MobilOkulProc.WebUserApp.Controllers
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.DeletedMessagesCount = deletedBox.Count.ToString();
+            ViewBag.SentMessagesCount = Sentbox.Count.ToString();
             ViewBag.MessageCount = _cache.Get("MessageCount") as string;
             #endregion
 
@@ -189,6 +197,8 @@ namespace MobilOkulProc.WebUserApp.Controllers
         {
             Mesajlar<MESSAGE> message = new Mesajlar<MESSAGE>();
             Mesajlar<MESSAGE> updateMessage = new Mesajlar<MESSAGE>();
+            List<MESSAGE> deletedBox = _cache.Get("Deletedbox") as List<MESSAGE>;
+            List<MESSAGE> Sentbox = _cache.Get("Sentbox") as List<MESSAGE>;
             message = await functions.Get<MESSAGE>(message, "Messages/Message_SelectRelational?MessageID=" + Id);
             if (message.Nesne.ReceiveID == needs.UserID)
             {
@@ -208,10 +218,12 @@ namespace MobilOkulProc.WebUserApp.Controllers
                 #endregion
                 return RedirectToAction("Mailbox", "Message");
             }
-           
+
             #region Notifications: Last Five Messages that hasn't been read and the amount of it for layout notifications
             ViewBag.LastFiveMessagesNotRead = needs.LastFiveMessagesNotRead;
             ViewBag.NotReadMessages = needs.TotalNumberOfMessages;
+            ViewBag.DeletedMessagesCount = deletedBox.Count.ToString();
+            ViewBag.SentMessagesCount = Sentbox.Count.ToString();
             ViewBag.MessageCount = _cache.Get("MessageCount") as string;
             #endregion
 

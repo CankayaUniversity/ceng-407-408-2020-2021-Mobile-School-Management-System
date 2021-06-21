@@ -25,9 +25,8 @@
         </div>
         @await Html.PartialAsync("_Notifications")
 
-
         <!-- Main Sidebar Container -->
-        @if (ViewBag.Role == "Student")
+        @if (ViewBag.Role == "Student" || ViewBag.Role == "Parent")
         {
             @await Html.PartialAsync("_Sidebar")
         }

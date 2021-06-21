@@ -42,6 +42,8 @@ namespace MobilOkulProc.WebApp.Controllers
             public string NameSurname = "";
             public string JwtToken = "";
             public string RefreshToken = "";
+            public int UserID = 0;
+            public string LoginAs = "";
         }
 
         public class Functions

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Notlar";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int length = Model.Count;
 }
 
 
@@ -11,8 +12,7 @@
         <div class="row">
             <div class="col-12">
 
-                @foreach (var item in Model)
-                {
+                
                     <!-- Main content -->
                     <div class="invoice p-3 mb-3">
                         <!-- title row -->
@@ -20,7 +20,7 @@
 
                             <div class="col-12">
                                 <h4>
-                                    @item.Lecture.LectureName
+                                    @Model[0].Lecture.LectureName
                                 </h4>
                             </div>
                             <!-- /.col -->
@@ -43,66 +43,17 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            @if (item.GradeTypeID == 1)
+                                            @for (int i = 0; i < length; i++)
                                             {
-                                                <td>@item.Grade</td>
+                                                <td>@Model[i].Grade</td>
                                             }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            @if (item.GradeTypeID == 2)
-                                            {
-                                                <td>@item.Grade</td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            @if (item.GradeTypeID == 3)
-                                            {
-                                                <td>@item.Grade</td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            @if (item.GradeTypeID == 4)
-                                            {
-                                                <td>@item.Grade</td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            @if (item.GradeTypeID == 5)
-                                            {
-                                                <td>@item.Grade</td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            @if (item.GradeTypeID == 6)
-                                            {
-                                                <td>@item.Grade</td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            @if (item.GradeTypeID == 7)
-                                            {
-                                                <td>@item.Grade</td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
+                                           
+
+
+
                                         </tr>
 
-
-                                    </tbody>
+                                        </tbody>
                                 </table>
                             </div>
                             <!-- /.col -->
@@ -114,7 +65,7 @@
 
 
                     <!-- /.invoice -->
-                }
+               
 
             </div><!-- /.col -->
         </div><!-- /.row -->

@@ -10,8 +10,8 @@ using MobilOkulProc.WebAPI.Data;
 namespace MobilOkulProc.WebAPI.Migrations
 {
     [DbContext(typeof(MobilOkulContext))]
-    [Migration("20210615124900_Mg_Message")]
-    partial class Mg_Message
+    [Migration("20210621071000_lcaldb")]
+    partial class lcaldb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

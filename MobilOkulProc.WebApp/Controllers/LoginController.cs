@@ -52,17 +52,19 @@ namespace MobilOkulProc.WebApp.Controllers
                                 sonuc.Wait();
 
                                 var msg = JsonConvert.DeserializeObject<AuthenticateResponse>(sonuc.Result);
+                                needs.LoginAs = msg.Role;
                                 needs.JwtToken = msg.JwtToken;
                                 needs.RefreshToken = msg.RefreshToken;
                                 needs.NameSurname = msg.FirstName + " " + msg.LastName;
-                               
+                                needs.UserID = msg.Id;
+
 
 
                                 //var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:55600/authorization");
                                 //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
                                 //var request = new HttpRequestMessage();
                                 //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", msg.Token);
-                                if (true)
+                                if (needs.LoginAs == "Admin")
                                 {
                                     //HttpContext.Session.SetObject("Authorization", msg);
                                     //HttpContext.Request.Headers.Add("Bearer",msg.Token);
@@ -70,7 +72,8 @@ namespace MobilOkulProc.WebApp.Controllers
                                 }
                                 else
                                 {
-
+                                    ViewBag.Result = "Buraya erişmek için yeterli yetkiye sahip değilsin.";
+                                    ViewBag.Status = "danger";
                                     
                                     return View(m);
                                 }

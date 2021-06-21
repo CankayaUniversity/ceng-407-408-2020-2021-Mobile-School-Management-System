@@ -99,5 +99,14 @@ namespace MobilOkulProc.WebAPI.Controllers
 
             return Json(m);
         }
+        [HttpGet("Exam_ListRelationalClassSections")]
+        public async Task<IActionResult> Exam_ListRelationalClassSections(int ClassSectionsID)
+        {
+            clsExam_Process tProc = new clsExam_Process();
+
+            Mesajlar<EXAM> m = await tProc.Getir_ListeIliskisel(x => x.ClassSectionsID == ClassSectionsID && x.Status == true);
+
+            return Json(m);
+        }
     }
 }

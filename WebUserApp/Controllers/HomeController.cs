@@ -30,6 +30,17 @@ namespace WebUserApp.Controllers
             _cache = memoryCache;
             
         }
+        public IActionResult Logout()
+        {
+            needs.JwtToken = "";
+            needs.LastFiveMessagesNotRead = null;
+            needs.LoginAs = "";
+            needs.NameSurname = "";
+            needs.RefreshToken = "";
+            needs.TotalNumberOfMessages = "";
+            needs.UserID = 0;
+            return RedirectToAction("Login", "Login");
+        }
         public async Task<IActionResult> WelcomeTeacher()
         {
 
@@ -54,12 +65,9 @@ namespace WebUserApp.Controllers
             #endregion
 
 
-            if (!_cache.TryGetValue("WeeklyLoad", out WeeklyLoad))
-            {
-
                 #region Calculate Weekly Load of a Teacher and Syllabus
                 teacher = await functions.Get<TEACHER>(teacher, "Teacher/Teacher_SelectRelationalUser?UserID=" + needs.UserID);
-                syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + 1);
+                syllabus = await functions.Get<SYLLABUS>(syllabus, "Syllabus/Syllabus_ListRelationalClassSections?ClassSectionsID=" + 3);
                 _cache.Set("Syllabus", syllabus.Liste);
                 foreach (var item in syllabus.Liste)
                 {
@@ -181,7 +189,6 @@ namespace WebUserApp.Controllers
                 news = await functions.Get<NEWS>(news, "News/News_ListRelationalSchool?SchoolID=" + teacherSchool.Liste[0].SchoolID);
                 _cache.Set("News", news.Liste);
                 #endregion
-            }
 
 
 
@@ -263,11 +270,6 @@ namespace WebUserApp.Controllers
 
             #endregion
 
-
-            if (!_cache.TryGetValue("TotalAbsence", out TotalAbsence))
-            {
-
-
                 #region Find User's Class, then it's Class Section with the ID = ClassSectionName ex: 10 - Fen - A
                 studentClass = await functions.Get<STUDENT_CLASS>(studentClass, "StudentClass/StudentClass_SelectStudent?StudentID=" + needs.UserID);
                 classSection = await functions.Get<CLASS_SECTION>(classSection, "ClassSection/ClassSection_Select?ObjectID=" + studentClass.Nesne.ClassSectionID);
@@ -335,7 +337,7 @@ namespace WebUserApp.Controllers
                 #endregion
 
                 #region Exam List
-                exam = await functions.Get<EXAM>(exam, "Exam/Exam_ListRelationalLecture?LectureID=" + studentClass.Nesne.ClassSectionID);
+                exam = await functions.Get<EXAM>(exam, "Exam/Exam_ListRelationalClassSections?ClassSectionsID=" + studentClass.Nesne.ClassSectionID);
                 _cache.Set("Exam", exam.Liste);
                 #endregion
 
@@ -405,7 +407,6 @@ namespace WebUserApp.Controllers
                 }
                 _cache.Set("Teachers", teachersList);
                 #endregion
-            }
 
 
 
